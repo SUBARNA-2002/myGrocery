@@ -25,16 +25,10 @@ const Home = () => {
       <View>
         <HeaderHome />
         {/* searchBar */}
-        <View style={{ padding: 16 }}>
+        <View style={styles.searchContainer}>
           <TextInput
             placeholder="Search Store"
-            style={{
-              borderWidth: 1,
-              borderColor: ColorString.disableBtnColor,
-              borderRadius: 15,
-              backgroundColor: '#F2F3F2',
-              paddingHorizontal: 10,
-            }}
+            style={styles.searchInput}
           />
         </View>
       </View>
@@ -179,4 +173,18 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  searchContainer: {
+    backgroundColor: '#F5F5F5',
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    marginBottom: 20,
+    marginTop: 16,
+    marginHorizontal: 16,
+  },
+  searchInput: {
+    fontSize: 16,
+    color: '#000',
+  },
+});
