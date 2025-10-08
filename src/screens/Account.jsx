@@ -9,61 +9,74 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ColorString } from '../theme/AppColor';
+import { AboutIcon, DeliveryAddressIcon, HelpIcon, MyDetailsIcon, NotoficationIcon, OrderIcon, RightChevelon } from '../../assets/SvgConstants';
 
 const options = [
-  {id: 1, title: 'Orders', icon: '📦'},
-  {id: 2, title: 'My Details', icon: '💳'},
-  {id: 3, title: 'Delivery Address', icon: '📍'},
-  {id: 4, title: 'Payment Methods', icon: '💰'},
-  {id: 5, title: 'Promo Cord', icon: '🏷️'},
-  {id: 6, title: 'Notifications', icon: '🔔'},
-  {id: 7, title: 'Help', icon: '❓'},
-  {id: 8, title: 'About', icon: 'ℹ️'},
+  { id: 1, title: 'Orders', icon: <OrderIcon  /> },
+  { id: 2, title: 'My Details', icon:<MyDetailsIcon fill={ColorString.black} /> },
+  { id: 3, title: 'Delivery Address', icon:<DeliveryAddressIcon /> },
+  // { id: 4, title: 'Payment Methods', icon: '💰' },
+  // { id: 5, title: 'Promo Cord', icon: '🏷️' },
+  { id: 6, title: 'Notifications', icon:<NotoficationIcon fill={ColorString.black} /> },
+  { id: 7, title: 'Help', icon:<HelpIcon fill={ColorString.black} /> },
+  { id: 8, title: 'About', icon:<AboutIcon fill={ColorString.black} /> },
 ];
 
 const Account = () => {
   const insets = useSafeAreaInsets();
   return (
-    <View style={[styles.container, {
-      paddingTop: insets.top,
-    }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top,
+        },
+      ]}
+    >
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 40}}>
-        {/* Profile Section */}
-        <View style={styles.profileSection}>
-          <Image
-            source={{
-              uri: 'https://randomuser.me/api/portraits/men/32.jpg',
-            }}
-            style={styles.profileImage}
-          />
-          <View style={styles.profileTextContainer}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.profileName}>Afsar Hossen</Text>
-              <Text style={styles.editIcon}>✏️</Text>
+        contentContainerStyle={{ paddingBottom: 40, flexGrow: 1 }}
+      >
+        <View style={{ flex: 1 }}>
+          {/* Profile Section */}
+          <View style={styles.profileSection}>
+            <Image
+              source={{
+                uri: 'https://randomuser.me/api/portraits/men/32.jpg',
+              }}
+              style={styles.profileImage}
+            />
+            <View style={styles.profileTextContainer}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={styles.profileName}>Afsar Hossen</Text>
+                <Text style={styles.editIcon}>✏️</Text>
+              </View>
+              <Text style={styles.email}>lmshuvo97@gmail.com</Text>
             </View>
-            <Text style={styles.email}>lmshuvo97@gmail.com</Text>
           </View>
+
+          {/* Divider */}
+          <View style={styles.divider} />
+
+          {/* Options List */}
+          {options.map(item => (
+            <TouchableOpacity key={item.id} style={styles.optionRow}>
+              <View style={styles.optionLeft}>
+                <Text style={styles.icon}>{item.icon}</Text>
+                <Text style={styles.optionText}>{item.title}</Text>
+              </View>
+              {/* <Text style={styles.arrow}> */}
+              <View>
+                <RightChevelon fill={ColorString.black} />
+              </View>
+              {/* </Text> */}
+            </TouchableOpacity>
+          ))}
         </View>
-
-        {/* Divider */}
-        <View style={styles.divider} />
-
-        {/* Options List */}
-        {options.map(item => (
-          <TouchableOpacity key={item.id} style={styles.optionRow}>
-            <View style={styles.optionLeft}>
-              <Text style={styles.icon}>{item.icon}</Text>
-              <Text style={styles.optionText}>{item.title}</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-        ))}
 
         {/* Logout Button */}
         <TouchableOpacity style={styles.logoutBtn}>
-          <Text style={styles.logoutIcon}>↩️</Text>
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -78,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 16,
-    paddingTop: 20,
+    // paddingTop: 20,
   },
   profileSection: {
     flexDirection: 'row',
@@ -95,7 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   profileName: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
     color: '#000',
   },
@@ -104,7 +117,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   email: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#666',
   },
   divider: {
@@ -116,9 +129,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 14,
+    paddingVertical: 16,
     borderBottomWidth: 0.7,
-    borderBottomColor: '#f1f1f1',
+    borderBottomColor: '#E2E2E2',
   },
   optionLeft: {
     flexDirection: 'row',
@@ -129,7 +142,7 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   optionText: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#000',
     fontWeight: '500',
   },
@@ -140,7 +153,7 @@ const styles = StyleSheet.create({
   logoutBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: ColorString.primary,
     justifyContent: 'center',
     borderRadius: 12,
     paddingVertical: 14,
@@ -151,7 +164,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   logoutText: {
-    color: '#2ECC71',
+    color: ColorString.white,
     fontSize: 16,
     fontWeight: '600',
   },

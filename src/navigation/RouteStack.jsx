@@ -9,7 +9,7 @@ import Otp from '../screens/Otp';
 import Boo from './BottomTab';
 const RouteStack = () => {
   const Stack = createStackNavigator();
-  return (
+  return ( 
     <Stack.Navigator
       initialRouteName="Splash"
       screenOptions={{ headerShown: false }}
