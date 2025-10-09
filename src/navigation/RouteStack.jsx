@@ -10,6 +10,7 @@ import Boo from './BottomTab';
 import Checkout from '../screens/Checkout';
 import PaymentSuccess from '../screens/PaymentSuccess';
 import ProductDetails from '../screens/ProductDetails';
+import LoginWithGmail from '../screens/LoginWithGmail';
 const RouteStack = () => {
   const Stack = createStackNavigator();
   return ( 
@@ -21,6 +22,7 @@ const RouteStack = () => {
       <Stack.Screen name="OnBording" component={OnBording} />
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="SignInEmail" component={LoginWithGmail} />
       <Stack.Screen name="Otp" component={Otp} />
       <Stack.Screen name='Checkout' component={Checkout} />
       <Stack.Screen name="Payment-Success" component={PaymentSuccess} />

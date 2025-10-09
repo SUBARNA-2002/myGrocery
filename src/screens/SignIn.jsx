@@ -74,6 +74,17 @@ const SignIn = () => {
               }
             />
           </View>
+          <View style={{ paddingTop: 20, paddingHorizontal: 16 }}>
+            <CustomButton
+              title="Login with Password"
+              bgColor={ColorString.white}
+              color={ColorString.primary}
+              borderColor={ColorString.primary}
+              onPress={() =>
+                navigation.navigate('SignInEmail', { phone: phone })
+              }
+            />
+          </View>
         </View>
       </KeyboardAvoidingView>
     </View>
