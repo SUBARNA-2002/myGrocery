@@ -71,14 +71,14 @@ const LoginWithGmail = () => {
       </TouchableOpacity>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('HomeTab')}>
         <Text style={styles.loginButtonText}>Log In</Text>
       </TouchableOpacity>
 
       {/* Signup Link */}
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Don't have an account? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity >
           <Text style={styles.signupLink}>Signup</Text>
         </TouchableOpacity>
       </View>
