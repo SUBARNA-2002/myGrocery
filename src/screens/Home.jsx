@@ -29,6 +29,7 @@ const Home = () => {
           <TextInput
             placeholder="Search Store"
             style={styles.searchInput}
+            placeholderTextColor={'#A0A0A0'}
           />
         </View>
       </View>
@@ -178,7 +179,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     borderRadius: 12,
     paddingHorizontal: 15,
-    paddingVertical: 5,
+    height: 50,
+    justifyContent: 'center',
     marginBottom: 20,
     marginTop: 16,
     marginHorizontal: 16,

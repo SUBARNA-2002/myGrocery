@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ColorString } from '../theme/AppColor';
+import { useNavigation } from '@react-navigation/native';
 
 const cartItems = [
   {
@@ -71,9 +73,10 @@ const cartItems = [
 
 const Cart = () => {
   const insets = useSafeAreaInsets();
-  const renderItem = ({item}) => (
+  const navigation = useNavigation();
+  const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <Image source={{uri: item.image}} style={styles.image} />
+      <Image source={{ uri: item.image }} style={styles.image} />
 
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{item.title}</Text>
@@ -100,9 +103,14 @@ const Cart = () => {
   );
 
   return (
-    <View style={[styles.container, {
-      paddingTop: insets.top,
-    }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top,
+        },
+      ]}
+    >
       <Text style={styles.header}>My Cart</Text>
 
       <FlatList
@@ -113,7 +121,12 @@ const Cart = () => {
       />
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.checkoutBtn}>
+        <TouchableOpacity
+          style={styles.checkoutBtn}
+          onPress={() => {
+            navigation.navigate('Checkout');
+          }}
+        >
           <Text style={styles.checkoutText}>Go to Checkout</Text>
           <View style={styles.priceTag}>
             <Text style={styles.priceText}>$12.96</Text>
@@ -205,18 +218,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   footer: {
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
     backgroundColor: '#fff',
     paddingVertical: 10,
-    paddingHorizontal: 16,
     borderTopWidth: 0.8,
     borderColor: '#eee',
   },
   checkoutBtn: {
-    backgroundColor: '#2ECC71',
+    backgroundColor: ColorString.primary,
     borderRadius: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',

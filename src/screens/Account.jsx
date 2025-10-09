@@ -36,7 +36,7 @@ const Account = () => {
     >
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40, flexGrow: 1 }}
+        contentContainerStyle={{ paddingBottom: 20, flexGrow: 1 }}
       >
         <View style={{ flex: 1 }}>
           {/* Profile Section */}

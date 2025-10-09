@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     borderRadius: 12,
     paddingHorizontal: 15,
-    paddingVertical: 5,
+    height: 50,
+    justifyContent: 'center',
     marginBottom: 20,
   },
   searchInput: {

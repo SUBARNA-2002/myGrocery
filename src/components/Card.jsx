@@ -2,10 +2,14 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { widthPixel, heightPixel, fontPixel } from '../Utils/Utility'; // optional if you’re using pixel scaling
+import { useNavigation } from '@react-navigation/native';
 
 const Card = () => {
+  const navigation = useNavigation();
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card}
+    onPress={() => navigation.navigate('Product-Details')}
+    >
       <Image
         source={require('../../assets/images/banana.png')}
         style={styles.image}
@@ -21,7 +25,7 @@ const Card = () => {
           <Text style={styles.plus}>+</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
