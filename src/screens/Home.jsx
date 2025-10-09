@@ -4,6 +4,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -22,7 +23,11 @@ const Home = () => {
   const navigation = useNavigation();
   const HeaderSection = () => {
     return (
-      <View>
+      <View
+        style={{
+          backgroundColor: ColorString.secondary,
+        }}
+      >
         <HeaderHome />
         {/* searchBar */}
         <View style={styles.searchContainer}>
@@ -37,7 +42,15 @@ const Home = () => {
   };
   const BannerSection = () => {
     return (
-      <View style={{ paddingHorizontal: 16 }}>
+      <View
+        style={{
+          paddingHorizontal: 16,
+          paddingBottom: 18,
+          backgroundColor: ColorString.secondary,
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
+        }}
+      >
         <Image
           source={require('../../assets/images/banner.png')}
           style={{
@@ -124,6 +137,122 @@ const Home = () => {
       </View>
     );
   };
+  const DealsOfDay = () => {
+    return (
+      <View
+        style={{
+          backgroundColor: '#4392F9',
+          padding: 20,
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          alignItems: 'center',
+          margin: 16,
+          borderRadius: 10,
+        }}
+      >
+        <View>
+          <Text
+            style={{
+              color: ColorString.white,
+              fontSize: 25,
+              fontWeight: '600',
+            }}
+          >
+            Deal of the Day
+          </Text>
+          <Text
+            style={{
+              color: ColorString.white,
+              fontSize: 18,
+              fontWeight: '400',
+            }}
+          >
+            22h 55m 20s remaining{' '}
+          </Text>
+        </View>
+        <View
+          style={{
+            padding: 10,
+            borderWidth: 1,
+            borderColor: ColorString.white,
+            borderRadius: 10,
+          }}
+        >
+          <Text
+            style={{
+              color: ColorString.white,
+              fontSize: 16,
+              fontWeight: '600',
+            }}
+          >
+            View all
+          </Text>
+          {/* <RightArrow /> */}
+        </View>
+      </View>
+    );
+  };
+  const AllFeaturedSection = () => {
+    return (
+      <View>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: '600',
+            marginHorizontal: 16,
+            color: '#000000DE',
+            marginTop: 10,
+          }}
+        >
+          All Featured
+        </Text>
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={{
+            paddingVertical: 16,
+            paddingLeft: 16,
+            paddingRight: 16,
+          }}
+          ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
+          renderItem={({ item }) => {
+            return (
+              <View style={{ alignItems: 'center' }}>
+                <View
+                  style={{
+                    padding: 10,
+                    backgroundColor: ColorString?.secondary,
+                    borderRadius: 50,
+                  }}
+                >
+                  <Image
+                    source={require('../../assets/images/tamato.png')}
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderRadius: 50,
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    marginTop: 8,
+                  }}
+                >
+                  Tamato
+                </Text>
+              </View>
+            );
+          }}
+        />
+      </View>
+    );
+  };
 
   const data = [
     {
@@ -138,19 +267,24 @@ const Home = () => {
       key: 'exclusive',
       render: ExclusiveSection,
     },
+    { key: 'deals', render: DealsOfDay },
     {
-      key: 'bestselling',
-      render: BestSellingSection,
-    },  
-    {
-      key: 'banner-2nd',
-      render: BannerSection,
+      key: 'allfeatured',
+      render: AllFeaturedSection,
     },
     {
       key: 'grocery',
       render: GrocerySection,
     },
-  ]
+    {
+      key: 'bestselling',
+      render: BestSellingSection,
+    },
+    {
+      key: 'banner-2nd',
+      render: BannerSection,
+    },
+  ];
 
   return (
     <View
@@ -160,14 +294,18 @@ const Home = () => {
         paddingTop: insets.top,
       }}
     >
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={ColorString.secondary}
+        translucent
+      />
       <FlatList
         data={data}
-        keyExtractor={(item) => item.key}
+        keyExtractor={item => item.key}
         renderItem={({ item }) => <item.render />}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ height: 50 }} />}
       />
-
     </View>
   );
 };
@@ -184,6 +322,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 16,
     marginHorizontal: 16,
+    borderWidth: 0.5,
+    borderColor: ColorString?.primary,
   },
   searchInput: {
     fontSize: 16,
