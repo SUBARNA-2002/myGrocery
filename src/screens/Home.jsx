@@ -154,7 +154,7 @@ const Home = () => {
           <Text
             style={{
               color: ColorString.white,
-              fontSize: 25,
+              fontSize: 18,
               fontWeight: '600',
             }}
           >
@@ -163,7 +163,7 @@ const Home = () => {
           <Text
             style={{
               color: ColorString.white,
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: '400',
             }}
           >
@@ -181,7 +181,7 @@ const Home = () => {
           <Text
             style={{
               color: ColorString.white,
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: '600',
             }}
           >
