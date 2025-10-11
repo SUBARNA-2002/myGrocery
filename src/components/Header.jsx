@@ -13,6 +13,12 @@ const Header = ({ title }) => {
         position: 'relative',
         width: '100%',
         marginBottom: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 2,
+
       }}
     >
       <TouchableOpacity

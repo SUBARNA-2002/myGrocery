@@ -1,14 +1,16 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
-  TextInput,
+  ScrollView,
 } from 'react-native';
 import React, { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import Header from '../components/Header';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -24,8 +26,13 @@ const ProductDetails = () => {
         },
       ]}
     >
+      <Header
+        title="Product Details"
+        onPress={() => navigation.goBack()}
+      />
       {/* Image Section */}
-      <Image
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
+         <Image
         source={require('../../assets/images/apple.png')}
         style={styles.productImage}
       />
@@ -68,6 +75,8 @@ const ProductDetails = () => {
 
         {/* Add to Basket Button */}
       </View>
+      </ScrollView>
+     
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => navigation.navigate('HomeTab', { screen: 'Cart' })}
@@ -84,7 +93,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20, // Increase padding for spacing
+    // padding: 20, // Increase padding for spacing
   },
   productImage: {
     width: '100%',
@@ -175,6 +184,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5, // Add shadow for Android
+    margin: 16,
   },
   addButtonText: {
     fontSize: 16, // Larger font size for the button

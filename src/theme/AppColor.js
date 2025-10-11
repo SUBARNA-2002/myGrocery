@@ -4,4 +4,7 @@ export const ColorString = {
   white: '#fff',
   black: '#000',
   disableBtnColor: '#D3D3D3',
+  screenColor: '#fff',
+  headerColor:'#53B17520',
+  tabBarColor: '#ffffffff',
 }   

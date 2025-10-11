@@ -89,7 +89,7 @@ export default Account;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: ColorString.screenColor,
     paddingHorizontal: 16,
     // paddingTop: 20,
   },

@@ -22,7 +22,7 @@ const BottomTab = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: ColorString.tabBarColor,
           height: 70,
           borderTopWidth: 1,
           borderTopColor: '#eee',

@@ -3,12 +3,13 @@
 import {
   FlatList,
   Image,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   TextInput,
   View,
+  Animated,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -18,54 +19,102 @@ import HeaderHome from '../components/HeaderHome';
 import SectionHeader from '../components/SectionHeader';
 import Card from '../components/Card';
 import BannerCard from '../components/BannerCard';
+import SearchBar from '../components/SearchBar';
 const Home = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-  const HeaderSection = () => {
+  const { width: SCREEN_WIDTH } = Dimensions.get('window');
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+  const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+  const BANNER_IMAGE_HEIGHT = 130;
+  const BANNER_CONTAINER_PADDING_BOTTOM = 18;
+  const BANNER_TOTAL_HEIGHT = BANNER_IMAGE_HEIGHT + BANNER_CONTAINER_PADDING_BOTTOM;
+  // const HeaderSection = () => {
+  //   return (
+  //     <View
+  //       style={{
+  //         backgroundColor: ColorString.headerColor,
+  //         paddingTop: insets.top,
+  //       }}
+  //     >
+  //       <HeaderHome />
+  //       {/* searchBar */}
+  //       <View style={styles.searchContainer}>
+  //         <TextInput
+  //           placeholder="Search Store"
+  //           style={styles.searchInput}
+  //           placeholderTextColor={'#A0A0A0'}
+  //         />
+  //       </View>
+  //     </View>
+  //   );
+  // };
+  // Combined header + animated banner (parallax)
+  const HeaderBanner = () => {
+    // translate slower than scroll for parallax effect (apply to whole header)
+    const translateY = scrollY.interpolate({
+      inputRange: [0, BANNER_TOTAL_HEIGHT],
+      outputRange: [0, -BANNER_TOTAL_HEIGHT / 2],
+      extrapolate: 'clamp',
+    });
+
+    // scale up when pulling down (negative scroll) - keep this on image
+    const scale = scrollY.interpolate({
+      inputRange: [-150, 0],
+      outputRange: [1.3, 1],
+      extrapolate: 'clamp',
+    });
+
     return (
-      <View
-        style={{
-          backgroundColor: ColorString.secondary,
-        }}
-      >
-        <HeaderHome />
-        {/* searchBar */}
-        <View style={styles.searchContainer}>
-          <TextInput
-            placeholder="Search Store"
-            style={styles.searchInput}
-            placeholderTextColor={'#A0A0A0'}
+      <Animated.View style={{
+        backgroundColor: ColorString.headerColor,
+        borderBottomLeftRadius:20,
+        borderBottomRightRadius:20,
+        transform: [{ translateY }],
+      }}>
+        <View
+          style={{
+            paddingTop: insets.top,
+          }}
+        >
+          <HeaderHome />
+          <View style={{
+            paddingTop: 15,
+          }}>
+            <SearchBar/>
+          </View>
+         
+        </View>
+
+        <View
+          style={{
+            paddingHorizontal: 16,
+            paddingBottom: BANNER_CONTAINER_PADDING_BOTTOM,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+            overflow: 'hidden',
+          }}
+        >
+          <Animated.Image
+            source={require('../../assets/images/banner.png')}
+            style={{
+              width: SCREEN_WIDTH - 32,
+              height: BANNER_IMAGE_HEIGHT,
+              borderRadius: 10,
+              transform: [{ scale }],
+              alignSelf: 'center',
+            }}
+            resizeMode="cover"
           />
         </View>
-      </View>
-    );
-  };
-  const BannerSection = () => {
-    return (
-      <View
-        style={{
-          paddingHorizontal: 16,
-          paddingBottom: 18,
-          backgroundColor: ColorString.secondary,
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-        }}
-      >
-        <Image
-          source={require('../../assets/images/banner.png')}
-          style={{
-            width: '100%',
-            height: 130,
-            borderRadius: 10,
-          }}
-          resizeMode="cover"
-        />
-      </View>
+      </Animated.View>
     );
   };
   const ExclusiveSection = () => {
     return (
-      <View>
+      <View style={{
+        backgroundColor: ColorString.white
+      }}>
         {/* Exclusive section */}
         <SectionHeader
           title="Exclusive Offer"
@@ -156,6 +205,7 @@ const Home = () => {
               color: ColorString.white,
               fontSize: 18,
               fontWeight: '600',
+              paddingBottom: 6,
             }}
           >
             Deal of the Day
@@ -253,16 +303,114 @@ const Home = () => {
       </View>
     );
   };
+  const OfferSection =()=>{
+    return(
+      <View style={{flexDirection:'row',gap:10,alignItems:'center',backgroundColor:ColorString.white,
+      borderRadius:10,justifyContent:'space-between',
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 4,
+      marginHorizontal:16,
+      marginVertical:10,
+      padding:16,
+      }}>
+        <View>
+          <Image source={require('../../assets/images/offer.png')} style={{width:'75',height:75,resizeMode:'cover',marginBottom:10}} />
+        </View>
+        <View style={{
+          flex:1,
+        }}>
+          <Text style={{
+            fontSize:18,
+            fontWeight:'600',
+            color:'#000',
+            paddingBottom:6,
+          }}>Special Offers</Text>
+          <Text
+          style={{
+            fontSize:14,
+            fontWeight:'400',
+            color:'#808488',
+          }}>We make sure you get the offer you need at best prices</Text>
+        </View>
+      </View>
+    )
+  }
+  const SaleSection =()=>{
+    return(
+      <View style={{
+        backgroundColor:ColorString.white,
+        borderRadius:10,
+        marginHorizontal:16,
+        marginVertical:10,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 4,
+      }}>
+        <Image source={require('../../assets/images/sale.png')}
+        style={{
+          width:'100%',
+          height:150,
+          resizeMode:'cover',
+          marginVertical:10,
+          paddingHorizontal:16,
+          borderRadius:10,
+        }}
+        />
+        <View style={{
+          flexDirection:'row',
+          justifyContent:'space-between',
+          alignItems:'center',
+          marginHorizontal:16,
+          marginBottom:10,
+        }}>
+          <View>
+            <Text style={{
+              fontSize:20,
+              fontWeight:'600',
+              color:'#000',
+              paddingBottom:5,
+            }}>New Arrivals </Text>
+            <Text style={{
+              fontSize:14,
+              fontWeight:'400',
+              color:'#808488',
+            }}>Summer’ 25 Collections</Text>
+          </View>
+          <View>
+            <Text style={{
+              padding:10,
+              paddingHorizontal:16,
+              borderRadius:8,
+              backgroundColor:'#F83758',
+              fontSize:14,
+              fontWeight:'600',
+              color: ColorString.white,
+            }}>View all</Text>
+          </View>
+        </View>
+      </View>
+    )
+  }
 
   const data = [
-    {
-      key: 'header',
-      render: HeaderSection,
-    },
-    {
-      key: 'banner',
-      render: BannerSection,
-    },
+    // {
+    //   key: 'header',
+    //   render: HeaderSection,
+    // },
+    // banner is now part of the list header (HeaderBanner)
     {
       key: 'exclusive',
       render: ExclusiveSection,
@@ -273,25 +421,35 @@ const Home = () => {
       render: AllFeaturedSection,
     },
     {
-      key: 'grocery',
-      render: GrocerySection,
+      key: 'sale',
+      render: SaleSection,
     },
     {
       key: 'bestselling',
       render: BestSellingSection,
     },
     {
-      key: 'banner-2nd',
-      render: BannerSection,
+      key: 'offer',
+      render: OfferSection,
     },
+    {
+      key: 'grocery',
+      render: GrocerySection,
+    },
+    
+    
+    // {
+    //   key: 'banner-2nd',
+    //   render: BannerSection,
+    // },
   ];
 
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: ColorString.white,
-        paddingTop: insets.top,
+        backgroundColor: ColorString.screenColor,
+        // paddingTop: insets.top,
       }}
     >
       <StatusBar
@@ -299,12 +457,19 @@ const Home = () => {
         backgroundColor={ColorString.secondary}
         translucent
       />
-      <FlatList
+      <AnimatedFlatList
         data={data}
         keyExtractor={item => item.key}
         renderItem={({ item }) => <item.render />}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ height: 50 }} />}
+        ListHeaderComponent={<HeaderBanner />}
+        // wire scroll to animated value for parallax
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: true }
+        )}
+        scrollEventThrottle={16}
       />
     </View>
   );
@@ -313,20 +478,5 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  searchContainer: {
-    backgroundColor: '#F5F5F5',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    height: 50,
-    justifyContent: 'center',
-    marginBottom: 20,
-    marginTop: 16,
-    marginHorizontal: 16,
-    borderWidth: 0.5,
-    borderColor: ColorString?.primary,
-  },
-  searchInput: {
-    fontSize: 16,
-    color: '#000',
-  },
+  
 });

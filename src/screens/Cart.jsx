@@ -142,7 +142,7 @@ export default Cart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: ColorString.screenColor,
     paddingHorizontal: 16,
     paddingTop: 20,
   },
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   footer: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     paddingVertical: 10,
     borderTopWidth: 0.8,
     borderColor: '#eee',

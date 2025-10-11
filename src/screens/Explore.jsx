@@ -1,15 +1,15 @@
-/* eslint-disable react/react-in-jsx-scope */
 import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Image,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ColorString } from '../theme/AppColor';
+import SearchBar from '../components/SearchBar';
 
 const categories = [
   {
@@ -62,8 +62,10 @@ const categories = [
   },
 ];
 
+const Separator = () => <View style={styles.separator} />;
+
 const Explore = () => {
-  const insests = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.card, { backgroundColor: item.bgColor }]}>
       <Image source={{ uri: item.image }} style={styles.image} />
@@ -72,26 +74,22 @@ const Explore = () => {
   );
 
   return (
-    <View style={[styles.container, { paddingTop: insests.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top }] }>
       <Text style={styles.header}>Find Products</Text>
 
-      <View style={styles.searchContainer}>
-        <TextInput
-          placeholder="Search Store"
-          style={styles.searchInput}
-          placeholderTextColor="#999"
+      <SearchBar />
+      <View style={styles.listWrapper}>
+        <FlatList
+          data={categories}
+          numColumns={2}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderItem}
+          columnWrapperStyle={styles.row}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={Separator}
+          contentContainerStyle={styles.listContent}
         />
       </View>
-
-      <FlatList
-        data={categories}
-        numColumns={2}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
-        columnWrapperStyle={styles.row}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
-      />
     </View>
   );
 };
@@ -101,8 +99,8 @@ export default Explore;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
+    backgroundColor: ColorString.screenColor,
+    // paddingHorizontal: 16,
     paddingTop: 20,
   },
   header: {
@@ -126,6 +124,17 @@ const styles = StyleSheet.create({
   },
   row: {
     justifyContent: 'space-between',
+  },
+  listWrapper: {
+    flex: 1,
+    paddingBottom: 30,
+  },
+  listContent: {
+    paddingHorizontal: 16,
+    paddingBottom: 20,
+  },
+  separator: {
+    width: 10,
   },
   card: {
     flex: 1,

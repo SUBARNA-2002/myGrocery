@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { FavouriteIcon } from '../../assets/SvgConstants';
+import { AvtarUserIcon, FavouriteIcon } from '../../assets/SvgConstants';
 
 const HeaderHome = () => {
   return (
@@ -18,10 +18,15 @@ const HeaderHome = () => {
           style={{
             height: 50,
             width: 50,
-            backgroundColor: 'black',
             borderRadius: 50,
+            borderWidth: 1,
+            borderColor: '#53B175',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
+        >
+          <AvtarUserIcon width={50} height={50} fill="#53B175" />
+          </View>
         <View>
           <Text
             style={{
