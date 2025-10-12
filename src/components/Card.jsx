@@ -1,8 +1,11 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { widthPixel, heightPixel, fontPixel } from '../Utils/Utility'; // optional if you’re using pixel scaling
 import { useNavigation } from '@react-navigation/native';
+import { FavouriteIcon } from '../../assets/SvgConstants';
+import { ColorString } from '../theme/AppColor';
 
 const Card = () => {
   const navigation = useNavigation();
@@ -20,11 +23,36 @@ const Card = () => {
       </View>
 
       <View style={styles.footer}>
-        <Text style={styles.price}>$4.99</Text>
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 6,
+        }}>
+          <Text style={styles.price}>$4.99</Text>
+          <Text style={{
+            fontSize: 12,
+            fontWeight: '500',
+            color: '#888',
+            textDecorationLine: 'line-through',
+          }}>$7.99</Text>
+        </View>
         <TouchableOpacity style={styles.addBtn}>
           <Text style={styles.plus}>+</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity style={{
+        position: 'absolute',
+        top: 10,
+        right: 10,
+
+      }}>
+        <FavouriteIcon 
+        width={24} 
+        height={24} 
+        fill={ColorString.primary} 
+        // stroke={ColorString.primary}
+        />
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -41,7 +69,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 3,
-
+    position: 'relative',
   },
   image: {
     justifyContent: 'center',
