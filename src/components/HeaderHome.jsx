@@ -1,9 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import React from 'react';
 import { AvtarUserIcon, FavouriteIcon } from '../../assets/SvgConstants';
+import { useSelector } from 'react-redux';
 
 const HeaderHome = () => {
+  const {user} = useSelector(state => state.auth)
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return 'Good Morning';
+    if (hour >= 12 && hour < 17) return 'Good Afternoon';
+    if (hour >= 17 && hour < 21) return 'Good Evening';
+    return 'Good Night';
+  };
   return (
     <View
       style={{
@@ -35,7 +44,7 @@ const HeaderHome = () => {
               color: '#000000DE',
             }}
           >
-            Good Morning
+            {getGreeting()}
           </Text>
           <Text
             style={{
@@ -44,7 +53,7 @@ const HeaderHome = () => {
               color: '#000000DE',
             }}
           >
-            Subarna
+           {user?.firstName || 'User'}
           </Text>
         </View>
       </View>
@@ -56,5 +65,3 @@ const HeaderHome = () => {
 };
 
 export default HeaderHome;
-
-const styles = StyleSheet.create({});

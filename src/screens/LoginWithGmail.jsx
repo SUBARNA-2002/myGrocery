@@ -6,38 +6,64 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import React, { useState } from 'react';
-import { LeftChevelon, RightChevelon } from '../../assets/SvgConstants';
+import { LeftChevelon } from '../../assets/SvgConstants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-
+import { useLoginMutation } from '../redux/services/authApi';
+import { useDispatch } from 'react-redux';
+import { setToken, setUser } from '../redux/reducer/AuthSlice';
+import { showErrorToast, showSuccessToast } from '../utils/toast';
+import { ColorString } from '../theme/AppColor';
 const LoginWithGmail = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('subarna@gmail.com');
+  const [password, setPassword] = useState('hvhvhv');
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      showErrorToast('Email and Password are required');
+      return;
+    }
+    try {
+      const res = await login({ email, password }).unwrap();
+      console.log('Login Response', res);
+      if (res?.success) {
+        dispatch(setUser(res?.user));
+        dispatch(setToken(res?.token));
+        showSuccessToast(res?.message || 'Login Successful');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'App' }],
+        });
+      }
+    } catch (err) {
+      console.log('Error in Login', err);
+      showErrorToast(err?.data?.message || 'Login Failed');
+    }
+  };
   return (
     <View style={styles.container}>
       {/* Logo Section */}
       <View style={styles.logoContainer}>
         <Image
-          source={require('../../assets/images/login.png')} // Replace with actual logo image
+          source={require('../../assets/images/login.png')}
           style={styles.logo}
         />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{
-          position: 'absolute',
-          top: insets.top,
-          left: 10
-        }}>
-          <LeftChevelon
-            width={50}
-            height={50}
-            fill="#4CAF50"
-          />
-
+            position: 'absolute',
+            top: insets.top,
+            left: 10,
+          }}
+        >
+          <LeftChevelon width={50} height={50} fill="#4CAF50" />
         </TouchableOpacity>
       </View>
 
@@ -53,6 +79,7 @@ const LoginWithGmail = () => {
         onChangeText={setEmail}
         keyboardType="email-address"
         placeholderTextColor={'#00000080'}
+        autoCapitalize='none'
       />
 
       {/* Password Input */}
@@ -71,14 +98,22 @@ const LoginWithGmail = () => {
       </TouchableOpacity>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('HomeTab')}>
-        <Text style={styles.loginButtonText}>Log In</Text>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        {isLoading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.loginButtonText}>Log In</Text>
+        )}
       </TouchableOpacity>
 
       {/* Signup Link */}
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Don't have an account? </Text>
-        <TouchableOpacity >
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('SignUp');
+          }}
+        >
           <Text style={styles.signupLink}>Signup</Text>
         </TouchableOpacity>
       </View>
@@ -136,7 +171,7 @@ const styles = StyleSheet.create({
   loginButton: {
     width: '100%',
     height: 50,
-    backgroundColor: '#4CAF50',
+    backgroundColor: ColorString.primary,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',

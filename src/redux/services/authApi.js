@@ -1,10 +1,9 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-// import {BASE_URL} from '../../../URL';
-
+import { BASE_URL } from '../../../URL';
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    // baseUrl: BASE_URL,
+    baseUrl: BASE_URL,
     // prepareHeaders: (headers, {getState}) => {
     //   const token = getState().auth?.user?.token; // Get token from Redux state
     //   console.log('Token----:', token);
@@ -18,14 +17,14 @@ export const authApi = createApi({
   endpoints: builder => ({
     login: builder.mutation({
       query: credentials => ({
-        url: 'Doctor/ValidateUserlogin',
+        url: 'auth/login',
         method: 'POST',
-        body: credentials, // No need for JSON.stringify
+        body: credentials,
       }),
     }),
-    getToken: builder.mutation({
+    signUp: builder.mutation({
       query: body => ({
-        url: 'Token/GetToken',
+        url: 'auth/signup',
         method: 'POST',
         body,
       }),
@@ -33,4 +32,4 @@ export const authApi = createApi({
   }),
 });
 
-export const {useLoginMutation, useGetTokenMutation} = authApi;
+export const { useLoginMutation, useSignUpMutation } = authApi;

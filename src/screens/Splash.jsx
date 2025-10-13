@@ -1,15 +1,33 @@
 import {
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ColorString } from '../theme/AppColor';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
 const Splash = () => {
   const navigation = useNavigation();
+  const { user, token } = useSelector(state => state.auth || {});
+
+  useEffect(() => {
+    // Show splash briefly then redirect based on auth
+    const t = setTimeout(() => {
+      if (user || token) {
+        // go to App stack
+        navigation.reset({ index: 0, routes: [{ name: 'App' }] });
+      } else {
+        // go to Auth stack
+        navigation.reset({ index: 0, routes: [{ name: 'Auth' }] });
+      }
+    }, 800);
+
+    return () => clearTimeout(t);
+  }, [navigation, user, token]);
+
   return (
     <View style={styles.conatiner}>
       <View>

@@ -11,6 +11,9 @@ import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ColorString } from '../theme/AppColor';
 import { AboutIcon, DeliveryAddressIcon, HelpIcon, MyDetailsIcon, NotoficationIcon, OrderIcon, RightChevelon } from '../../assets/SvgConstants';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOutUser } from '../redux/reducer/AuthSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const options = [
   { id: 1, title: 'Orders', icon: <OrderIcon  /> },
@@ -24,7 +27,14 @@ const options = [
 ];
 
 const Account = () => {
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+  const {user} = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logOutUser());
+    navigation.reset({ index: 0, routes: [{ name: 'Auth' }] });
+  }
   return (
     <View
       style={[
@@ -49,10 +59,10 @@ const Account = () => {
             />
             <View style={styles.profileTextContainer}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={styles.profileName}>Afsar Hossen</Text>
+                <Text style={styles.profileName}>{`${user?.firstName || ''} ${user?.lastName || ''}`.trim() || 'User'}</Text>
                 <Text style={styles.editIcon}>✏️</Text>
               </View>
-              <Text style={styles.email}>lmshuvo97@gmail.com</Text>
+              <Text style={styles.email}>{user?.email}</Text>
             </View>
           </View>
 
@@ -76,7 +86,7 @@ const Account = () => {
         </View>
 
         {/* Logout Button */}
-        <TouchableOpacity style={styles.logoutBtn}>
+        <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
       </ScrollView>
