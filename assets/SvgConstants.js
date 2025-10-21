@@ -434,3 +434,71 @@ export const SearchIcon = props => (
     />
   </Svg>
 );
+export const NotificationIcon = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={30}
+    height={30}
+    fill="none"
+    viewBox="0 0 18 18"
+    {...props}
+  >
+    <Path
+      stroke="#303030"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeOpacity={0.65}
+      strokeWidth={1.5}
+      d="M13.5 5.999a4.5 4.5 0 1 0-9 0c0 5.25-2.25 6.75-2.25 6.75h13.5s-2.25-1.5-2.25-6.75ZM10.296 15.75a1.5 1.5 0 0 1-2.595 0"
+    />
+  </Svg>
+)
+export const BookMarkIcon = props => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={17}
+    height={20}
+    fill="none"
+    {...props}
+  >
+    <Path
+      stroke="#199A4F"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M1 17.863c0 .498.554.803.983.54l5.702-3.48a1.09 1.09 0 0 1 1.13 0l5.702 3.48a.644.644 0 0 0 .983-.54V4a3 3 0 0 0-3-3H4a3 3 0 0 0-3 3v13.863Z"
+    />
+  </Svg>
+);
+export const PlusIcon = props => (
+   <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={17}
+    height={17}
+    fill="none"
+    {...props}
+  >
+    <Path fill="#199A4F" d="M1.485 8.743H16 1.485Zm7.258-7.258V16 1.485Z" />
+    <Path
+      stroke="#199A4F"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M1.485 8.743H16M8.743 1.485V16"
+    />
+  </Svg>
+);
+export const StarIcon = props => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={13}
+    height={13}
+    viewBox='0 0 11 11'
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#F2B21D"
+      d="m5.235 8.877-2.538 1.53a.556.556 0 0 1-.351.091.591.591 0 0 1-.321-.122.735.735 0 0 1-.214-.268.535.535 0 0 1-.031-.36l.673-2.888L.205 4.918a.584.584 0 0 1-.168-.657.653.653 0 0 1 .184-.275.632.632 0 0 1 .336-.138l2.966-.26L4.669.867a.548.548 0 0 1 .238-.275A.656.656 0 0 1 5.235.5c.112 0 .221.03.328.092a.548.548 0 0 1 .238.275l1.146 2.721 2.966.26c.143.02.255.066.336.138a.656.656 0 0 1 .207.619.58.58 0 0 1-.191.313L8.017 6.86l.673 2.889c.03.132.02.252-.03.36a.728.728 0 0 1-.215.267.598.598 0 0 1-.32.122.55.55 0 0 1-.352-.092L5.235 8.877Z"
+    />
+  </Svg>
+);

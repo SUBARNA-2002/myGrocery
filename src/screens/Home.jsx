@@ -10,6 +10,7 @@ import {
   View,
   Animated,
   Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,6 +21,8 @@ import SectionHeader from '../components/SectionHeader';
 import Card from '../components/Card';
 import BannerCard from '../components/BannerCard';
 import SearchBar from '../components/SearchBar';
+import { responsive } from '../constants/Responsive';
+import { BookMarkIcon } from '../../assets/SvgConstants';
 const Home = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
@@ -28,7 +31,8 @@ const Home = () => {
   const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
   const BANNER_IMAGE_HEIGHT = 130;
   const BANNER_CONTAINER_PADDING_BOTTOM = 18;
-  const BANNER_TOTAL_HEIGHT = BANNER_IMAGE_HEIGHT + BANNER_CONTAINER_PADDING_BOTTOM;
+  const BANNER_TOTAL_HEIGHT =
+    BANNER_IMAGE_HEIGHT + BANNER_CONTAINER_PADDING_BOTTOM;
   // const HeaderSection = () => {
   //   return (
   //     <View
@@ -66,24 +70,46 @@ const Home = () => {
     });
 
     return (
-      <Animated.View style={{
-        backgroundColor: ColorString.headerColor,
-        borderBottomLeftRadius:20,
-        borderBottomRightRadius:20,
-        transform: [{ translateY }],
-      }}>
+      <Animated.View
+        style={{
+          backgroundColor: ColorString.headerColor,
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
+          transform: [{ translateY }],
+        }}
+      >
         <View
           style={{
             paddingTop: insets.top,
           }}
         >
           <HeaderHome />
-          <View style={{
-            paddingTop: 15,
-          }}>
-            <SearchBar/>
+          <View
+            style={{
+              flexGrow: 1,
+              paddingTop: 15,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingBottom: 15,
+
+            }}
+          >
+            <SearchBar from={'HomeScreen'} />
+            <TouchableOpacity style={{
+              borderWidth:1,
+              borderColor:ColorString?.primary,
+              borderRadius:10,
+              padding:10,
+              marginRight:16,
+              height:responsive.height(40),
+              width:responsive.width(50),
+              justifyContent:'center',
+              alignItems:'center'
+            }}>
+              <BookMarkIcon/>
+            </TouchableOpacity>
           </View>
-         
         </View>
 
         <View
@@ -112,9 +138,11 @@ const Home = () => {
   };
   const ExclusiveSection = () => {
     return (
-      <View style={{
-        backgroundColor: ColorString.white
-      }}>
+      <View
+        style={{
+          backgroundColor: ColorString.white,
+        }}
+      >
         {/* Exclusive section */}
         <SectionHeader
           title="Exclusive Offer"
@@ -303,107 +331,148 @@ const Home = () => {
       </View>
     );
   };
-  const OfferSection =()=>{
-    return(
-      <View style={{flexDirection:'row',gap:10,alignItems:'center',backgroundColor:ColorString.white,
-      borderRadius:10,justifyContent:'space-between',
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-
-      elevation: 4,
-      marginHorizontal:16,
-      marginVertical:10,
-      padding:16,
-      }}>
-        <View>
-          <Image source={require('../../assets/images/offer.png')} style={{width:'75',height:75,resizeMode:'cover',marginBottom:10}} />
-        </View>
-        <View style={{
-          flex:1,
-        }}>
-          <Text style={{
-            fontSize:18,
-            fontWeight:'600',
-            color:'#000',
-            paddingBottom:6,
-          }}>Special Offers</Text>
-          <Text
-          style={{
-            fontSize:14,
-            fontWeight:'400',
-            color:'#808488',
-          }}>We make sure you get the offer you need at best prices</Text>
-        </View>
-      </View>
-    )
-  }
-  const SaleSection =()=>{
-    return(
-      <View style={{
-        backgroundColor:ColorString.white,
-        borderRadius:10,
-        marginHorizontal:16,
-        marginVertical:10,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 4,
-      }}>
-        <Image source={require('../../assets/images/sale.png')}
+  const OfferSection = () => {
+    return (
+      <View
         style={{
-          width:'100%',
-          height:150,
-          resizeMode:'cover',
-          marginVertical:10,
-          paddingHorizontal:16,
-          borderRadius:10,
+          flexDirection: 'row',
+          gap: 10,
+          alignItems: 'center',
+          backgroundColor: ColorString.white,
+          borderRadius: 10,
+          justifyContent: 'space-between',
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+
+          elevation: 4,
+          marginHorizontal: 16,
+          marginVertical: 10,
+          padding: 16,
         }}
+      >
+        <View>
+          <Image
+            source={require('../../assets/images/offer.png')}
+            style={{
+              width: '75',
+              height: 75,
+              resizeMode: 'cover',
+              marginBottom: 10,
+            }}
+          />
+        </View>
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '600',
+              color: '#000',
+              paddingBottom: 6,
+            }}
+          >
+            Special Offers
+          </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: '400',
+              color: '#808488',
+            }}
+          >
+            We make sure you get the offer you need at best prices
+          </Text>
+        </View>
+      </View>
+    );
+  };
+  const SaleSection = () => {
+    return (
+      <View
+        style={{
+          backgroundColor: ColorString.white,
+          borderRadius: 10,
+          marginHorizontal: 16,
+          marginVertical: 10,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+
+          elevation: 4,
+        }}
+      >
+        <Image
+          source={require('../../assets/images/sale.png')}
+          style={{
+            width: '100%',
+            height: 150,
+            resizeMode: 'cover',
+            marginVertical: 10,
+            paddingHorizontal: 16,
+            borderRadius: 10,
+          }}
         />
-        <View style={{
-          flexDirection:'row',
-          justifyContent:'space-between',
-          alignItems:'center',
-          marginHorizontal:16,
-          marginBottom:10,
-        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginHorizontal: 16,
+            marginBottom: 10,
+          }}
+        >
           <View>
-            <Text style={{
-              fontSize:20,
-              fontWeight:'600',
-              color:'#000',
-              paddingBottom:5,
-            }}>New Arrivals </Text>
-            <Text style={{
-              fontSize:14,
-              fontWeight:'400',
-              color:'#808488',
-            }}>Summer’ 25 Collections</Text>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '600',
+                color: '#000',
+                paddingBottom: 5,
+              }}
+            >
+              New Arrivals{' '}
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '400',
+                color: '#808488',
+              }}
+            >
+              Summer’ 25 Collections
+            </Text>
           </View>
           <View>
-            <Text style={{
-              padding:10,
-              paddingHorizontal:16,
-              borderRadius:8,
-              backgroundColor:'#F83758',
-              fontSize:14,
-              fontWeight:'600',
-              color: ColorString.white,
-            }}>View all</Text>
+            <Text
+              style={{
+                padding: 10,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+                backgroundColor: '#F83758',
+                fontSize: 14,
+                fontWeight: '600',
+                color: ColorString.white,
+              }}
+            >
+              View all
+            </Text>
           </View>
         </View>
       </View>
-    )
-  }
+    );
+  };
 
   const data = [
     // {
@@ -436,8 +505,7 @@ const Home = () => {
       key: 'grocery',
       render: GrocerySection,
     },
-    
-    
+
     // {
     //   key: 'banner-2nd',
     //   render: BannerSection,
@@ -467,7 +535,7 @@ const Home = () => {
         // wire scroll to animated value for parallax
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true }
+          { useNativeDriver: true },
         )}
         scrollEventThrottle={16}
       />
@@ -477,6 +545,4 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({
-  
-});
+const styles = StyleSheet.create({});

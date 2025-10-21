@@ -1,11 +1,15 @@
+/* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react';
 import { ColorString } from '../theme/AppColor';
 import { SearchIcon } from '../../assets/SvgConstants';
+import { responsive } from '../constants/Responsive';
 
-const SearchBar = () => {
+const SearchBar = ({from}) => {
   return (
-    <View style={styles.searchContainer}>
+    <View style={[styles.searchContainer,
+    from === 'HomeScreen' ? {flex:1} : {flexGrow:0,marginBottom:20}
+    ]}>
       <TextInput
         placeholder="Search Store"
         style={styles.searchInput}
@@ -23,16 +27,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     borderRadius: 12,
     paddingHorizontal: 15,
-    height: 50,
+    height: responsive.height(40),
     justifyContent: 'space-between',
-    marginBottom: 20,
-    // marginTop: 16,
+    // marginBottom: 20,
     marginHorizontal: 16,
     borderWidth: 0.5,
     borderColor: ColorString?.primary,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+    // flex: 1,
+    // flexGrow: 1,
   },
   searchInput: {
     fontSize: 16,

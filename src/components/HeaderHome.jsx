@@ -1,64 +1,76 @@
 /* eslint-disable react-native/no-inline-styles */
 import { Text, View } from 'react-native';
 import React from 'react';
-import { AvtarUserIcon, FavouriteIcon } from '../../assets/SvgConstants';
+import {
+  AvtarUserIcon,
+  FavouriteIcon,
+  LoacationIcon,
+  NotificationIcon,
+} from '../../assets/SvgConstants';
 import { useSelector } from 'react-redux';
+import { responsive } from '../constants/Responsive';
 
 const HeaderHome = () => {
-  const {user} = useSelector(state => state.auth)
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return 'Good Morning';
-    if (hour >= 12 && hour < 17) return 'Good Afternoon';
-    if (hour >= 17 && hour < 21) return 'Good Evening';
-    return 'Good Night';
-  };
+  const { user } = useSelector(state => state.auth);
+  // const getGreeting = () => {
+  //   const hour = new Date().getHours();
+  //   if (hour >= 5 && hour < 12) return 'Good Morning';
+  //   if (hour >= 12 && hour < 17) return 'Good Afternoon';
+  //   if (hour >= 17 && hour < 21) return 'Good Evening';
+  //   return 'Good Night';
+  // };
   return (
     <View
       style={{
+        paddingHorizontal: responsive.width(16),
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 16,
+        alignItems: 'center',
+        // paddingVertical: responsive.padding(16)
       }}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <View>
         <View
           style={{
-            height: 50,
-            width: 50,
-            borderRadius: 50,
-            borderWidth: 1,
-            borderColor: '#53B175',
+            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
+            gap: responsive.padding(4),
           }}
         >
-          <AvtarUserIcon width={50} height={50} fill="#53B175" />
-          </View>
-        <View>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: '600',
-              color: '#000000DE',
-            }}
-          >
-            {getGreeting()}
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              color: '#000000DE',
-            }}
-          >
-           {user?.firstName || 'User'}
+          <LoacationIcon width={20} height={20} style={{ marginRight: 5 }} />
+          <Text style={{ fontSize: 16, fontWeight: '600', color: '#000000' }}>
+            Saheed nagar
           </Text>
         </View>
+        <Text style={{ fontSize: 14, color: '#7C7C7C', marginTop: 4 }}>
+          plot 123, shanti vihar colony
+        </Text>
       </View>
-      <View>
-        <FavouriteIcon width={24} height={24} fill="#53B175" />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: responsive.padding(12),
+        }}
+      >
+        <View
+          style={{
+            // padding:responsive.padding(12),
+            width: responsive.width(40),
+            height: responsive.width(40),
+            flexDirection: 'row',
+            borderWidth: 1,
+            borderColor: '#30303033',
+            borderRadius: responsive.padding(50),
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <NotificationIcon />
+        </View>
+        <View>
+          <AvtarUserIcon width={50} height={50} fill="#53B175" />
+        </View>
       </View>
     </View>
   );
