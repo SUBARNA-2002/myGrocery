@@ -13,7 +13,7 @@ import { responsive } from '../constants/Responsive';
 import { ColorString } from '../theme/AppColor';
 import SearchBar from './SearchBar';
 
-const HeaderHome = () => {
+const HeaderHome = ({ title }) => {
   const { user } = useSelector(state => state.auth);
   // const getGreeting = () => {
   //   const hour = new Date().getHours();
@@ -23,38 +23,52 @@ const HeaderHome = () => {
   //   return 'Good Night';
   // };
   return (
+    <View
+      style={{
+        paddingHorizontal: responsive.width(16),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        // backgroundColor:'red',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.2,
+        // shadowRadius: 2,
+        // elevation: 2,
+        // shadowColor: '#000',
+      }}
+    >
+      {/* <View style={{ flex: 1, }}> */}
+      {title ? (
+        <Text
+          style={{
+            fontSize: responsive.font(20),
+            fontWeight: '700',
+            color: ColorString.black,
+          }}
+        >
+          {title}
+        </Text>
+      ) : (
+        <SearchBar from={'HomeScreen'} />
+      )}
+      {/* </View> */}
       <View
         style={{
-          paddingHorizontal: responsive.width(16),
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          // shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 0.2,
-          // shadowRadius: 2,
-          // elevation: 2,
-          // shadowColor: '#000',
-
-        }}
-      >
-        {/* <View style={{ flex: 1, }}> */}
-          <SearchBar from={'HomeScreen'} />
-        {/* </View> */}
-        <View style={{
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
           gap: responsive.width(16),
           marginLeft: responsive.width(16),
-        }}>
-          <View>
-            <FavouriteIcon fillColor={"white"} />
-          </View>
-           <View>
-            <CartIcon fillColor={ColorString?.black} />
-          </View>
+        }}
+      >
+        <View>
+          <FavouriteIcon fillColor={'white'} />
+        </View>
+        <View>
+          <CartIcon fillColor={ColorString?.black} />
         </View>
       </View>
+    </View>
   );
 };
 

@@ -13,7 +13,7 @@ import {
 import { ColorString } from '../theme/AppColor';
 import { responsive } from '../constants/Responsive';
 
-const Card = () => {
+const Card = ({data}) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -21,67 +21,48 @@ const Card = () => {
       onPress={() => navigation.navigate('Product-Details')}
     >
       <Image
-        source={require('../../assets/images/banana.png')}
+        source={data?.image}
         style={styles.image}
       />
-      <View>
-        <Text style={styles.title}>Organic Bananas</Text>
-        <Text style={styles.subtitle}>7pcs, Priceg</Text>
-      </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4,
-        // borderWidth:1
-        }}>
-        <StarIcon />
-        <Text style={{
-          color:'#888',
-          fontSize:12,
-          fontWeight:'500'
-        }}>4.6(12.3k)</Text>
-      </View>
-      <View style={{
-        marginVertical:responsive.padding(6),
-        paddingHorizontal:responsive.padding(6),
-        paddingVertical:responsive.padding(2),
-        backgroundColor: ColorString?.secondary,
-        borderRadius: 4,
-        alignSelf:'flex-start',
-      }}>
-        <Text>10% OFF</Text>
-      </View>
-      <View style={styles.footer}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 6,
-          }}
-        >
-          <Text style={styles.price}>$4.99</Text>
-          <Text
+      <View style={{ padding: responsive.padding(8),
+        flex:1,
+        flexWrap:'wrap',
+       }}>
+        <View>
+          <Text style={styles.title}>{data?.title}</Text>
+          <Text style={styles.subtitle}>Shirt Polo</Text>
+        </View>
+        <View style={styles.footer}>
+          <View
             style={{
-              fontSize: 12,
-              fontWeight: '500',
-              color: '#888',
-              textDecorationLine: 'line-through',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 6,
             }}
           >
-            $7.99
-          </Text>
+            <Text style={styles.price}>₹{data?.price}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: '500',
+                color: '#888',
+                textDecorationLine: 'line-through',
+              }}
+            >
+              ₹{data?.originalPrice}
+            </Text>
+          </View>
         </View>
-
-        <TouchableOpacity style={styles.addBtn}>
-          <PlusIcon />
-        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-        }}
-      >
-        <BookMarkIcon width={24} height={24} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+          }}
+        >
+          <FavouriteIcon width={24} height={24} fillColor={'transparent'} />
+        </TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -91,22 +72,26 @@ export default Card;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 14,
-    width: 160,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
+    // borderRadius: 12,
+    borderWidth:0.5,
+    borderColor:'#E2E2E2',
+    width: responsive.width(140),
+
+    // padding: 14,
+    // width: responsive.width(140),
+    // shadowColor: '#000',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 6,
+    // elevation: 3,
     position: 'relative',
   },
   image: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
-    marginBottom: 8,
+    // justifyContent: 'center',
+    // alignSelf: 'center',
+    width: responsive.width(140),
+    height: responsive.height(140),
+    resizeMode: 'cover',
+    // marginBottom: 8,
   },
   title: {
     fontSize: 16,
@@ -127,7 +112,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   price: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
     color: '#000',
   },

@@ -6,36 +6,59 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  
   View,
   Animated,
-  
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+// useNavigation removed (not used in this screen)
 import { ColorString } from '../theme/AppColor';
 import HeaderHome from '../components/HeaderHome';
-import SectionHeader from '../components/SectionHeader';
 import Card from '../components/Card';
-import BannerCard from '../components/BannerCard';
 import { responsive } from '../constants/Responsive';
-import {
-  
-  LoacationIcon,
-} from '../../assets/SvgConstants';
+import { LoacationIcon } from '../../assets/SvgConstants';
 const Home = () => {
-  const[selectSection,setSelectSection]=React.useState('New Arrivals');
+  const [selectSection, setSelectSection] = React.useState('New Arrivals');
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
   const { width: SCREEN_WIDTH } = Dimensions.get('window');
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
   const BANNER_IMAGE_HEIGHT = 350;
   const BANNER_CONTAINER_PADDING_BOTTOM = 18;
-  
+  const pocketItems = [
+    {
+      id: 1,
+      title: 'Trousers',
+      price: '₹999',
+      image: require('../../assets/images/photo.png'),
+    },
+    {
+      id: 2,
+      title: 'Jeans',
+      price: '₹1999',
+      image: require('../../assets/images/photo2.png'),
+    },
+    {
+      id: 3,
+      title: 'Shorts',
+      price: '₹599',
+      image: require('../../assets/images/photo3.png'),
+    },
+    {
+      id: 4,
+      title: 'Sweatshirts',
+      price: '₹499',
+      image: require('../../assets/images/photo4.png'),
+    },
+    {
+      id: 5,
+      title: 'Jeans',
+      price: '₹1999',
+      image: require('../../assets/images/photo2.png'),
+    },
+  ];
   // const HeaderSection = () => {
   //   return (
   //     <View
@@ -134,11 +157,18 @@ const Home = () => {
           </Text>
         </Animated.View>
         {/* Section Tab (converted to FlatList) */}
-        <View style={{ }}>
+        <View style={{}}>
           {/** Tabs data */}
           {/** Using FlatList for better performance and selection handling */}
           {(() => {
-            const tabs = ['New Arrivals', 'Price Drop', 'Men', 'Women', 'Kids', 'Electronics'];
+            const tabs = [
+              'New Arrivals',
+              'Price Drop',
+              'Men',
+              'Women',
+              'Kids',
+              'Electronics',
+            ];
             return (
               <FlatList
                 data={tabs}
@@ -149,14 +179,16 @@ const Home = () => {
                 contentContainerStyle={styles.sectionTabContainer}
                 renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => setSelectSection(item)}>
-                    <Text style={[
-                      styles.sectionTabTitle,
-                      selectSection === item && {
-                        borderBottomWidth: 2,
-                        borderBottomColor: ColorString.primary,
-                        color: ColorString.primary,
-                      },
-                    ]}>
+                    <Text
+                      style={[
+                        styles.sectionTabTitle,
+                        selectSection === item && {
+                          borderBottomWidth: 2,
+                          borderBottomColor: ColorString.primary,
+                          color: ColorString.primary,
+                        },
+                      ]}
+                    >
                       {item}
                     </Text>
                   </TouchableOpacity>
@@ -165,7 +197,7 @@ const Home = () => {
             );
           })()}
         </View>
-
+        {/* Carousel banner */}
         <View
           style={{
             paddingHorizontal: 16,
@@ -190,380 +222,264 @@ const Home = () => {
       </View>
     );
   };
-  const ExclusiveSection = () => {
+
+  const PocketFrinedly = () => {
+    const renderItem = ({ item }) => (
+      <TouchableOpacity style={styles.card}>
+        <Image source={item.image} style={styles.image} resizeMode="cover" />
+        <View style={styles.textContainer}>
+          <Text style={styles.priceText}>Under {item.price}</Text>
+          <Text style={styles.titleText}>{item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
     return (
-      <View
-        style={{
-          backgroundColor: ColorString.white,
-        }}
-      >
-        {/* Exclusive section */}
-        <SectionHeader
-          title="Exclusive Offer"
-          onPress={() => navigation.navigate('SignIn')}
+      <View style={styles.pocketContainer}>
+        <Text style={styles.header}>Pocket Friendly Bargain!</Text>
+        <Text style={styles.subHeader}>Where style matches savings</Text>
+
+        <FlatList
+          data={pocketItems}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
         />
-        <View>
-          <FlatList
-            data={[1, 2, 3, 4, 5]}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => <Card />}
-            contentContainerStyle={{
-              paddingVertical: 16,
-              paddingLeft: 16,
-              paddingRight: 16,
-            }}
-            ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
-          />
-        </View>
       </View>
     );
   };
-
-  const BestSellingSection = () => {
-    return (
-      <View>
-        {/* Best Selling */}
-        <SectionHeader title="Best Selling" />
-        <View>
-          <FlatList
-            data={[1, 2, 3, 4, 5]}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => <Card />}
-            contentContainerStyle={{
-              paddingVertical: 16,
-              paddingLeft: 16,
-              paddingRight: 16,
-            }}
-            ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
-          />
-        </View>
-      </View>
-    );
-  };
-
-  const GrocerySection = () => {
-    return (
-      <View>
-        {/* Grocery */}
-        <SectionHeader title="Groceries" />
-        <View>
-          <FlatList
-            data={[1, 2, 3, 4, 5]}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => <BannerCard />}
-            contentContainerStyle={{
-              paddingVertical: 16,
-              paddingLeft: 16,
-              paddingRight: 16,
-            }}
-            ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
-          />
-        </View>
-      </View>
-    );
-  };
-  const DealsOfDay = () => {
+  const GridSection = () => {
+    const data = [
+      {
+        id:1,
+        image: require('../../assets/images/grid.jpg'),
+      },
+      {
+        id:2,
+        image: require('../../assets/images/grid2.jpg'),
+      },
+      {
+        id:3,
+        image: require('../../assets/images/grid3.jpg'),
+      },
+      {
+        id:4,
+        image: require('../../assets/images/grid4.jpg'),
+      },
+      {
+        id:5,
+        image: require('../../assets/images/grid5.jpg'),
+      },
+      {
+        id:6,
+        image: require('../../assets/images/grid6.jpg'),
+      },
+      {
+        id:7,
+        image: require('../../assets/images/grid7.jpg'),
+      },
+      {
+        id:8,
+        image: require('../../assets/images/grid2.jpg'),  
+      },
+      {
+        id:9,
+        image: require('../../assets/images/grid3.jpg'),
+      }
+      
+    ]
     return (
       <View
         style={{
-          backgroundColor: '#4392F9',
-          padding: 20,
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          margin: 16,
-          borderRadius: 10,
+          paddingTop: responsive.padding(16),
+          backgroundColor: '#c5a674ff',
+          marginTop: responsive.padding(20),
         }}
       >
-        <View>
-          <Text
-            style={{
-              color: ColorString.white,
-              fontSize: 18,
-              fontWeight: '600',
-              paddingBottom: 6,
-            }}
-          >
-            Deal of the Day
-          </Text>
-          <Text
-            style={{
-              color: ColorString.white,
-              fontSize: 14,
-              fontWeight: '400',
-            }}
-          >
-            22h 55m 20s remaining{' '}
-          </Text>
-        </View>
-        <View
-          style={{
-            padding: 10,
-            borderWidth: 1,
-            borderColor: ColorString.white,
-            borderRadius: 10,
-          }}
-        >
-          <Text
-            style={{
-              color: ColorString.white,
-              fontSize: 14,
-              fontWeight: '600',
-            }}
-          >
-            View all
-          </Text>
-          {/* <RightArrow /> */}
-        </View>
-      </View>
-    );
-  };
-  const AllFeaturedSection = () => {
-    return (
-      <View>
         <Text
           style={{
             fontSize: 20,
             fontWeight: '600',
-            marginHorizontal: 16,
-            color: '#000000DE',
-            marginTop: 10,
+            color: '#000',
+            textAlign: 'center',
           }}
         >
-          All Featured
+          ENTER THE BRANDVERSE
         </Text>
-        <FlatList
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{
-            paddingVertical: 16,
-            paddingLeft: 16,
-            paddingRight: 16,
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: '400',
+            color: '#ecececff',
+            textAlign: 'center',
+            marginTop: responsive.padding(4),
+            // marginBottom: responsive.padding(10),
           }}
-          ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
-          renderItem={({ item }) => {
-            return (
-              <View style={{ alignItems: 'center' }}>
+        >
+          Choose The Vibe
+        </Text>
+        <View
+          style={{
+            paddingVertical: responsive.padding(16),
+          }}
+        >
+          <FlatList
+            data={data}
+            numColumns={3}
+            keyExtractor={item => item.id.toString()}
+            gap={responsive.width(12)}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+              paddingHorizontal: responsive.padding(8),
+            }}
+            contentContainerStyle={{ paddingBottom: 8 }}
+            renderItem={({ item, index }) => (
+              <View
+                style={{
+                  flex: 1,
+                  marginHorizontal: responsive.width(6),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // backgroundColor: '#00000022',
+                  // marginBottom: responsive.height(12),
+                }}
+              >
                 <View
                   style={{
-                    padding: 10,
-                    backgroundColor: ColorString?.secondary,
-                    borderRadius: 50,
+                    borderRadius: 8,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height:responsive.height(100),
                   }}
                 >
                   <Image
-                    source={require('../../assets/images/tamato.png')}
+                    source={item.image}
                     style={{
-                      width: 80,
-                      height: 80,
-                      borderRadius: 50,
-                      resizeMode: 'contain',
+                      height:responsive.height(100),
+                      width: responsive.width(100),
+                      borderRadius: 8,
                     }}
+                    resizeMode="cover"
                   />
                 </View>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontWeight: '500',
-                    marginTop: 8,
-                  }}
-                >
-                  Tamato
-                </Text>
               </View>
-            );
-          }}
-        />
-      </View>
-    );
-  };
-  const OfferSection = () => {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: 10,
-          alignItems: 'center',
-          backgroundColor: ColorString.white,
-          borderRadius: 10,
-          justifyContent: 'space-between',
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-
-          elevation: 4,
-          marginHorizontal: 16,
-          marginVertical: 10,
-          padding: 16,
-        }}
-      >
-        <View>
-          <Image
-            source={require('../../assets/images/offer.png')}
-            style={{
-              width: '75',
-              height: 75,
-              resizeMode: 'cover',
-              marginBottom: 10,
-            }}
+            )}
           />
         </View>
-        <View
-          style={{
-            flex: 1,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: '600',
-              color: '#000',
-              paddingBottom: 6,
-            }}
-          >
-            Special Offers
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: '400',
-              color: '#808488',
-            }}
-          >
-            We make sure you get the offer you need at best prices
-          </Text>
-        </View>
       </View>
     );
   };
-  const SaleSection = () => {
+  const NewArrival = () => {
+    const newArrivalData = [
+      {
+        id:1,
+        title:'Product 1',
+        price:1299,
+        off:50,
+        originalPrice:2599,
+        image:require('../../assets/images/card1.png'),
+      },
+      {
+        id:2,
+        title:'Product 2',
+        price:899,
+        off:30,
+        originalPrice:1299,
+        image:require('../../assets/images/card2.png'), 
+      },
+      {
+        id:3,
+        title:'Product 3',
+        price:499,
+        off:20,
+        originalPrice:999,
+        image:require('../../assets/images/card3.png'),
+      },
+      {
+        id:4,
+        title:'Product 4',
+        price:1999,
+        off:40,
+        originalPrice:3499,
+        image:require('../../assets/images/card4.png'),
+      },
+      {
+        id:5, 
+        title:'Product 5',
+        price:299,
+        off:10,
+        originalPrice:599,
+        image:require('../../assets/images/card5.png'),
+      },
+      {
+        id:6,
+        title:'Product 6',
+        price:1599,
+        off:25,
+        originalPrice:2199,
+        image:require('../../assets/images/card6.png'),
+      },
+    ];
     return (
       <View
         style={{
-          backgroundColor: ColorString.white,
-          borderRadius: 10,
-          marginHorizontal: 16,
-          marginVertical: 10,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-
-          elevation: 4,
+          paddingTop: responsive.padding(16),
+          backgroundColor: '#fff',
+          // paddingHorizontal: responsive.width(16),
         }}
       >
-        <Image
-          source={require('../../assets/images/sale.png')}
+        <Text
           style={{
-            width: '100%',
-            height: 150,
-            resizeMode: 'cover',
-            marginVertical: 10,
-            paddingHorizontal: 16,
-            borderRadius: 10,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginHorizontal: 16,
-            marginBottom: 10,
+            fontSize: 20,
+            fontWeight: '600',
+            color: '#000',
+            textAlign: 'left',
+            paddingHorizontal: responsive.width(16),
           }}
         >
-          <View>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: '600',
-                color: '#000',
-                paddingBottom: 5,
-              }}
-            >
-              New Arrivals{' '}
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: '400',
-                color: '#808488',
-              }}
-            >
-              Summer’ 25 Collections
-            </Text>
-          </View>
-          <View>
-            <Text
-              style={{
-                padding: 10,
-                paddingHorizontal: 16,
-                borderRadius: 8,
-                backgroundColor: '#F83758',
-                fontSize: 14,
-                fontWeight: '600',
-                color: ColorString.white,
-              }}
-            >
-              View all
-            </Text>
-          </View>
+          NEW ARRIVALS
+        </Text>
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: '400',
+            color: '#777',
+            marginTop: responsive.padding(4),
+            paddingHorizontal: responsive.width(16),
+          }}
+        >
+          Fresh Styles Just For You
+        </Text>
+        {/* Grid of new arrivals */}
+        <View>
+          <FlatList
+            data={newArrivalData}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingVertical: responsive.padding(16) }}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <Card data={item} />}
+            ListHeaderComponent={()=> <View style={{ width: responsive.width(16) }} />}
+            ItemSeparatorComponent={() => <View style={{ width: responsive.width(16) }} />}
+          />
         </View>
       </View>
     );
-  };
+  }
 
   const data = [
-    // {
-    //   key: 'header',
-    //   render: HeaderSection,
-    // },
-    // banner is now part of the list header (HeaderBanner)
     {
-      key: 'exclusive',
-      render: ExclusiveSection,
-    },
-    { key: 'deals', render: DealsOfDay },
-    {
-      key: 'allfeatured',
-      render: AllFeaturedSection,
+      key: 'pocketFriendly',
+      render: PocketFrinedly,
     },
     {
-      key: 'sale',
-      render: SaleSection,
+      key: 'gridSection',
+      render: GridSection,
     },
     {
-      key: 'bestselling',
-      render: BestSellingSection,
-    },
-    {
-      key: 'offer',
-      render: OfferSection,
-    },
-    {
-      key: 'grocery',
-      render: GrocerySection,
-    },
-
-    // {
-    //   key: 'banner-2nd',
-    //   render: BannerSection,
-    // },
+      key: 'newArrival',
+      render: NewArrival,
+    }
   ];
 
   return (
@@ -579,16 +495,21 @@ const Home = () => {
         backgroundColor={ColorString.secondary}
         // translucent
       />
-       <View style={{
+      <View
+        style={{
           paddingBottom: responsive.padding(12),
+          backgroundColor: ColorString.white,
+          // shadowColor: '#000',
+          // shadowOffset: { width: 0, height: 2 },
           // shadowOpacity: 0.2,
           // shadowRadius: 2,
           // elevation: 2,
-          // shadowColor: '#000',
-          // backgroundColor:'red'
-       }}>
-          <HeaderHome />
-        </View>
+          // zIndex: 1,
+
+        }}
+      >
+        <HeaderHome />
+      </View>
       <AnimatedFlatList
         data={data}
         keyExtractor={item => item.key}
@@ -610,7 +531,7 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  sectionTabContainer:{
+  sectionTabContainer: {
     flexDirection: 'row',
     gap: responsive.width(10),
     alignItems: 'center',
@@ -622,11 +543,11 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.22,
     // shadowRadius: 2.22,
     // elevation: 3,
-  marginBottom: responsive.padding(14),
-  paddingHorizontal: responsive.width(16),
-  // remove flex so horizontal list can scroll
+    marginBottom: responsive.padding(14),
+    paddingHorizontal: responsive.width(16),
+    // remove flex so horizontal list can scroll
   },
-  sectionTabTitle:{
+  sectionTabTitle: {
     fontSize: 14,
     fontWeight: '500',
     color: '#000',
@@ -635,5 +556,50 @@ const styles = StyleSheet.create({
     paddingVertical: responsive.padding(5),
     marginRight: responsive.width(12),
     // borderRadius: responsive.padding(20),
-  }
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    marginRight: responsive.width(16),
+    overflow: 'hidden',
+    width: responsive.width(130),
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    borderWidth: 0.5,
+    borderColor: '#E2E2E2',
+  },
+  image: {
+    width: '100%',
+    height: responsive.height(130),
+    resizeMode: 'cover',
+  },
+  textContainer: {
+    padding: 10,
+  },
+  priceText: {
+    color: '#777',
+    fontSize: 13,
+  },
+  titleText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#000',
+  },
+  pocketContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    backgroundColor: '#fff',
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#000',
+    paddingBottom: responsive.padding(2),
+  },
+  subHeader: {
+    color: '#777',
+    marginBottom: 15,
+  },
 });
