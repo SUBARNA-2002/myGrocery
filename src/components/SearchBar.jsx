@@ -25,13 +25,13 @@ export default SearchBar;
 const styles = StyleSheet.create({
     searchContainer: {
     backgroundColor: '#F5F5F5',
-    borderRadius: 12,
+    borderRadius: responsive.padding(8),
     paddingHorizontal: 15,
-    height: responsive.height(40),
+    height: responsive.height(38),
     justifyContent: 'space-between',
     // marginBottom: 20,
-    marginHorizontal: 16,
-    borderWidth: 0.5,
+    // marginHorizontal: 16,
+    // borderWidth: 0.5,
     borderColor: ColorString?.primary,
     flexDirection: 'row',
     alignItems: 'center',

@@ -5,6 +5,7 @@ export const ColorString = {
   black: '#000',
   disableBtnColor: '#D3D3D3',
   screenColor: '#fff',
-  headerColor:'#53B17520',
+  // headerColor:'#53B17520',
+  headerColor:'#fff',
   tabBarColor: '#ffffffff',
 }   

@@ -6,11 +6,12 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
+  
   View,
   Animated,
+  
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,19 +21,21 @@ import HeaderHome from '../components/HeaderHome';
 import SectionHeader from '../components/SectionHeader';
 import Card from '../components/Card';
 import BannerCard from '../components/BannerCard';
-import SearchBar from '../components/SearchBar';
 import { responsive } from '../constants/Responsive';
-import { BookMarkIcon } from '../../assets/SvgConstants';
+import {
+  
+  LoacationIcon,
+} from '../../assets/SvgConstants';
 const Home = () => {
+  const[selectSection,setSelectSection]=React.useState('New Arrivals');
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { width: SCREEN_WIDTH } = Dimensions.get('window');
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-  const BANNER_IMAGE_HEIGHT = 130;
+  const BANNER_IMAGE_HEIGHT = 350;
   const BANNER_CONTAINER_PADDING_BOTTOM = 18;
-  const BANNER_TOTAL_HEIGHT =
-    BANNER_IMAGE_HEIGHT + BANNER_CONTAINER_PADDING_BOTTOM;
+  
   // const HeaderSection = () => {
   //   return (
   //     <View
@@ -56,11 +59,7 @@ const Home = () => {
   // Combined header + animated banner (parallax)
   const HeaderBanner = () => {
     // translate slower than scroll for parallax effect (apply to whole header)
-    const translateY = scrollY.interpolate({
-      inputRange: [0, BANNER_TOTAL_HEIGHT],
-      outputRange: [0, -BANNER_TOTAL_HEIGHT / 2],
-      extrapolate: 'clamp',
-    });
+    // translateY removed (not used) — we use partsOpacity/translate for collapsing
 
     // scale up when pulling down (negative scroll) - keep this on image
     const scale = scrollY.interpolate({
@@ -69,47 +68,102 @@ const Home = () => {
       extrapolate: 'clamp',
     });
 
+    // opacity for parts that should disappear when scrolled
+    const partsOpacity = scrollY.interpolate({
+      inputRange: [0, BANNER_IMAGE_HEIGHT / 2, BANNER_IMAGE_HEIGHT],
+      outputRange: [1, 0.3, 0],
+      extrapolate: 'clamp',
+    });
+
+    const partsTranslate = scrollY.interpolate({
+      inputRange: [0, BANNER_IMAGE_HEIGHT],
+      outputRange: [0, -30],
+      extrapolate: 'clamp',
+    });
+
     return (
-      <Animated.View
+      <View
         style={{
           backgroundColor: ColorString.headerColor,
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
-          transform: [{ translateY }],
+          // transform: [{ translateY }],
         }}
       >
-        <View
+        {/* <Animated.View style={{ paddingTop: insets.top, opacity: partsOpacity }}>
+          <HeaderHome />
+        </Animated.View> */}
+        {/* Pincode */}
+        <Animated.View
           style={{
-            paddingTop: insets.top,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: responsive.padding(16),
+            paddingBottom: responsive.padding(12),
+            opacity: partsOpacity,
+            transform: [{ translateY: partsTranslate }],
           }}
         >
-          <HeaderHome />
           <View
             style={{
-              flexGrow: 1,
-              paddingTop: 15,
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingBottom: 15,
-
+              gap: 8,
             }}
           >
-            <SearchBar from={'HomeScreen'} />
-            <TouchableOpacity style={{
-              borderWidth:1,
-              borderColor:ColorString?.primary,
-              borderRadius:10,
-              padding:10,
-              marginRight:16,
-              height:responsive.height(40),
-              width:responsive.width(50),
-              justifyContent:'center',
-              alignItems:'center'
-            }}>
-              <BookMarkIcon/>
-            </TouchableOpacity>
+            <LoacationIcon />
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '500',
+                color: '#000',
+              }}
+            >
+              Pincode | 754220
+            </Text>
           </View>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: '600',
+              color: '#000',
+            }}
+          >
+            Change
+          </Text>
+        </Animated.View>
+        {/* Section Tab (converted to FlatList) */}
+        <View style={{ }}>
+          {/** Tabs data */}
+          {/** Using FlatList for better performance and selection handling */}
+          {(() => {
+            const tabs = ['New Arrivals', 'Price Drop', 'Men', 'Women', 'Kids', 'Electronics'];
+            return (
+              <FlatList
+                data={tabs}
+                horizontal
+                nestedScrollEnabled
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item, idx) => `${item}-${idx}`}
+                contentContainerStyle={styles.sectionTabContainer}
+                renderItem={({ item }) => (
+                  <TouchableOpacity onPress={() => setSelectSection(item)}>
+                    <Text style={[
+                      styles.sectionTabTitle,
+                      selectSection === item && {
+                        borderBottomWidth: 2,
+                        borderBottomColor: ColorString.primary,
+                        color: ColorString.primary,
+                      },
+                    ]}>
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
+            );
+          })()}
         </View>
 
         <View
@@ -122,7 +176,7 @@ const Home = () => {
           }}
         >
           <Animated.Image
-            source={require('../../assets/images/banner.png')}
+            source={require('../../assets/images/BigBanner.png')}
             style={{
               width: SCREEN_WIDTH - 32,
               height: BANNER_IMAGE_HEIGHT,
@@ -133,7 +187,7 @@ const Home = () => {
             resizeMode="cover"
           />
         </View>
-      </Animated.View>
+      </View>
     );
   };
   const ExclusiveSection = () => {
@@ -517,14 +571,24 @@ const Home = () => {
       style={{
         flex: 1,
         backgroundColor: ColorString.screenColor,
-        // paddingTop: insets.top,
+        paddingTop: insets.top,
       }}
     >
       <StatusBar
         barStyle="dark-content"
         backgroundColor={ColorString.secondary}
-        translucent
+        // translucent
       />
+       <View style={{
+          paddingBottom: responsive.padding(12),
+          // shadowOpacity: 0.2,
+          // shadowRadius: 2,
+          // elevation: 2,
+          // shadowColor: '#000',
+          // backgroundColor:'red'
+       }}>
+          <HeaderHome />
+        </View>
       <AnimatedFlatList
         data={data}
         keyExtractor={item => item.key}
@@ -545,4 +609,31 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  sectionTabContainer:{
+    flexDirection: 'row',
+    gap: responsive.width(10),
+    alignItems: 'center',
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.22,
+    // shadowRadius: 2.22,
+    // elevation: 3,
+  marginBottom: responsive.padding(14),
+  paddingHorizontal: responsive.width(16),
+  // remove flex so horizontal list can scroll
+  },
+  sectionTabTitle:{
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#000',
+    // paddingRight: responsive.width(15),
+    // backgroundColor: '#F5F5F5',
+    paddingVertical: responsive.padding(5),
+    marginRight: responsive.width(12),
+    // borderRadius: responsive.padding(20),
+  }
+});
