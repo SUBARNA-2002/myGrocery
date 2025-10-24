@@ -302,6 +302,30 @@ const ProductDetails = () => {
               Fit
             </Text>
             <Text style={styles.description}>Relaxed Fit</Text>
+            <Text
+              style={[
+                styles.sizeTitle,
+                {
+                  paddingTop: responsive.padding(10),
+                },
+              ]}
+            >
+              Wash care
+            </Text>
+            <Text style={styles.description}>Machine Wash</Text>
+            <Text
+              style={[
+                styles.sizeTitle,
+                {
+                  paddingTop: responsive.padding(10),
+                },
+              ]}
+            >
+              Specefication
+            </Text>
+            <Text style={styles.description}>
+              Casual Wear,College Wear, Holiday, Plain, Button Down, Full Sleeve
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -417,6 +441,6 @@ const styles = StyleSheet.create({
     fontSize: responsive.font(12),
     color: '#303030',
     fontWeight: '400',
-    paddingTop: responsive.padding(5),
+    paddingTop: responsive.padding(2),
   },
 });
