@@ -30,7 +30,6 @@ const BottomTab = () => {
           // paddingBottom: responsive.padding(20),
           paddingTop: 10,
           elevation: 0,
-
         },
         tabBarActiveTintColor: ColorString.primary,
         tabBarInactiveTintColor: '#181725',
@@ -58,7 +57,11 @@ const BottomTab = () => {
       <Tab.Screen
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <ExploreIcon width={size} height={size} fill={focused ? ColorString?.primary : color} />
+            <ExploreIcon
+              width={size}
+              height={size}
+              fill={focused ? ColorString?.primary : color}
+            />
           ),
         }}
         name="Category"
@@ -66,11 +69,15 @@ const BottomTab = () => {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
-            <CartIcon width={size} height={size} fill={focused ? ColorString?.primary : color} />
+          tabBarIcon: ({ color, size = 20, focused }) => (
+            <FavouriteIcon
+              width={size}
+              height={size}
+              fillColor={focused ? ColorString?.primary : color}
+            />
           ),
         }}
-        name="Cart"
+        name="Favorite"
         component={Cart}
       />
       {/* <Tab.Screen options={{
@@ -81,7 +88,11 @@ const BottomTab = () => {
       <Tab.Screen
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <AccountIcon width={size} height={size} fill={focused ? ColorString?.primary : color} />
+            <AccountIcon
+              width={size}
+              height={size}
+              fill={focused ? ColorString?.primary : color}
+            />
           ),
         }}
         name="Profile"

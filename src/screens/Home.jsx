@@ -135,7 +135,7 @@ const Home = () => {
               gap: 8,
             }}
           >
-            <LoacationIcon />
+            <LoacationIcon fill={ColorString.primary} />
             <Text
               style={{
                 fontSize: 14,
@@ -150,7 +150,7 @@ const Home = () => {
             style={{
               fontSize: 14,
               fontWeight: '600',
-              color: '#000',
+              color: ColorString.primary,
             }}
           >
             Change
@@ -461,6 +461,9 @@ const Home = () => {
             ListHeaderComponent={() => (
               <View style={{ width: responsive.width(16) }} />
             )}
+            ListFooterComponent={() => (
+              <View style={{ width: responsive.width(16) }} />
+            )}
             ItemSeparatorComponent={() => (
               <View style={{ width: responsive.width(16) }} />
             )}
@@ -501,7 +504,7 @@ const Home = () => {
       <View
         style={{
           paddingBottom: responsive.padding(12),
-          backgroundColor: ColorString.white,
+          backgroundColor: ColorString.screenColor,
           // shadowColor: '#000',
           // shadowOffset: { width: 0, height: 2 },
           // shadowOpacity: 0.2,

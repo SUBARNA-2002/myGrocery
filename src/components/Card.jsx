@@ -57,7 +57,12 @@ const Card = ({ data }) => {
           right: 10,
         }}
       >
-        <FavouriteIcon width={24} height={24} fillColor={'transparent'} />
+        <FavouriteIcon
+          width={24}
+          height={24}
+          fillColor={'transparent'}
+          strokeColor={ColorString?.primary}
+        />
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // borderRadius: 12,
     borderWidth: 0.5,
-    borderColor: '#E2E2E2',
+    borderColor: ColorString?.secondary,
     width: responsive.width(140),
 
     // padding: 14,

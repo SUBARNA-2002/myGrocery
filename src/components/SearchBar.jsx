@@ -5,11 +5,14 @@ import { ColorString } from '../theme/AppColor';
 import { SearchIcon } from '../../assets/SvgConstants';
 import { responsive } from '../constants/Responsive';
 
-const SearchBar = ({from}) => {
+const SearchBar = ({ from }) => {
   return (
-    <View style={[styles.searchContainer,
-    from === 'HomeScreen' ? {flex:1} : {flexGrow:0,marginBottom:20}
-    ]}>
+    <View
+      style={[
+        styles.searchContainer,
+        from === 'HomeScreen' ? { flex: 1 } : { flexGrow: 0, marginBottom: 20 },
+      ]}
+    >
       <TextInput
         placeholder="Search Store"
         style={styles.searchInput}
@@ -23,7 +26,9 @@ const SearchBar = ({from}) => {
 export default SearchBar;
 
 const styles = StyleSheet.create({
-    searchContainer: {
+  searchContainer: {
+    // backgroundColor: ColorString.secondary,
+
     backgroundColor: '#F5F5F5',
     borderRadius: responsive.padding(8),
     paddingHorizontal: 15,
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
     // marginBottom: 20,
     // marginHorizontal: 16,
     // borderWidth: 0.5,
-    borderColor: ColorString?.primary,
+    // borderColor: ColorString?.primary,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,

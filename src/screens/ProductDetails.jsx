@@ -21,8 +21,9 @@ import {
   ReturnExchange,
 } from '../../assets/SvgConstants';
 import { TextInput } from 'react-native-gesture-handler';
-
+import Btn from '../components/Btn';
 const ProductDetails = () => {
+  const [selectSize, setSelectSize] = React.useState(null);
   const insets = useSafeAreaInsets();
   const detailData = [
     {
@@ -115,14 +116,20 @@ const ProductDetails = () => {
             alignItems: 'center',
             paddingVertical: responsive.padding(4),
             gap: responsive.padding(5),
-            backgroundColor: '#70a5ba6b',
+            backgroundColor: ColorString?.secondary,
           }}
         >
-          <FavouriteIcon height={20} width={20} />
+          <FavouriteIcon
+            height={20}
+            width={20}
+            fillColor={ColorString.primary}
+            strokeColor={ColorString.primary}
+          />
           <Text
             style={{
               fontSize: responsive.font(14),
-              color: '#4b3b3bff',
+              color: ColorString.primary,
+              fontWeight: '500',
             }}
           >
             7.2k shoppers wishlisted in last 30 days
@@ -201,9 +208,39 @@ const ProductDetails = () => {
                 )}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => (
-                  <View style={styles.textContainer}>
-                    <Text style={styles.size}>{item?.title}</Text>
-                  </View>
+                  <TouchableOpacity
+                    style={[
+                      styles.textContainer,
+                      {
+                        borderColor:
+                          selectSize === item.id
+                            ? ColorString.primary
+                            : '#30303090',
+                        backgroundColor:
+                          selectSize === item.id
+                            ? ColorString.primary + '20'
+                            : ColorString.white,
+                      },
+                    ]}
+                    onPress={() => {
+                      setSelectSize(item.id);
+                    }}
+                  >
+                    <Text
+                      style={[
+                        styles.size,
+                        {
+                          color:
+                            selectSize === item.id
+                              ? ColorString.primary
+                              : '#303030',
+                          fontWeight: selectSize === item.id ? '700' : '400',
+                        },
+                      ]}
+                    >
+                      {item?.title}
+                    </Text>
+                  </TouchableOpacity>
                 )}
               />
             </View>
@@ -220,7 +257,7 @@ const ProductDetails = () => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 marginTop: responsive.padding(10),
-                backgroundColor: '#3f677645',
+                backgroundColor: ColorString.secondary,
                 borderRadius: responsive.padding(5),
                 alignItems: 'center',
                 paddingRight: responsive.padding(10),
@@ -235,9 +272,9 @@ const ProductDetails = () => {
               />
               <Text
                 style={{
-                  color: '#1f68c1ff',
+                  color: ColorString.primary,
                   fontSize: responsive.font(12),
-                  fontWeight: '500',
+                  fontWeight: '600',
                 }}
               >
                 Check
@@ -246,10 +283,10 @@ const ProductDetails = () => {
             <View
               style={{
                 marginTop: responsive.padding(20),
-                borderWidth: 0.5,
+                borderWidth: 1,
                 padding: responsive.padding(16),
                 borderRadius: responsive.padding(5),
-                borderColor: '#30303030',
+                borderColor: ColorString.secondary,
               }}
             >
               <View
@@ -333,21 +370,23 @@ const ProductDetails = () => {
         style={[
           styles.footerComponent,
           {
-            paddingBottom: insets.bottom + responsive.padding(5),
+            // paddingBottom: insets.bottom,
           },
         ]}
       >
-        <View style={styles.addToCart}>
-          <CartIcon height={20} />
+        <TouchableOpacity style={styles.addToCart}>
           <Text
             style={{
               fontSize: responsive.font(14),
-              fontWeight: '400',
+              fontWeight: '800',
+              color: ColorString.primary,
             }}
           >
-            Buy Now
+            Add to Cart
           </Text>
-        </View>
+        </TouchableOpacity>
+
+        <Btn title="Buy Now" />
       </View>
     </View>
   );
@@ -362,6 +401,9 @@ const styles = StyleSheet.create({
   },
   headerWrapper: {
     paddingBottom: responsive.padding(10),
+    backgroundColor: ColorString.white,
+    borderBottomColor: ColorString.secondary,
+    borderBottomWidth: 0.5,
   },
   cardWrapper: {
     flex: 1,
@@ -403,6 +445,8 @@ const styles = StyleSheet.create({
   footerComponent: {
     flexDirection: 'row',
     alignItems: 'center',
+    // flex: 1,
+    padding: responsive.padding(16),
     gap: responsive.padding(10),
     paddingHorizontal: responsive.padding(16),
     backgroundColor: '#fff',
@@ -411,24 +455,25 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 8,
-    paddingTop: responsive.padding(10),
+    // paddingTop: responsive.padding(10),
   },
   addToCart: {
+    backgroundColor: ColorString?.white,
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
     gap: responsive.padding(6),
-    borderWidth: 0.5,
-    borderColor: '#30303090',
+    borderWidth: 1.5,
+    borderColor: ColorString?.primary,
     justifyContent: 'center',
-    height: responsive.height(35),
+    height: responsive.height(40),
     borderRadius: responsive.padding(5),
   },
   textInput: {
     flex: 1,
     marginRight: responsive.padding(20),
     paddingVertical: responsive.padding(14),
-    color: '#1f68c1ff',
+    color: ColorString.primary,
     paddingHorizontal: responsive.padding(10),
     fontSize: responsive.font(12),
   },

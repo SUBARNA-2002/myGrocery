@@ -192,6 +192,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F4F4',
     maxWidth: '47%',
     paddingVertical: responsive.padding(16),
+    borderWidth: 0.5,
+    borderColor: ColorString.secondary,
     // paddingVertical: 20,
   },
   image: {

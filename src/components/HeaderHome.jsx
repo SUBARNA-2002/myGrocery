@@ -83,11 +83,11 @@ const HeaderHome = ({ title, back = false }) => {
           marginLeft: responsive.width(16),
         }}
       >
-        <View>
+        {/* <View>
           <FavouriteIcon fillColor={'white'} />
-        </View>
+        </View> */}
         <View>
-          <CartIcon fillColor={ColorString?.black} />
+          <CartIcon fillColor={ColorString?.primary} />
         </View>
       </View>
     </View>
