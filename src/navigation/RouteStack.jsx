@@ -13,7 +13,7 @@ import PaymentSuccess from '../screens/PaymentSuccess';
 import ProductDetails from '../screens/ProductDetails';
 import LoginWithGmail from '../screens/LoginWithGmail';
 import SignUp from '../screens/SignUp.jsx';
-
+import ProductList from '../screens/ProductList.jsx';
 const Stack = createStackNavigator();
 
 // App and Auth stacks are nested under a Root stack which always shows Splash first.
@@ -23,6 +23,7 @@ const AppStack = () => (
     <Stack.Screen name='Checkout' component={Checkout} />
     <Stack.Screen name="Payment-Success" component={PaymentSuccess} />
     <Stack.Screen name="Product-Details" component={ProductDetails} />
+    <Stack.Screen name ="ProductList" component={ProductList} />
   </Stack.Navigator>
 );
 

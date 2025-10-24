@@ -1,22 +1,65 @@
-/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/no-unstable-nested-components */
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
+  FlatList,
   StyleSheet,
   Text,
   View,
   Image,
-  TouchableOpacity,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import Header from '../components/Header';
+import React from 'react';
+import { ColorString } from '../theme/AppColor';
+import HeaderHome from '../components/HeaderHome';
+import { responsive } from '../constants/Responsive';
+import ListCard from '../components/ListCard';
+import {
+  CartIcon,
+  CashIcon,
+  FavouriteIcon,
+  ReturnExchange,
+} from '../../assets/SvgConstants';
+import { TextInput } from 'react-native-gesture-handler';
 
 const ProductDetails = () => {
-  const [quantity, setQuantity] = useState(1);
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
-
+  const detailData = [
+    {
+      id: 1,
+      image: require('../../assets/images/detail1.jpeg'),
+    },
+    {
+      id: 2,
+      image: require('../../assets/images/detail2.jpeg'),
+    },
+    {
+      id: 3,
+      image: require('../../assets/images/detail3.jpeg'),
+    },
+  ];
+  const size = [
+    {
+      id: 1,
+      title: 'XS',
+    },
+    {
+      id: 2,
+      title: 'S',
+    },
+    {
+      id: 3,
+      title: 'M',
+    },
+    {
+      id: 4,
+      title: 'L',
+    },
+    {
+      id: 5,
+      title: 'XL',
+    },
+  ];
   return (
     <View
       style={[
@@ -26,63 +69,262 @@ const ProductDetails = () => {
         },
       ]}
     >
-      <Header
-        title="Product Details"
-        onPress={() => navigation.goBack()}
-      />
-      {/* Image Section */}
-      <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
-         <Image
-        source={require('../../assets/images/apple.png')}
-        style={styles.productImage}
-      />
-
-      {/* Product Details */}
-      <View style={styles.productDetails}>
-        <Text style={styles.productTitle}>Nature Red Apple</Text>
-        <Text style={styles.productPrice}>${4.99}</Text>
-
-        {/* Quantity Section */}
-        <View style={styles.quantityContainer}>
-          <TouchableOpacity
-            onPress={() => setQuantity(Math.max(1, quantity - 1))}
-          >
-            <Text style={styles.buttonText}>-</Text>
-          </TouchableOpacity>
-          <Text style={styles.quantity}>{quantity}kg</Text>
-          <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Product Description */}
-        <Text style={styles.productDescription}>
-          Apples Are Nutritious. Apples May Be Good For Weight Loss. Apples May
-          Be Good For Your Heart. As Part Of A Healthful And Varied Diet.
-        </Text>
-
-        {/* Nutrition Section */}
-        <Text style={styles.nutritionTitle}>Nutritions (100g)</Text>
-        <Text style={styles.nutritionDetails}>
-          Calories: 52, Carbs: 14g, Protein: 0.3g, Fat: 0.2g
-        </Text>
-
-        {/* Review Section */}
-        <View style={styles.reviewContainer}>
-          <Text style={styles.reviewTitle}>Review</Text>
-          <Text style={styles.reviewRating}>★★★★★</Text>
-        </View>
-
-        {/* Add to Basket Button */}
+      <View style={styles.headerWrapper}>
+        <HeaderHome back />
       </View>
+      <ScrollView>
+        <View
+          style={{
+            position: 'relative',
+          }}
+        >
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={detailData}
+            keyExtractor={item => item.id.toString()}
+            ItemSeparatorComponent={() => (
+              <View style={{ width: responsive.width(10) }} />
+            )}
+            renderItem={({ item }) => (
+              <View style={styles.cardWrapper}>
+                <Image source={item.image} style={styles.image} />
+              </View>
+            )}
+          />
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              top: responsive.width(16),
+              right: responsive.width(16),
+              height: responsive.height(35),
+              width: responsive.height(35),
+              backgroundColor: '#fafafa76',
+              borderRadius: 50,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <FavouriteIcon fillColor={'transparent'} strokeColor={'white'} />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: responsive.padding(4),
+            gap: responsive.padding(5),
+            backgroundColor: '#70a5ba6b',
+          }}
+        >
+          <FavouriteIcon height={20} width={20} />
+          <Text
+            style={{
+              fontSize: responsive.font(14),
+              color: '#4b3b3bff',
+            }}
+          >
+            7.2k shoppers wishlisted in last 30 days
+          </Text>
+        </View>
+        <View
+          style={{
+            padding: responsive.padding(16),
+          }}
+        >
+          <Text style={styles.title}>
+            Men Regular Fit Shacket with Patch Pocket
+          </Text>
+          <Text
+            style={{
+              fontSize: responsive.font(12),
+              color: '#3A3A3A90',
+              fontWeight: '400',
+            }}
+          >
+            Men Oversized Hoodies
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingTop: responsive.padding(10),
+              gap: responsive.padding(8),
+            }}
+          >
+            <Text style={styles.price}>₹2499</Text>
+            <Text
+              style={{
+                fontSize: responsive.font(14),
+                color: '#30303090',
+                textDecorationLine: 'line-through',
+                textDecorationColor: 'gray',
+                fontWeight: '400',
+              }}
+            >
+              ₹3000
+            </Text>
+            <Text
+              style={{
+                color: '#2f8a41ff',
+                fontSize: responsive.font(14),
+                fontWeight: '500',
+              }}
+            >
+              69% off
+            </Text>
+          </View>
+          <Text
+            style={{
+              fontSize: responsive.size(10),
+              color: '#313131',
+              fontWeight: '400',
+              paddingTop: responsive.padding(3),
+            }}
+          >
+            Price incl. of all taxes
+          </Text>
+          {/* Size Section */}
+          <View
+            style={{
+              paddingTop: responsive.padding(16),
+            }}
+          >
+            <Text style={styles.sizeTitle}>Select Size</Text>
+            <View>
+              <FlatList
+                horizontal
+                data={size}
+                ItemSeparatorComponent={() => (
+                  <View style={{ width: responsive.width(16) }} />
+                )}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => (
+                  <View style={styles.textContainer}>
+                    <Text style={styles.size}>{item?.title}</Text>
+                  </View>
+                )}
+              />
+            </View>
+          </View>
+          {/* Pin Code */}
+          <View
+            style={{
+              marginTop: responsive.padding(20),
+            }}
+          >
+            <Text style={styles.sizeTitle}>Delivery & Return Details</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginTop: responsive.padding(10),
+                backgroundColor: '#3f677645',
+                borderRadius: responsive.padding(5),
+                alignItems: 'center',
+                paddingRight: responsive.padding(10),
+              }}
+            >
+              <TextInput
+                placeholder="Pin Code"
+                style={styles.textInput}
+                keyboardType="numeric"
+                maxLength={6}
+                placeholderTextColor={'#30303090'}
+              />
+              <Text
+                style={{
+                  color: '#1f68c1ff',
+                  fontSize: responsive.font(12),
+                  fontWeight: '500',
+                }}
+              >
+                Check
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: responsive.padding(20),
+                borderWidth: 0.5,
+                padding: responsive.padding(16),
+                borderRadius: responsive.padding(5),
+                borderColor: '#30303030',
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: responsive.padding(10),
+                }}
+              >
+                <ReturnExchange height={20} width={20} />
+                <Text style={styles.exchangeTitle}>
+                  10 day Return and Exchange
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: responsive.padding(10),
+                  paddingTop: responsive.padding(15),
+                }}
+              >
+                <CashIcon />
+                <Text style={styles.exchangeTitle}>COD available</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Product Deatils */}
+          <View
+            style={{
+              marginTop: responsive.padding(20),
+            }}
+          >
+            <Text style={styles.sizeTitle}>Details</Text>
+            <Text style={styles.description}>
+              Make your holiday gathering a little less formal in this casual
+              jacket, made from 100% cotton. Keeping you center stage, this
+              light gray Relaxed fit piece elevates your outerwear collection to
+              a new level.
+            </Text>
+            <Text
+              style={[
+                styles.sizeTitle,
+                {
+                  paddingTop: responsive.padding(10),
+                },
+              ]}
+            >
+              Fit
+            </Text>
+            <Text style={styles.description}>Relaxed Fit</Text>
+          </View>
+        </View>
       </ScrollView>
-     
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate('HomeTab', { screen: 'Cart' })}
+      <View
+        style={[
+          styles.footerComponent,
+          {
+            paddingBottom: insets.bottom + responsive.padding(5),
+          },
+        ]}
       >
-        <Text style={styles.addButtonText}>Add To Basket</Text>
-      </TouchableOpacity>
+        <View style={styles.addToCart}>
+          <CartIcon height={20} />
+          <Text
+            style={{
+              fontSize: responsive.font(14),
+              fontWeight: '400',
+            }}
+          >
+            Buy Now
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -92,104 +334,89 @@ export default ProductDetails;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    // padding: 20, // Increase padding for spacing
+    backgroundColor: ColorString.white,
   },
-  productImage: {
-    width: '100%',
-    height: 250, // Adjust height to make the image larger
-    resizeMode: 'contain',
-    borderRadius: 10, // Rounded corners for the image
-    marginBottom: 20, // Space between image and product details
+  headerWrapper: {
+    paddingBottom: responsive.padding(10),
   },
-  productDetails: {
-    marginTop: 15,
+  cardWrapper: {
     flex: 1,
   },
-  productTitle: {
-    fontSize: 28, // Larger font size for title
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 5,
+  image: {
+    width: responsive.height(260),
+    height: responsive.height(350),
+    resizeMode: 'cover',
   },
-  productPrice: {
-    fontSize: 24, // Larger price font size
-    fontWeight: 'bold',
-    color: '#4CAF50',
-    marginVertical: 10,
+  title: {
+    fontSize: responsive.font(14),
+    color: ColorString.black,
+    fontWeight: '500',
+    paddingBottom: responsive.padding(3),
   },
-  quantityContainer: {
+  price: {
+    fontSize: responsive.font(14),
+    color: ColorString.black,
+    fontWeight: '500',
+  },
+  sizeTitle: {
+    fontSize: responsive.font(14),
+    fontWeight: '500',
+    color: '#303030',
+  },
+  textContainer: {
+    width: responsive.width(40),
+    height: responsive.height(27),
+    borderWidth: 0.5,
+    borderRadius: responsive.padding(5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: responsive.padding(10),
+  },
+  size: {
+    fontSize: responsive.font(14),
+    color: '#303030',
+  },
+  footerComponent: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20, // Increase space between quantity and description
-  },
-  buttonText: {
-    fontSize: 36, // Larger buttons for better touch interaction
-    color: '#333',
-    height: 50,
-    width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // paddingHorizontal: 25,
-    // paddingVertical: 10,
-    fontWeight: 'bold',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 50, // Circular buttons
-    textAlign: 'center',
-  },
-  quantity: {
-    fontSize: 20, // Increase quantity text size
-    fontWeight: 'bold',
-    marginHorizontal: 15,
-  },
-  productDescription: {
-    fontSize: 16, // Increased size for better readability
-    color: '#555',
-    marginVertical: 20, // Add vertical space around description
-    lineHeight: 22, // Increase line height for readability
-  },
-  nutritionTitle: {
-    fontSize: 18, // Larger font size for nutrition title
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 5,
-  },
-  nutritionDetails: {
-    fontSize: 16, // Increase nutrition text size
-    color: '#555',
-    marginBottom: 10,
-  },
-  reviewContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 15, // Add vertical spacing between review and button
-  },
-  reviewTitle: {
-    fontSize: 18, // Increase review title font size
-    color: '#333',
-    marginRight: 10,
-  },
-  reviewRating: {
-    fontSize: 18, // Larger star rating size
-    color: '#FFA500',
-  },
-  addButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 16,
-    borderRadius: 10, // Round button edges
+    gap: responsive.padding(10),
+    paddingHorizontal: responsive.padding(16),
+    backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5, // Add shadow for Android
-    margin: 16,
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 8,
+    paddingTop: responsive.padding(10),
   },
-  addButtonText: {
-    fontSize: 16, // Larger font size for the button
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold',
+  addToCart: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    gap: responsive.padding(6),
+    borderWidth: 0.5,
+    borderColor: '#30303090',
+    justifyContent: 'center',
+    height: responsive.height(35),
+    borderRadius: responsive.padding(5),
+  },
+  textInput: {
+    flex: 1,
+    marginRight: responsive.padding(20),
+    paddingVertical: responsive.padding(14),
+    color: '#1f68c1ff',
+    paddingHorizontal: responsive.padding(10),
+    fontSize: responsive.font(12),
+  },
+  exchangeTitle: {
+    fontSize: responsive.font(14),
+    color: '#303030',
+    fontWeight: '600',
+  },
+  description: {
+    fontSize: responsive.font(12),
+    color: '#303030',
+    fontWeight: '400',
+    paddingTop: responsive.padding(5),
   },
 });

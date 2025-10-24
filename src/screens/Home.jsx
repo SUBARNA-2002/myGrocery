@@ -251,43 +251,42 @@ const Home = () => {
   const GridSection = () => {
     const data = [
       {
-        id:1,
+        id: 1,
         image: require('../../assets/images/grid.jpg'),
       },
       {
-        id:2,
+        id: 2,
         image: require('../../assets/images/grid2.jpg'),
       },
       {
-        id:3,
+        id: 3,
         image: require('../../assets/images/grid3.jpg'),
       },
       {
-        id:4,
+        id: 4,
         image: require('../../assets/images/grid4.jpg'),
       },
       {
-        id:5,
+        id: 5,
         image: require('../../assets/images/grid5.jpg'),
       },
       {
-        id:6,
+        id: 6,
         image: require('../../assets/images/grid6.jpg'),
       },
       {
-        id:7,
+        id: 7,
         image: require('../../assets/images/grid7.jpg'),
       },
       {
-        id:8,
-        image: require('../../assets/images/grid2.jpg'),  
+        id: 8,
+        image: require('../../assets/images/grid2.jpg'),
       },
       {
-        id:9,
+        id: 9,
         image: require('../../assets/images/grid3.jpg'),
-      }
-      
-    ]
+      },
+    ];
     return (
       <View
         style={{
@@ -349,13 +348,13 @@ const Home = () => {
                     borderRadius: 8,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height:responsive.height(100),
+                    height: responsive.height(100),
                   }}
                 >
                   <Image
                     source={item.image}
                     style={{
-                      height:responsive.height(100),
+                      height: responsive.height(100),
                       width: responsive.width(100),
                       borderRadius: 8,
                     }}
@@ -372,52 +371,52 @@ const Home = () => {
   const NewArrival = () => {
     const newArrivalData = [
       {
-        id:1,
-        title:'Product 1',
-        price:1299,
-        off:50,
-        originalPrice:2599,
-        image:require('../../assets/images/card1.png'),
+        id: 1,
+        title: 'Product 1',
+        price: 1299,
+        off: 50,
+        originalPrice: 2599,
+        image: require('../../assets/images/card1.png'),
       },
       {
-        id:2,
-        title:'Product 2',
-        price:899,
-        off:30,
-        originalPrice:1299,
-        image:require('../../assets/images/card2.png'), 
+        id: 2,
+        title: 'Product 2',
+        price: 899,
+        off: 30,
+        originalPrice: 1299,
+        image: require('../../assets/images/card2.png'),
       },
       {
-        id:3,
-        title:'Product 3',
-        price:499,
-        off:20,
-        originalPrice:999,
-        image:require('../../assets/images/card3.png'),
+        id: 3,
+        title: 'Product 3',
+        price: 499,
+        off: 20,
+        originalPrice: 999,
+        image: require('../../assets/images/card3.png'),
       },
       {
-        id:4,
-        title:'Product 4',
-        price:1999,
-        off:40,
-        originalPrice:3499,
-        image:require('../../assets/images/card4.png'),
+        id: 4,
+        title: 'Product 4',
+        price: 1999,
+        off: 40,
+        originalPrice: 3499,
+        image: require('../../assets/images/card4.png'),
       },
       {
-        id:5, 
-        title:'Product 5',
-        price:299,
-        off:10,
-        originalPrice:599,
-        image:require('../../assets/images/card5.png'),
+        id: 5,
+        title: 'Product 5',
+        price: 299,
+        off: 10,
+        originalPrice: 599,
+        image: require('../../assets/images/card5.png'),
       },
       {
-        id:6,
-        title:'Product 6',
-        price:1599,
-        off:25,
-        originalPrice:2199,
-        image:require('../../assets/images/card6.png'),
+        id: 6,
+        title: 'Product 6',
+        price: 1599,
+        off: 25,
+        originalPrice: 2199,
+        image: require('../../assets/images/card6.png'),
       },
     ];
     return (
@@ -459,13 +458,17 @@ const Home = () => {
             contentContainerStyle={{ paddingVertical: responsive.padding(16) }}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => <Card data={item} />}
-            ListHeaderComponent={()=> <View style={{ width: responsive.width(16) }} />}
-            ItemSeparatorComponent={() => <View style={{ width: responsive.width(16) }} />}
+            ListHeaderComponent={() => (
+              <View style={{ width: responsive.width(16) }} />
+            )}
+            ItemSeparatorComponent={() => (
+              <View style={{ width: responsive.width(16) }} />
+            )}
           />
         </View>
       </View>
     );
-  }
+  };
 
   const data = [
     {
@@ -479,7 +482,7 @@ const Home = () => {
     {
       key: 'newArrival',
       render: NewArrival,
-    }
+    },
   ];
 
   return (
@@ -505,7 +508,6 @@ const Home = () => {
           // shadowRadius: 2,
           // elevation: 2,
           // zIndex: 1,
-
         }}
       >
         <HeaderHome />
@@ -563,10 +565,10 @@ const styles = StyleSheet.create({
     marginRight: responsive.width(16),
     overflow: 'hidden',
     width: responsive.width(130),
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    // elevation: 2,
+    // shadowColor: '#000',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 3,
     borderWidth: 0.5,
     borderColor: '#E2E2E2',
   },

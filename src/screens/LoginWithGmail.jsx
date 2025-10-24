@@ -47,6 +47,12 @@ const LoginWithGmail = () => {
       showErrorToast(err?.data?.message || 'Login Failed');
     }
   };
+  const handleGuestLogin = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'App' }],
+    });
+  };
   return (
     <View style={styles.container}>
       {/* Logo Section */}
@@ -79,7 +85,7 @@ const LoginWithGmail = () => {
         onChangeText={setEmail}
         keyboardType="email-address"
         placeholderTextColor={'#00000080'}
-        autoCapitalize='none'
+        autoCapitalize="none"
       />
 
       {/* Password Input */}

@@ -14,6 +14,7 @@ import { ColorString } from '../theme/AppColor';
 import SearchBar from '../components/SearchBar';
 import HeaderHome from '../components/HeaderHome';
 import { responsive } from '../constants/Responsive';
+import { useNavigation } from '@react-navigation/native';
 
 const categories = [
   {
@@ -64,7 +65,7 @@ const categories = [
     image: require('../../assets/images/cate8.png'),
     bgColor: '#E8F2FF',
   },
-    {
+  {
     id: 9,
     title: 'Inner Wear',
     image: require('../../assets/images/cate9.png'),
@@ -93,25 +94,32 @@ const Separator = () => <View style={styles.separator} />;
 
 const Explore = () => {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={[styles.card, 
-    // { backgroundColor: item.bgColor }
-    ]}
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('ProductList', { category: item.title });
+      }}
+      style={[
+        styles.card,
+        // { backgroundColor: item.bgColor }
+      ]}
     >
-      <Image source={ item.image } style={styles.image} />
+      <Image source={item.image} style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }] }>
-      <View style={{
-        borderBottomColor: '#E0E0E0',
-        borderBottomWidth: 0.5,
-        paddingBottom: responsive.padding(10),
-
-      }}>
-        <HeaderHome title="Explore" />
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      <View
+        style={{
+          borderBottomColor: '#E0E0E0',
+          borderBottomWidth: 0.5,
+          paddingBottom: responsive.padding(10),
+        }}
+      >
+        <HeaderHome />
       </View>
 
       <View style={styles.listWrapper}>
@@ -124,7 +132,9 @@ const Explore = () => {
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={Separator}
           contentContainerStyle={styles.listContent}
-          ListHeaderComponent={()=> <View style={{height:responsive.height(16)}} />}
+          ListHeaderComponent={() => (
+            <View style={{ height: responsive.height(16) }} />
+          )}
         />
       </View>
     </View>
@@ -138,7 +148,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: ColorString.screenColor,
     // paddingHorizontal: 16,
-    paddingTop: 20,
   },
   header: {
     fontSize: 20,
@@ -169,7 +178,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: responsive.padding(16),
-    paddingBottom: responsive.padding(16),
+    // paddingBottom: responsive.padding(16),
   },
   separator: {
     width: 10,
@@ -180,7 +189,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: responsive.margin(16),
-    backgroundColor:'#F4F4F4',
+    backgroundColor: '#F4F4F4',
     maxWidth: '47%',
     paddingVertical: responsive.padding(16),
     // paddingVertical: 20,

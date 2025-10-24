@@ -1,19 +1,23 @@
 /* eslint-disable react-native/no-inline-styles */
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   AvtarUserIcon,
   CartIcon,
   FavouriteIcon,
+  LeftChevelon,
   LoacationIcon,
   NotificationIcon,
+  RightChevelon,
 } from '../../assets/SvgConstants';
 import { useSelector } from 'react-redux';
 import { responsive } from '../constants/Responsive';
 import { ColorString } from '../theme/AppColor';
 import SearchBar from './SearchBar';
 
-const HeaderHome = ({ title }) => {
+const HeaderHome = ({ title, back = false }) => {
+  const navigation = useNavigation();
   const { user } = useSelector(state => state.auth);
   // const getGreeting = () => {
   //   const hour = new Date().getHours();
@@ -38,16 +42,34 @@ const HeaderHome = ({ title }) => {
       }}
     >
       {/* <View style={{ flex: 1, }}> */}
-      {title ? (
-        <Text
+      {title || back ? (
+        <View
           style={{
-            fontSize: responsive.font(20),
-            fontWeight: '700',
-            color: ColorString.black,
+            flexDirection: 'row',
+            alignItems: 'center',
+            // gap: responsive.width(20),
           }}
         >
-          {title}
-        </Text>
+          {back && (
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{
+                paddingRight: responsive.padding(20),
+              }}
+            >
+              <LeftChevelon fill={ColorString.black} />
+            </TouchableOpacity>
+          )}
+          <Text
+            style={{
+              fontSize: responsive.font(20),
+              fontWeight: '700',
+              color: ColorString.black,
+            }}
+          >
+            {title}
+          </Text>
+        </View>
       ) : (
         <SearchBar from={'HomeScreen'} />
       )}
@@ -57,7 +79,7 @@ const HeaderHome = ({ title }) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: responsive.width(16),
+          gap: responsive.width(20),
           marginLeft: responsive.width(16),
         }}
       >

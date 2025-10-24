@@ -13,7 +13,7 @@ import {
 import { ColorString } from '../theme/AppColor';
 import { responsive } from '../constants/Responsive';
 
-const Card = ({ data }) => {
+const ListCard = ({ data }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -63,7 +63,7 @@ const Card = ({ data }) => {
   );
 };
 
-export default Card;
+export default ListCard;
 
 const styles = StyleSheet.create({
   card: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     // borderRadius: 12,
     borderWidth: 0.5,
     borderColor: '#E2E2E2',
-    width: responsive.width(140),
+    // width: responsive.width(140),
 
     // padding: 14,
     // width: responsive.width(140),
@@ -82,10 +82,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   image: {
-    // justifyContent: 'center',
-    // alignSelf: 'center',
-    width: responsive.width(140),
-    height: responsive.height(140),
     resizeMode: 'cover',
     // marginBottom: 8,
   },

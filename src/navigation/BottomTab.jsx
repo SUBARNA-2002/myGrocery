@@ -15,6 +15,7 @@ import {
   FavouriteIcon,
   ShopIcon,
 } from '../../assets/SvgConstants';
+import { responsive } from '../constants/Responsive';
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
   return (
@@ -26,15 +27,16 @@ const BottomTab = () => {
           height: 70,
           borderTopWidth: 1,
           borderTopColor: '#eee',
-          paddingBottom: 10,
+          // paddingBottom: responsive.padding(20),
           paddingTop: 10,
           elevation: 0,
+
         },
         tabBarActiveTintColor: ColorString.primary,
         tabBarInactiveTintColor: '#181725',
         tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' },
       }}
-      initialRouteName="Shop"
+      initialRouteName="Home"
       backBehavior="initialRoute"
       tabBarOptions={{
         showLabel: false,
@@ -50,7 +52,7 @@ const BottomTab = () => {
             />
           ),
         }}
-        name="Shop"
+        name="Home"
         component={Home}
       />
       <Tab.Screen
@@ -59,7 +61,7 @@ const BottomTab = () => {
             <ExploreIcon width={size} height={size} fill={focused ? ColorString?.primary : color} />
           ),
         }}
-        name="Explore"
+        name="Category"
         component={Explore}
       />
       <Tab.Screen
@@ -82,7 +84,7 @@ const BottomTab = () => {
             <AccountIcon width={size} height={size} fill={focused ? ColorString?.primary : color} />
           ),
         }}
-        name="Account"
+        name="Profile"
         component={Account}
       />
     </Tab.Navigator>
