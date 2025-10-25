@@ -10,6 +10,7 @@ import {
   Animated,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -299,18 +300,21 @@ const Home = () => {
       },
     ];
     return (
-      <View
+      <ImageBackground
+        source={require('../../assets/images/bannerBg.png')}
         style={{
           paddingTop: responsive.padding(16),
           backgroundColor: '#c5a674ff',
           marginTop: responsive.padding(20),
+          borderWidth: 5,
+          borderColor: '#7A570A',
         }}
       >
         <Text
           style={{
             fontSize: 20,
             fontWeight: '600',
-            color: '#000',
+            color: '#ffffffff',
             textAlign: 'center',
           }}
         >
@@ -376,7 +380,7 @@ const Home = () => {
             )}
           />
         </View>
-      </View>
+      </ImageBackground>
     );
   };
   const NewArrival = () => {
