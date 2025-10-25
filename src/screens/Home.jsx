@@ -19,6 +19,7 @@ import HeaderHome from '../components/HeaderHome';
 import Card from '../components/Card';
 import { responsive } from '../constants/Responsive';
 import { LoacationIcon } from '../../assets/SvgConstants';
+import Carousel from '../components/Carousel';
 const Home = () => {
   const [selectSection, setSelectSection] = React.useState('New Arrivals');
   const insets = useSafeAreaInsets();
@@ -117,15 +118,19 @@ const Home = () => {
           <HeaderHome />
         </Animated.View> */}
         {/* Pincode */}
-        <Animated.View
+        <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingHorizontal: responsive.padding(16),
-            paddingBottom: responsive.padding(12),
-            opacity: partsOpacity,
-            transform: [{ translateY: partsTranslate }],
+            paddingBottom: responsive.padding(9),
+            borderBottomWidth: 1,
+            borderBottomColor: '#CBD5E4',
+            marginTop: responsive.padding(9),
+
+            // opacity: partsOpacity,
+            // transform: [{ translateY: partsTranslate }],
           }}
         >
           <View
@@ -140,13 +145,13 @@ const Home = () => {
               style={{
                 fontSize: 14,
                 fontWeight: '500',
-                color: '#000',
+                color: ColorString.textSecondary,
               }}
             >
               Pincode | 754220
             </Text>
           </View>
-          <Text
+          {/* <Text
             style={{
               fontSize: 14,
               fontWeight: '600',
@@ -154,8 +159,8 @@ const Home = () => {
             }}
           >
             Change
-          </Text>
-        </Animated.View>
+          </Text> */}
+        </View>
         {/* Section Tab (converted to FlatList) */}
         <View style={{}}>
           {/** Tabs data */}
@@ -178,18 +183,35 @@ const Home = () => {
                 keyExtractor={(item, idx) => `${item}-${idx}`}
                 contentContainerStyle={styles.sectionTabContainer}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => setSelectSection(item)}>
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onPress={() => setSelectSection(item)}
+                  >
                     <Text
                       style={[
                         styles.sectionTabTitle,
                         selectSection === item && {
-                          borderBottomWidth: 2,
-                          borderBottomColor: ColorString.primary,
+                          fontWeight: '400',
+                          // borderBottomWidth: 2,
+                          // borderBottomColor: ColorString.primary,
                           color: ColorString.primary,
                         },
                       ]}
                     >
                       {item}
+                    </Text>
+                    <Text
+                      style={{
+                        paddingRight: 8,
+                        color:
+                          selectSection === item ? ColorString.primary : '#000',
+                      }}
+                    >
+                      |
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -199,25 +221,14 @@ const Home = () => {
         </View>
         {/* Carousel banner */}
         <View
-          style={{
-            paddingHorizontal: 16,
-            paddingBottom: BANNER_CONTAINER_PADDING_BOTTOM,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-            overflow: 'hidden',
-          }}
+          style={
+            {
+              // marginTop: responsive.padding(10),
+              // borderWidth: 1,
+            }
+          }
         >
-          <Animated.Image
-            source={require('../../assets/images/BigBanner.png')}
-            style={{
-              width: SCREEN_WIDTH - 32,
-              height: BANNER_IMAGE_HEIGHT,
-              borderRadius: 10,
-              transform: [{ scale }],
-              alignSelf: 'center',
-            }}
-            resizeMode="cover"
-          />
+          <Carousel />
         </View>
       </View>
     );
@@ -493,7 +504,7 @@ const Home = () => {
       style={{
         flex: 1,
         backgroundColor: ColorString.screenColor,
-        paddingTop: insets.top,
+        // paddingTop: insets.top,
       }}
     >
       <StatusBar
@@ -503,14 +514,16 @@ const Home = () => {
       />
       <View
         style={{
+          paddingTop: insets.top,
+
           paddingBottom: responsive.padding(12),
           backgroundColor: ColorString.screenColor,
-          // shadowColor: '#000',
-          // shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 0.2,
-          // shadowRadius: 2,
-          // elevation: 2,
-          // zIndex: 1,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
+          elevation: 2,
+          zIndex: 1,
         }}
       >
         <HeaderHome />
@@ -538,8 +551,11 @@ export default Home;
 const styles = StyleSheet.create({
   sectionTabContainer: {
     flexDirection: 'row',
+
     gap: responsive.width(10),
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#CBD5E4',
     // shadowColor: '#000',
     // shadowOffset: {
     //   width: 0,
@@ -548,23 +564,26 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.22,
     // shadowRadius: 2.22,
     // elevation: 3,
-    marginBottom: responsive.padding(14),
+    // marginBottom: responsive.padding(10),
     paddingHorizontal: responsive.width(16),
     // remove flex so horizontal list can scroll
   },
   sectionTabTitle: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: responsive.font(16),
+    fontWeight: '300',
     color: '#000',
     // paddingRight: responsive.width(15),
     // backgroundColor: '#F5F5F5',
-    paddingVertical: responsive.padding(5),
+    paddingVertical: responsive.padding(10),
     marginRight: responsive.width(12),
+    textTransform: 'uppercase',
+    // borderRightWidth: 1,
+
     // borderRadius: responsive.padding(20),
   },
   card: {
     backgroundColor: '#fff',
-    borderRadius: 12,
+    // borderRadius: 12,
     marginRight: responsive.width(16),
     overflow: 'hidden',
     width: responsive.width(130),
@@ -573,7 +592,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.1,
     // shadowRadius: 3,
     borderWidth: 0.5,
-    borderColor: '#E2E2E2',
+    borderColor: ColorString.secondary,
   },
   image: {
     width: '100%',
@@ -593,12 +612,11 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   pocketContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 10,
+    paddingHorizontal: responsive.padding(16),
     backgroundColor: '#fff',
   },
   header: {
-    fontSize: 20,
+    fontSize: responsive.font(18),
     fontWeight: '700',
     color: '#000',
     paddingBottom: responsive.padding(2),

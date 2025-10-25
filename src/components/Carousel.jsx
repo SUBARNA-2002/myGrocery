@@ -1,105 +1,143 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { View, Text, Dimensions, FlatList } from 'react-native';
+import * as React from 'react';
+import {
+  Text,
+  View,
+  useWindowDimensions,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import Animated, {
   useSharedValue,
-  useAnimatedScrollHandler,
   useAnimatedStyle,
-  withTiming,
   interpolate,
 } from 'react-native-reanimated';
+import Carousel from 'react-native-reanimated-carousel';
 
-const { width } = Dimensions.get('window');
+const defaultDataWith6Colors = [
+  '#B0604D',
+  '#899F9C',
+  '#B3C680',
+  '#5C6265',
+  '#F5D399',
+  '#F1F1F1',
+];
+const date = [
+  {
+    id: 1,
+    Image: require('../../assets/images/BigBanner2.png'),
+  },
+  {
+    id: 2,
+    Image: require('../../assets/images/BigBanner.png'),
+  },
+];
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-
-const CircularCarousel = ({ data, autoScrollSpeed = 0.5 }) => {
-  const loopedData = [...data, ...data, ...data]; // simulate infinite loop
-  const scrollX = useSharedValue(data.length * width); // start in middle
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const flatListRef = React.useRef();
-
-  // Continuous auto-scroll
-  useEffect(() => {
-    let frameId;
-    const autoScroll = () => {
-      scrollX.value = withTiming(
-        scrollX.value + autoScrollSpeed,
-        { duration: 16 },
-        () => {
-          frameId = requestAnimationFrame(autoScroll);
-        },
-      );
+// Animated pagination dot component
+const Dot = ({ index, progress }) => {
+  const aStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      progress.value,
+      [index - 1, index, index + 1],
+      [0.5, 1, 0.5],
+    );
+    const scale = interpolate(
+      progress.value,
+      [index - 1, index, index + 1],
+      [1, 1.4, 1],
+    );
+    return {
+      opacity,
+      transform: [{ scale }],
+      backgroundColor: '#333',
     };
-    frameId = requestAnimationFrame(autoScroll);
-
-    return () => cancelAnimationFrame(frameId);
-  }, []);
-
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: event => {
-      scrollX.value = event.contentOffset.x;
-    },
-    onMomentumEnd: event => {
-      // Optional: can update index
-    },
   });
 
-  const onScrollEnd = () => {
-    const index = Math.round((scrollX.value % (data.length * width)) / width);
-    setCurrentIndex(index);
-  };
+  return <Animated.View style={[styles.dot, aStyle]} />;
+};
+
+function Index() {
+  const progress = useSharedValue(0);
+  const window = useWindowDimensions();
 
   return (
-    <View>
-      <AnimatedFlatList
-        ref={flatListRef}
-        data={loopedData}
-        horizontal
+    <View style={styles.container}>
+      <Carousel
+        width={window.width}
+        height={350}
+        data={date}
+        autoPlay
+        autoPlayInterval={2000}
+        loop
         pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(_, index) => index.toString()}
-        onScroll={scrollHandler}
-        onMomentumScrollEnd={onScrollEnd}
-        renderItem={({ item }) => (
+        snapEnabled
+        onProgressChange={progress}
+        mode="parallax"
+        modeConfig={{
+          parallaxScrollingScale: 0.9,
+          parallaxScrollingOffset: 50,
+        }}
+        renderItem={({ item, index }) => (
           <View
-            style={{
-              width,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            style={[
+              styles.card,
+              // {
+              //   backgroundColor:
+              //     defaultDataWith6Colors[index % defaultDataWith6Colors.length],
+              // },
+            ]}
           >
-            <Text style={{ fontSize: 32 }}>{item}</Text>
+            <Image
+              source={item.Image}
+              style={{ width: '100%', height: '100%' }}
+              resizeMode="cover"
+            />
           </View>
         )}
       />
 
-      {/* Pagination Dots */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          marginTop: 10,
-        }}
-      >
-        {data.map((_, i) => (
-          <View
-            key={i}
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              margin: 5,
-              backgroundColor: currentIndex === i ? 'black' : 'gray',
-            }}
-          />
+      {/* Dots pagination
+      <View style={styles.paginationWrapper} pointerEvents="none">
+        {date.map((_, i) => (
+          <Dot key={i} index={i} progress={progress} />
         ))}
-      </View>
+      </View> */}
     </View>
   );
-};
+}
 
-export default CircularCarousel;
+export default Index;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
+    flex: 1,
+    // borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 32,
+    color: '#ae1d1dff',
+    fontWeight: '700',
+  },
+  paginationWrapper: {
+    position: 'absolute',
+    bottom: 2,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#ccc',
+    marginHorizontal: 6,
+  },
+});

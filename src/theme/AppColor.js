@@ -1,6 +1,6 @@
 export const ColorString = {
-  primary: '#5C469C',
-  secondary: '#5C469C20',
+  primary: '#122D59',
+  secondary: '#122D5920',
   white: '#fff',
   black: '#000',
   disableBtnColor: '#D3D3D3',
@@ -8,5 +8,6 @@ export const ColorString = {
   // headerColor:'#53B17520',
   headerColor:'#fff',
   tabBarColor: '#ffffffff',
-  btnColor:'#5C469C'
+  btnColor:'#122D59',
+  textSecondary:'#5E5E5E'
 }   
