@@ -35,7 +35,7 @@ const Account = () => {
     },
     {
       id: 4,
-      title: 'AJIO Wallet',
+      title: 'Wallet',
       sub: 'Add Gift Card | Manage rewards and refunds',
     },
     { id: 5, title: 'Saved Cards' },

@@ -487,6 +487,116 @@ const Home = () => {
       </View>
     );
   };
+  const TrendReport = () => {
+    return (
+      <View
+        style={[
+          { marginTop: responsive.padding(10), backgroundColor: '#403F69' },
+        ]}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: '600',
+            color: '#fff',
+            textAlign: 'center',
+            paddingTop: responsive.padding(16),
+          }}
+        >
+          TREND REPORT
+        </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '400',
+            color: '#E3B550',
+            textAlign: 'center',
+            paddingTop: responsive.padding(4),
+          }}
+        >
+          Fall 2025
+        </Text>
+        <ImageBackground
+          source={require('../../assets/images/trendReport.png')}
+          style={{
+            width: SCREEN_WIDTH,
+            height: responsive.height(300),
+            marginTop: responsive.padding(12),
+            justifyContent: 'flex-end',
+            alignItems: 'right',
+            borderWidth: 1,
+          }}
+          resizeMode="cover"
+        >
+          <View>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: responsive.font(18),
+                fontWeight: '700',
+                textAlign: 'right',
+                // backgroundColor: 'rgba(0,0,0,0.4)',
+                paddingHorizontal: responsive.padding(8),
+                paddingVertical: responsive.padding(8),
+              }}
+            >
+              TREND REPORT
+            </Text>
+            <Text
+              style={{
+                padding: responsive.padding(8),
+                color: '#fff',
+                fontSize: responsive.font(16),
+                fontWeight: '600',
+                textAlign: 'right',
+                borderWidth: 1,
+                borderColor: '#fff',
+                marginHorizontal: responsive.padding(16),
+                marginBottom: responsive.padding(16),
+                alignSelf: 'flex-end',
+              }}
+            >
+              SHOP NOW
+            </Text>
+          </View>
+        </ImageBackground>
+      </View>
+    );
+  };
+  const Footer = () => {
+    return (
+      <View
+        style={{
+          marginTop: responsive.padding(10),
+          padding: responsive.padding(16),
+          alignItems: 'center',
+          backgroundColor: '#8F9FB8',
+        }}
+      >
+        <Text
+          style={{
+            fontSize: responsive.font(16),
+            fontWeight: '400',
+            color: ColorString.primary,
+            textAlign: 'center',
+            paddingBottom: responsive.padding(4),
+          }}
+        >
+          Always on. Never off-trend
+        </Text>
+        <Text
+          style={{
+            fontSize: responsive.font(14),
+            fontWeight: '400',
+            color: '#fff',
+            textAlign: 'center',
+          }}
+        >
+          Finley crafted.
+        </Text>
+      </View>
+    );
+  };
 
   const data = [
     {
@@ -500,6 +610,18 @@ const Home = () => {
     {
       key: 'newArrival',
       render: NewArrival,
+    },
+    {
+      key: 'trendReport',
+      render: TrendReport,
+    },
+    {
+      key: 'newArrival2',
+      render: NewArrival,
+    },
+    {
+      key: 'footer',
+      render: Footer,
     },
   ];
 
@@ -519,7 +641,6 @@ const Home = () => {
       <View
         style={{
           paddingTop: insets.top,
-
           paddingBottom: responsive.padding(12),
           backgroundColor: ColorString.screenColor,
           shadowColor: '#000',
@@ -537,7 +658,7 @@ const Home = () => {
         keyExtractor={item => item.key}
         renderItem={({ item }) => <item.render />}
         showsVerticalScrollIndicator={false}
-        ListFooterComponent={<View style={{ height: 50 }} />}
+        // ListFooterComponent={<View style={{ height: 50 }} />}
         ListHeaderComponent={<HeaderBanner />}
         // wire scroll to animated value for parallax
         onScroll={Animated.event(
