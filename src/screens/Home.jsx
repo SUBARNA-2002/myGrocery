@@ -676,7 +676,6 @@ export default Home;
 const styles = StyleSheet.create({
   sectionTabContainer: {
     flexDirection: 'row',
-
     gap: responsive.width(10),
     alignItems: 'center',
     borderBottomWidth: 1,
@@ -694,7 +693,7 @@ const styles = StyleSheet.create({
     // remove flex so horizontal list can scroll
   },
   sectionTabTitle: {
-    fontSize: responsive.font(16),
+    fontSize: responsive.font(14),
     fontWeight: '300',
     color: '#000',
     // paddingRight: responsive.width(15),

@@ -14,6 +14,7 @@ import {
   FavouriteIcon,
   ShopIcon,
 } from '../../assets/SvgConstants';
+import { responsive } from '../constants/Responsive';
 // responsive not needed in this file
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
@@ -22,23 +23,26 @@ const BottomTab = () => {
       screenOptions={{
         headerShown: false,
         // hide labels on the tab bar
-        tabBarShowLabel: false,
+        // tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: ColorString.tabBarColor,
-          height: 70,
-          // borderTopWidth: 1,
-          // borderTopColor: '#eee',
-          // paddingBottom: responsive.padding(20),
-          paddingTop: 10,
+          paddingTop: responsive.padding(6),
           elevation: 0,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 1 },
           shadowOpacity: 0.2,
           shadowRadius: 2,
         },
+        // add space between icon and label
+        tabBarIconStyle: {
+          marginBottom: responsive.padding(4),
+        },
         tabBarActiveTintColor: ColorString.primary,
         tabBarInactiveTintColor: '#181725',
-        tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '500',
+        },
       }}
       initialRouteName="Home"
       backBehavior="initialRoute"
@@ -49,7 +53,7 @@ const BottomTab = () => {
             <ShopIcon
               width={size}
               height={size}
-              // fill={focused ? ColorString?.primary : 'black'}
+              fill={focused ? ColorString?.primary : 'black'}
             />
           ),
         }}
@@ -62,7 +66,7 @@ const BottomTab = () => {
             <ExploreIcon
               width={size}
               height={size}
-              // fill={focused ? ColorString?.primary : color}
+              stroke={focused ? ColorString?.primary : color}
             />
           ),
         }}
@@ -75,7 +79,7 @@ const BottomTab = () => {
             <FavouriteIcon
               // width={size}
               // height={size}
-              fillColor={focused ? ColorString?.primary : color}
+              stroke={focused ? ColorString?.primary : color}
             />
           ),
         }}
@@ -93,7 +97,7 @@ const BottomTab = () => {
             <AccountIcon
               width={size}
               height={size}
-              // fill={focused ? ColorString?.primary : color}
+              fill={focused ? ColorString?.primary : color}
             />
           ),
         }}
