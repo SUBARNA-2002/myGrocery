@@ -104,7 +104,7 @@ const LoginWithGmail = () => {
       </TouchableOpacity>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+      <TouchableOpacity style={styles.loginButton} onPress={handleGuestLogin}>
         {isLoading ? (
           <ActivityIndicator color="#fff" />
         ) : (

@@ -34,31 +34,31 @@ const Home = () => {
       id: 1,
       title: 'Trousers',
       price: '₹999',
-      image: require('../../assets/images/photo.png'),
+      image: require('../../assets/images/photo.jpeg'),
     },
     {
       id: 2,
       title: 'Jeans',
       price: '₹1999',
-      image: require('../../assets/images/photo2.png'),
+      image: require('../../assets/images/photo2.jpeg'),
     },
     {
       id: 3,
       title: 'Shorts',
       price: '₹599',
-      image: require('../../assets/images/photo3.png'),
+      image: require('../../assets/images/photo3.jpeg'),
     },
     {
       id: 4,
       title: 'Sweatshirts',
       price: '₹499',
-      image: require('../../assets/images/photo4.png'),
+      image: require('../../assets/images/photo3.jpeg'),
     },
     {
       id: 5,
       title: 'Jeans',
       price: '₹1999',
-      image: require('../../assets/images/photo2.png'),
+      image: require('../../assets/images/photo2.jpeg'),
     },
   ];
   // const HeaderSection = () => {
