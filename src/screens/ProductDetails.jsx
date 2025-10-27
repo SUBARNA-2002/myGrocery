@@ -428,6 +428,7 @@ const styles = StyleSheet.create({
     fontSize: responsive.font(14),
     fontWeight: '500',
     color: '#303030',
+    paddingBottom: responsive.padding(10),
   },
   textContainer: {
     width: responsive.width(40),
@@ -436,7 +437,7 @@ const styles = StyleSheet.create({
     borderRadius: responsive.padding(5),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: responsive.padding(10),
+    // marginTop: responsive.padding(10),
   },
   size: {
     fontSize: responsive.font(14),

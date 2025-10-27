@@ -111,12 +111,20 @@ const Explore = () => {
   );
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container]}>
       <View
         style={{
           borderBottomColor: '#E0E0E0',
           borderBottomWidth: 0.5,
           paddingBottom: responsive.padding(10),
+          paddingTop: insets.top,
+          backgroundColor: ColorString.headerColor,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
+          elevation: 2,
+          zIndex: 1,
         }}
       >
         <HeaderHome />
