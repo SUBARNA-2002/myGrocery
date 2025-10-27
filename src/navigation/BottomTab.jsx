@@ -1,35 +1,40 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Explore from '../screens/Explore';
 import Cart from '../screens/Cart';
-import Favourite from '../screens/Favourite';
+// Favourite screen is not used in bottom tabs
 import Account from '../screens/Account';
+import Favourite from '../screens/Favourite';
 import { ColorString } from '../theme/AppColor';
 import {
   AccountIcon,
-  CartIcon,
   ExploreIcon,
   FavouriteIcon,
   ShopIcon,
 } from '../../assets/SvgConstants';
-import { responsive } from '../constants/Responsive';
+// responsive not needed in this file
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        // hide labels on the tab bar
+        tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: ColorString.tabBarColor,
           height: 70,
-          borderTopWidth: 1,
-          borderTopColor: '#eee',
+          // borderTopWidth: 1,
+          // borderTopColor: '#eee',
           // paddingBottom: responsive.padding(20),
           paddingTop: 10,
           elevation: 0,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
         },
         tabBarActiveTintColor: ColorString.primary,
         tabBarInactiveTintColor: '#181725',
@@ -37,9 +42,6 @@ const BottomTab = () => {
       }}
       initialRouteName="Home"
       backBehavior="initialRoute"
-      tabBarOptions={{
-        showLabel: false,
-      }}
     >
       <Tab.Screen
         options={{
@@ -47,7 +49,7 @@ const BottomTab = () => {
             <ShopIcon
               width={size}
               height={size}
-              fill={focused ? ColorString?.primary : 'black'}
+              // fill={focused ? ColorString?.primary : 'black'}
             />
           ),
         }}
@@ -60,7 +62,7 @@ const BottomTab = () => {
             <ExploreIcon
               width={size}
               height={size}
-              fill={focused ? ColorString?.primary : color}
+              // fill={focused ? ColorString?.primary : color}
             />
           ),
         }}
@@ -69,16 +71,16 @@ const BottomTab = () => {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({ color, size = 20, focused }) => (
+          tabBarIcon: ({ color, focused }) => (
             <FavouriteIcon
-              width={size}
-              height={size}
+              // width={size}
+              // height={size}
               fillColor={focused ? ColorString?.primary : color}
             />
           ),
         }}
         name="Favorite"
-        component={Cart}
+        component={Favourite}
       />
       {/* <Tab.Screen options={{
         tabBarIcon: ({ color, size }) => (
@@ -91,7 +93,7 @@ const BottomTab = () => {
             <AccountIcon
               width={size}
               height={size}
-              fill={focused ? ColorString?.primary : color}
+              // fill={focused ? ColorString?.primary : color}
             />
           ),
         }}
@@ -103,5 +105,3 @@ const BottomTab = () => {
 };
 
 export default BottomTab;
-
-const styles = StyleSheet.create({});
