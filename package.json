@@ -9,10 +9,10 @@
     "start": "react-native start",
     "test": "jest",
     "node:clean": "rm -rf node_modules/ && npm install",
-    "aos:clean": "npm run node:clean && cd android && ./gradlew clean && cd ..",
+    "aos:clean": "yarn node:clean && cd android && ./gradlew clean && cd ..",
     "aos:bundle:assets": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "aos:remove:assets": "rm -rf android/app/src/main/res/drawable-hdpi &&  rm -rf android/app/src/main/res/drawable-mdpi &&  rm -rf android/app/src/main/res/drawable-xhdpi && rm -rf android/app/src/main/res/drawable-xxhdpi && rm -rf android/app/src/main/res/drawable-xxxhdpi",
-    "aos:demoRelease-apk": "npm run aos:clean && npm run aos:bundle:assets && npm run aos:remove:assets && cd android && ./gradlew assembleRelease && killall -9 java"
+    "aos:demoRelease-apk": "yarn aos:clean && yarn aos:bundle:assets && yarn aos:remove:assets && cd android && ./gradlew assembleRelease && killall -9 java"
 
   },
   "dependencies": {
