@@ -120,8 +120,8 @@ const ProductDetails = () => {
           }}
         >
           <FavouriteIcon
-            height={20}
-            width={20}
+            height={15}
+            width={15}
             fillColor={ColorString.primary}
             strokeColor={ColorString.primary}
           />
