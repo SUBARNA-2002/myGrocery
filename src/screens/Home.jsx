@@ -694,8 +694,9 @@ const styles = StyleSheet.create({
   },
   sectionTabTitle: {
     fontSize: responsive.font(14),
-    fontWeight: '300',
+    // fontWeight: '300',
     color: '#000',
+    fontFamily: 'Helvetica-Bold',
     // paddingRight: responsive.width(15),
     // backgroundColor: '#F5F5F5',
     paddingVertical: responsive.padding(10),

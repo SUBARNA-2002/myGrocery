@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#444',
     marginTop: 2,
+    fontFamily: 'Helvetica-light',
   },
   phoneText: {
     fontSize: 14,
