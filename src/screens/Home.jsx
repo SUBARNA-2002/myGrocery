@@ -645,8 +645,8 @@ const Home = () => {
     >
       <StatusBar
         barStyle="dark-content"
-        backgroundColor={ColorString.secondary}
-        // translucent
+        backgroundColor={ColorString.white}
+        translucent
       />
       <View
         style={{

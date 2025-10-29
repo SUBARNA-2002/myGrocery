@@ -28,7 +28,7 @@ const BottomTab = () => {
         // tabBarShowLabel: false,
         tabBarStyle: {
           paddingTop: responsive.padding(3),
-          height: insets.bottom + responsive.height(55),
+          height: responsive.height(60),
           backgroundColor: ColorString.tabBarColor,
           elevation: 0,
           shadowColor: '#000',

@@ -1,137 +1,139 @@
-/* eslint-disable react/react-in-jsx-scope */
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ColorString } from '../theme/AppColor';
 import { useNavigation } from '@react-navigation/native';
-
-const cartItems = [
-  {
-    id: 1,
-    title: 'Bell Pepper Red',
-    subtitle: '1kg, Price',
-    price: '$4.99',
-    image: 'https://cdn-icons-png.flaticon.com/512/766/766083.png',
-  },
-  {
-    id: 2,
-    title: 'Egg Chicken Red',
-    subtitle: '4pcs, Price',
-    price: '$1.99',
-    image: 'https://cdn-icons-png.flaticon.com/512/616/616408.png',
-  },
-  {
-    id: 3,
-    title: 'Organic Bananas',
-    subtitle: '12kg, Price',
-    price: '$3.00',
-    image: 'https://cdn-icons-png.flaticon.com/512/415/415733.png',
-  },
-  {
-    id: 4,
-    title: 'Ginger',
-    subtitle: '250gm, Price',
-    price: '$2.99',
-    image: 'https://cdn-icons-png.flaticon.com/512/766/766020.png',
-  },
-  {
-    id: 1,
-    title: 'Bell Pepper Red',
-    subtitle: '1kg, Price',
-    price: '$4.99',
-    image: 'https://cdn-icons-png.flaticon.com/512/766/766083.png',
-  },
-  {
-    id: 2,
-    title: 'Egg Chicken Red',
-    subtitle: '4pcs, Price',
-    price: '$1.99',
-    image: 'https://cdn-icons-png.flaticon.com/512/616/616408.png',
-  },
-  {
-    id: 3,
-    title: 'Organic Bananas',
-    subtitle: '12kg, Price',
-    price: '$3.00',
-    image: 'https://cdn-icons-png.flaticon.com/512/415/415733.png',
-  },
-  {
-    id: 4,
-    title: 'Ginger',
-    subtitle: '250gm, Price',
-    price: '$2.99',
-    image: 'https://cdn-icons-png.flaticon.com/512/766/766020.png',
-  },
-];
-
+import HeaderHome from '../components/HeaderHome';
+import { ColorString } from '../theme/AppColor';
+import CartCard from '../components/CartCard';
+import { fontFamily } from '../utils/font';
+import { responsive } from '../constants/Responsive';
+import { CouponSvg } from '../../assets/SvgConstants';
 const Cart = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <Image source={{ uri: item.image }} style={styles.image} />
-
-      <View style={styles.infoContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.subtitle}>{item.subtitle}</Text>
-
-        <View style={styles.quantityContainer}>
-          <TouchableOpacity style={styles.quantityBtn}>
-            <Text style={styles.quantityText}>−</Text>
-          </TouchableOpacity>
-          <Text style={styles.quantity}>1</Text>
-          <TouchableOpacity style={styles.quantityBtn}>
-            <Text style={styles.quantityText}>+</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.rightSection}>
-        <TouchableOpacity>
-          <Text style={styles.remove}>×</Text>
-        </TouchableOpacity>
-        <Text style={styles.price}>{item.price}</Text>
-      </View>
-    </View>
-  );
-
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          paddingTop: insets.top,
-        },
-      ]}
-    >
-      <Text style={styles.header}>My Cart</Text>
-
-      <FlatList
-        data={cartItems}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-      />
-
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.checkoutBtn}
-          onPress={() => {
-            navigation.navigate('Checkout');
+    <View style={{ flex: 1, backgroundColor: ColorString.screenColor }}>
+      <View style={[styles.header, { paddingTop: insets.top }]}>
+        <HeaderHome title="My Cart" back />
+      </View>
+      <View style={styles.cardContainer}>
+        <CartCard />
+        <CartCard />
+      </View>
+      <View
+        style={{
+          padding: responsive.padding(16),
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: responsive.width(6),
+            paddingBottom: responsive.padding(8),
           }}
         >
-          <Text style={styles.checkoutText}>Go to Checkout</Text>
-          <View style={styles.priceTag}>
-            <Text style={styles.priceText}>$12.96</Text>
-          </View>
-        </TouchableOpacity>
+          <CouponSvg height={18} width={18} />
+          <Text style={styles.couponText}>Apply Coupon</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: ColorString.secondary,
+            borderRadius: responsive.padding(5),
+            alignItems: 'center',
+            paddingRight: responsive.padding(10),
+          }}
+        >
+          <TextInput
+            placeholder="Enter Code"
+            style={styles.textInput}
+            // keyboardType="numeric"
+            placeholderTextColor={'#30303090'}
+          />
+          <Text
+            style={{
+              color: ColorString.primary,
+              fontSize: responsive.font(12),
+              fontWeight: '600',
+            }}
+          >
+            Apply
+          </Text>
+        </View>
+      </View>
+      <View style={styles.separator} />
+      <View
+        style={{ padding: responsive.padding(16), gap: responsive.height(8) }}
+      >
+        <Text style={styles.orderTitle}>Order Payment Details</Text>
+        <View style={styles.OrderRow}>
+          <Text style={styles.orderSubtitle}>Order Amount</Text>
+          <Text style={styles.orderSubtitle}>₹22,000</Text>
+        </View>
+        <View style={styles.OrderRow}>
+          <Text style={styles.orderSubtitle}>Order Saving</Text>
+          <Text style={styles.orderSubtitle}>-₹800</Text>
+        </View>
+        <Text style={styles.orderSubtitle}>Conveinence Fee</Text>
+        <View
+          style={[
+            styles.OrderRow,
+            {
+              paddingLeft: responsive.padding(10),
+            },
+          ]}
+        >
+          <Text style={styles.orderSubtitle}>Delivery Fee</Text>
+          <Text style={styles.orderSubtitle}>₹99.00</Text>
+        </View>
+        <View
+          style={[
+            styles.OrderRow,
+            {
+              paddingLeft: responsive.padding(10),
+            },
+          ]}
+        >
+          <Text style={styles.orderSubtitle}>Platform Fee</Text>
+          <Text style={styles.orderSubtitle}>₹99.00</Text>
+        </View>
+        <View
+          style={[
+            styles.OrderRow,
+            {
+              borderTopWidth: 0.5,
+              borderTopColor: '#E0E0E0',
+              paddingTop: responsive.padding(8),
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.orderSubtitle,
+              {
+                fontFamily: fontFamily.bold,
+                color: ColorString.black,
+                fontSize: responsive.font(12),
+              },
+            ]}
+          >
+            Order Total
+          </Text>
+          <Text
+            style={[
+              styles.orderSubtitle,
+              {
+                fontFamily: fontFamily.bold,
+                color: ColorString.black,
+                fontSize: responsive.font(12),
+              },
+            ]}
+          >
+            ₹21,000
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -140,112 +142,51 @@ const Cart = () => {
 export default Cart;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: ColorString.screenColor,
-    paddingHorizontal: 16,
-    paddingTop: 20,
-  },
   header: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#000',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 25,
-    borderBottomWidth: 0.8,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#E0E0E0',
+    borderBottomWidth: 0.5,
     paddingBottom: 10,
+    backgroundColor: ColorString.headerColor,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+    zIndex: 1,
   },
-  image: {
-    width: 70,
-    height: 70,
-    resizeMode: 'contain',
-    marginRight: 12,
+  cardContainer: {
+    // flex: 1,
   },
-  infoContainer: {
+  couponText: {
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.bold,
+    color: ColorString.black,
+  },
+  textInput: {
     flex: 1,
+    marginRight: responsive.padding(20),
+    paddingVertical: responsive.padding(14),
+    color: ColorString.primary,
+    paddingHorizontal: responsive.padding(10),
+    fontSize: responsive.font(12),
   },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
+  separator: {
+    height: responsive.height(4),
+    backgroundColor: ColorString.secondary,
+    // marginTop: responsive.margin(16),
   },
-  subtitle: {
-    fontSize: 13,
-    color: '#888',
-    marginBottom: 10,
-  },
-  quantityContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  quantityBtn: {
-    width: 30,
-    height: 30,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  quantityText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  quantity: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  rightSection: {
-    alignItems: 'flex-end',
-  },
-  remove: {
-    fontSize: 20,
-    color: '#999',
-    fontWeight: '600',
-  },
-  price: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
-    marginTop: 5,
-  },
-  footer: {
-    // backgroundColor: '#fff',
-    paddingVertical: 10,
-    borderTopWidth: 0.8,
-    borderColor: '#eee',
-  },
-  checkoutBtn: {
-    backgroundColor: ColorString.primary,
-    borderRadius: 12,
+  OrderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
   },
-  checkoutText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+  orderTitle: {
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.bold,
+    color: ColorString.black,
   },
-  priceTag: {
-    backgroundColor: '#27AE60',
-    borderRadius: 8,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-  },
-  priceText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
+  orderSubtitle: {
+    fontSize: responsive.font(12),
+    fontFamily: fontFamily.regular,
+    color: '#444',
   },
 });

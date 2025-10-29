@@ -58,12 +58,12 @@ const HeaderHome = ({ title, back = false }) => {
                 paddingRight: responsive.padding(20),
               }}
             >
-              <LeftChevelon fill={ColorString.black} />
+              <LeftChevelon fill={ColorString.primary} />
             </TouchableOpacity>
           )}
           <Text
             style={{
-              fontSize: responsive.font(20),
+              fontSize: responsive.font(18),
               fontFamily: fontFamily.regular,
               color: ColorString.black,
             }}
@@ -87,9 +87,9 @@ const HeaderHome = ({ title, back = false }) => {
         {/* <View>
           <FavouriteIcon fillColor={'white'} />
         </View> */}
-        <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
           <CartIcon fillColor={ColorString?.primary} />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
