@@ -21,6 +21,8 @@ import Card from '../components/Card';
 import { responsive } from '../constants/Responsive';
 import { LoacationIcon } from '../../assets/SvgConstants';
 import Carousel from '../components/Carousel';
+import { fontFamily } from '../utils/font';
+import { useNavigation } from '@react-navigation/native';
 const Home = () => {
   const [selectSection, setSelectSection] = React.useState('New Arrivals');
   const insets = useSafeAreaInsets();
@@ -145,7 +147,8 @@ const Home = () => {
             <Text
               style={{
                 fontSize: 14,
-                fontWeight: '500',
+                // fontWeight: '500',
+                fontFamily: fontFamily.regular,
                 color: ColorString.textSecondary,
               }}
             >
@@ -196,7 +199,8 @@ const Home = () => {
                       style={[
                         styles.sectionTabTitle,
                         selectSection === item && {
-                          fontWeight: '400',
+                          fontFamily: fontFamily.regular,
+                          // fontWeight: '400',
                           // borderBottomWidth: 2,
                           // borderBottomColor: ColorString.primary,
                           color: ColorString.primary,
@@ -236,8 +240,14 @@ const Home = () => {
   };
 
   const PocketFrinedly = () => {
+    const navigation = useNavigation();
     const renderItem = ({ item }) => (
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => {
+          navigation.navigate('ProductList', { category: item.title });
+        }}
+      >
         <Image source={item.image} style={styles.image} resizeMode="cover" />
         <View style={styles.textContainer}>
           <Text style={styles.priceText}>Under {item.price}</Text>
@@ -312,22 +322,21 @@ const Home = () => {
       >
         <Text
           style={{
-            fontSize: 20,
-            fontWeight: '600',
+            fontSize: responsive.font(20),
             color: '#ffffffff',
             textAlign: 'center',
+            fontFamily: fontFamily.bold,
           }}
         >
           ENTER THE BRANDVERSE
         </Text>
         <Text
           style={{
-            fontSize: 14,
-            fontWeight: '400',
+            fontSize: responsive.font(14),
+            fontFamily: fontFamily.regular,
             color: '#ecececff',
             textAlign: 'center',
             marginTop: responsive.padding(4),
-            // marginBottom: responsive.padding(10),
           }}
         >
           Choose The Vibe
@@ -387,7 +396,7 @@ const Home = () => {
     const newArrivalData = [
       {
         id: 1,
-        title: 'Product 1',
+        title: 'Classic White Sneakers',
         price: 1299,
         off: 50,
         originalPrice: 2599,
@@ -395,7 +404,7 @@ const Home = () => {
       },
       {
         id: 2,
-        title: 'Product 2',
+        title: 'Denim Casual Jacket',
         price: 899,
         off: 30,
         originalPrice: 1299,
@@ -403,7 +412,7 @@ const Home = () => {
       },
       {
         id: 3,
-        title: 'Product 3',
+        title: 'Cotton Printed T-Shirt',
         price: 499,
         off: 20,
         originalPrice: 999,
@@ -411,7 +420,7 @@ const Home = () => {
       },
       {
         id: 4,
-        title: 'Product 4',
+        title: 'Leather Crossbody Bag',
         price: 1999,
         off: 40,
         originalPrice: 3499,
@@ -419,7 +428,7 @@ const Home = () => {
       },
       {
         id: 5,
-        title: 'Product 5',
+        title: 'Elegant Analog Watch',
         price: 299,
         off: 10,
         originalPrice: 599,
@@ -427,13 +436,14 @@ const Home = () => {
       },
       {
         id: 6,
-        title: 'Product 6',
+        title: 'Minimalist Sunglasses',
         price: 1599,
         off: 25,
         originalPrice: 2199,
         image: require('../../assets/images/card6.png'),
       },
     ];
+
     return (
       <View
         style={{
@@ -444,8 +454,8 @@ const Home = () => {
       >
         <Text
           style={{
-            fontSize: 20,
-            fontWeight: '600',
+            fontSize: responsive.font(20),
+            fontFamily: fontFamily.bold,
             color: '#000',
             textAlign: 'left',
             paddingHorizontal: responsive.width(16),
@@ -455,10 +465,10 @@ const Home = () => {
         </Text>
         <Text
           style={{
-            fontSize: 14,
-            fontWeight: '400',
+            fontSize: responsive.font(14),
+            fontFamily: fontFamily.regular,
             color: '#777',
-            marginTop: responsive.padding(4),
+            marginTop: responsive.padding(2),
             paddingHorizontal: responsive.width(16),
           }}
         >
@@ -496,8 +506,8 @@ const Home = () => {
       >
         <Text
           style={{
-            fontSize: 20,
-            fontWeight: '600',
+            fontSize: responsive.font(20),
+            fontFamily: fontFamily.bold,
             color: '#fff',
             textAlign: 'center',
             paddingTop: responsive.padding(16),
@@ -507,8 +517,8 @@ const Home = () => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
-            fontWeight: '400',
+            fontSize: responsive.font(16),
+            fontFamily: fontFamily.regular,
             color: '#E3B550',
             textAlign: 'center',
             paddingTop: responsive.padding(4),
@@ -576,7 +586,7 @@ const Home = () => {
         <Text
           style={{
             fontSize: responsive.font(16),
-            fontWeight: '400',
+            fontFamily: fontFamily.regular,
             color: ColorString.primary,
             textAlign: 'center',
             paddingBottom: responsive.padding(4),
@@ -587,7 +597,7 @@ const Home = () => {
         <Text
           style={{
             fontSize: responsive.font(14),
-            fontWeight: '400',
+            fontFamily: fontFamily.light,
             color: '#fff',
             textAlign: 'center',
           }}
@@ -696,7 +706,7 @@ const styles = StyleSheet.create({
     fontSize: responsive.font(14),
     // fontWeight: '300',
     color: '#000',
-    fontFamily: 'Helvetica-Bold',
+    fontFamily: fontFamily.light,
     // paddingRight: responsive.width(15),
     // backgroundColor: '#F5F5F5',
     paddingVertical: responsive.padding(10),
@@ -729,12 +739,13 @@ const styles = StyleSheet.create({
   },
   priceText: {
     color: '#777',
-    fontSize: 13,
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.light,
   },
   titleText: {
     fontSize: 15,
-    fontWeight: '600',
     color: '#000',
+    fontFamily: fontFamily.regular,
   },
   pocketContainer: {
     paddingHorizontal: responsive.padding(16),
@@ -742,12 +753,15 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: responsive.font(18),
-    fontWeight: '700',
+    // fontWeight: '700',
+    fontFamily: fontFamily.bold,
     color: '#000',
     paddingBottom: responsive.padding(2),
   },
   subHeader: {
     color: '#777',
     marginBottom: 15,
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.regular,
   },
 });

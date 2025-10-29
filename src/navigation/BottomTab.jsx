@@ -79,7 +79,7 @@ const BottomTab = () => {
             <FavouriteIcon
               // width={size}
               // height={size}
-              stroke={focused ? ColorString?.primary : color}
+              strokeColor={focused ? ColorString?.primary : color}
             />
           ),
         }}

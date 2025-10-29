@@ -12,6 +12,7 @@ import {
 } from '../../assets/SvgConstants';
 import { ColorString } from '../theme/AppColor';
 import { responsive } from '../constants/Responsive';
+import { fontFamily } from '../utils/font';
 
 const Card = ({ data }) => {
   const navigation = useNavigation();
@@ -21,11 +22,11 @@ const Card = ({ data }) => {
       onPress={() => navigation.navigate('Product-Details')}
     >
       <Image source={data?.image} style={styles.image} />
-      <View
-        style={{ padding: responsive.padding(8), flex: 1, flexWrap: 'wrap' }}
-      >
+      <View style={{ padding: responsive.padding(8) }}>
         <View>
-          <Text style={styles.title}>{data?.title}</Text>
+          <Text style={styles.title} numberOfLines={1}>
+            {data?.title}
+          </Text>
           <Text style={styles.subtitle}>Shirt Polo</Text>
         </View>
         <View style={styles.footer}>
@@ -39,8 +40,8 @@ const Card = ({ data }) => {
             <Text style={styles.price}>₹{data?.price}</Text>
             <Text
               style={{
-                fontSize: 12,
-                fontWeight: '500',
+                fontSize: responsive.font(12),
+                fontFamily: fontFamily.regular,
                 color: '#888',
                 textDecorationLine: 'line-through',
               }}
@@ -60,7 +61,6 @@ const Card = ({ data }) => {
         <FavouriteIcon
           width={24}
           height={24}
-          fillColor={'transparent'}
           strokeColor={ColorString?.primary}
         />
       </TouchableOpacity>
@@ -95,15 +95,17 @@ const styles = StyleSheet.create({
     // marginBottom: 8,
   },
   title: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.regular,
     color: '#000',
+    // marginBottom: 4,
   },
   subtitle: {
-    fontSize: 13,
+    fontSize: responsive.font(12),
     color: '#888',
-    fontWeight: '500',
+    fontFamily: fontFamily.light,
     marginBottom: 8,
+    paddingTop: 2,
   },
   footer: {
     flexDirection: 'row',
@@ -113,8 +115,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   price: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: responsive.font(12),
+    fontFamily: fontFamily.regular,
     color: '#000',
   },
   addBtn: {

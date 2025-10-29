@@ -15,7 +15,7 @@ const ProductList = () => {
   const newArrivalData = [
     {
       id: 1,
-      title: 'Product 1',
+      title: 'Classic White Sneakers',
       price: 1299,
       off: 50,
       originalPrice: 2599,
@@ -23,7 +23,7 @@ const ProductList = () => {
     },
     {
       id: 2,
-      title: 'Product 2',
+      title: 'Denim Casual Jacket',
       price: 899,
       off: 30,
       originalPrice: 1299,
@@ -31,7 +31,7 @@ const ProductList = () => {
     },
     {
       id: 3,
-      title: 'Product 3',
+      title: 'Cotton Graphic T-Shirt',
       price: 499,
       off: 20,
       originalPrice: 999,
@@ -39,7 +39,7 @@ const ProductList = () => {
     },
     {
       id: 4,
-      title: 'Product 4',
+      title: 'Leather Crossbody Bag',
       price: 1999,
       off: 40,
       originalPrice: 3499,
@@ -47,7 +47,7 @@ const ProductList = () => {
     },
     {
       id: 5,
-      title: 'Product 5',
+      title: 'Stylish Analog Watch',
       price: 299,
       off: 10,
       originalPrice: 599,
@@ -55,7 +55,7 @@ const ProductList = () => {
     },
     {
       id: 6,
-      title: 'Product 6',
+      title: 'Minimalist Sunglasses',
       price: 1599,
       off: 25,
       originalPrice: 2199,

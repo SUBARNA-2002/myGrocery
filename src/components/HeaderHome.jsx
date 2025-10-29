@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { responsive } from '../constants/Responsive';
 import { ColorString } from '../theme/AppColor';
 import SearchBar from './SearchBar';
+import { fontFamily } from '../utils/font';
 
 const HeaderHome = ({ title, back = false }) => {
   const navigation = useNavigation();
@@ -63,7 +64,7 @@ const HeaderHome = ({ title, back = false }) => {
           <Text
             style={{
               fontSize: responsive.font(20),
-              fontWeight: '700',
+              fontFamily: fontFamily.regular,
               color: ColorString.black,
             }}
           >

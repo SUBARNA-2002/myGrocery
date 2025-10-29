@@ -3,6 +3,7 @@ import React from 'react';
 import { CartIcon } from '../../assets/SvgConstants';
 import { ColorString } from '../theme/AppColor';
 import { responsive } from '../constants/Responsive';
+import { fontFamily } from '../utils/font';
 const Btn = ({ title }) => {
   return (
     <TouchableOpacity style={styles.addToCart}>
@@ -10,7 +11,7 @@ const Btn = ({ title }) => {
       <Text
         style={{
           fontSize: responsive.font(14),
-          fontWeight: '800',
+          fontFamily: fontFamily.regular,
           color: ColorString.white,
         }}
       >

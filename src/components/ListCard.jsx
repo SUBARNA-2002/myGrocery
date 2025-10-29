@@ -12,6 +12,7 @@ import {
 } from '../../assets/SvgConstants';
 import { ColorString } from '../theme/AppColor';
 import { responsive } from '../constants/Responsive';
+import { fontFamily } from '../utils/font';
 
 const ListCard = ({ data }) => {
   const navigation = useNavigation();
@@ -25,7 +26,9 @@ const ListCard = ({ data }) => {
         style={{ padding: responsive.padding(8), flex: 1, flexWrap: 'wrap' }}
       >
         <View>
-          <Text style={styles.title}>{data?.title}</Text>
+          <Text style={styles.title} numberOfLines={1}>
+            {data?.title}
+          </Text>
           <Text style={styles.subtitle}>Shirt Polo</Text>
         </View>
         <View style={styles.footer}>
@@ -61,7 +64,6 @@ const ListCard = ({ data }) => {
           width={24}
           height={24}
           strokeColor={ColorString?.primary}
-          fillColor={'transparent'}
         />
       </TouchableOpacity>
     </TouchableOpacity>
@@ -91,14 +93,16 @@ const styles = StyleSheet.create({
     // marginBottom: 8,
   },
   title: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: responsive.font(14),
+    // fontWeight: '700',
+    fontFamily: fontFamily.regular,
     color: '#000',
+    marginBottom: 4,
   },
   subtitle: {
     fontSize: 13,
     color: '#888',
-    fontWeight: '500',
+    fontFamily: fontFamily.regular,
     marginBottom: 8,
   },
   footer: {
@@ -109,8 +113,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   price: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.regular,
     color: '#000',
   },
   addBtn: {

@@ -22,6 +22,7 @@ import {
 } from '../../assets/SvgConstants';
 import { TextInput } from 'react-native-gesture-handler';
 import Btn from '../components/Btn';
+import { fontFamily } from '../utils/font';
 const ProductDetails = () => {
   const [selectSize, setSelectSize] = React.useState(null);
   const insets = useSafeAreaInsets();
@@ -106,7 +107,7 @@ const ProductDetails = () => {
               alignItems: 'center',
             }}
           >
-            <FavouriteIcon fillColor={'transparent'} strokeColor={'white'} />
+            <FavouriteIcon strokeColor={ColorString.white} />
           </TouchableOpacity>
         </View>
         <View
@@ -119,17 +120,12 @@ const ProductDetails = () => {
             backgroundColor: ColorString?.secondary,
           }}
         >
-          <FavouriteIcon
-            height={15}
-            width={15}
-            fillColor={ColorString.primary}
-            strokeColor={ColorString.primary}
-          />
+          <FavouriteIcon height={15} width={15} stroke={ColorString.white} />
           <Text
             style={{
               fontSize: responsive.font(14),
               color: ColorString.primary,
-              fontWeight: '500',
+              fontFamily: fontFamily.regular,
             }}
           >
             7.2k shoppers wishlisted in last 30 days
@@ -147,7 +143,8 @@ const ProductDetails = () => {
             style={{
               fontSize: responsive.font(12),
               color: '#3A3A3A90',
-              fontWeight: '400',
+              fontFamily: fontFamily.light,
+              paddingBottom: responsive.padding(3),
             }}
           >
             Men Oversized Hoodies
@@ -186,7 +183,7 @@ const ProductDetails = () => {
             style={{
               fontSize: responsive.size(10),
               color: '#313131',
-              fontWeight: '400',
+              fontFamily: fontFamily.light,
               paddingTop: responsive.padding(3),
             }}
           >
@@ -256,7 +253,7 @@ const ProductDetails = () => {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                marginTop: responsive.padding(10),
+                // marginTop: responsive.padding(5),
                 backgroundColor: ColorString.secondary,
                 borderRadius: responsive.padding(5),
                 alignItems: 'center',
@@ -321,7 +318,7 @@ const ProductDetails = () => {
               marginTop: responsive.padding(20),
             }}
           >
-            <Text style={styles.sizeTitle}>Details</Text>
+            <Text style={styles.descTitle}>Details</Text>
             <Text style={styles.description}>
               Make your holiday gathering a little less formal in this casual
               jacket, made from 100% cotton. Keeping you center stage, this
@@ -330,7 +327,7 @@ const ProductDetails = () => {
             </Text>
             <Text
               style={[
-                styles.sizeTitle,
+                styles.descTitle,
                 {
                   paddingTop: responsive.padding(10),
                 },
@@ -341,7 +338,7 @@ const ProductDetails = () => {
             <Text style={styles.description}>Relaxed Fit</Text>
             <Text
               style={[
-                styles.sizeTitle,
+                styles.descTitle,
                 {
                   paddingTop: responsive.padding(10),
                 },
@@ -352,7 +349,7 @@ const ProductDetails = () => {
             <Text style={styles.description}>Machine Wash</Text>
             <Text
               style={[
-                styles.sizeTitle,
+                styles.descTitle,
                 {
                   paddingTop: responsive.padding(10),
                 },
@@ -378,7 +375,7 @@ const ProductDetails = () => {
           <Text
             style={{
               fontSize: responsive.font(14),
-              fontWeight: '800',
+              fontFamily: fontFamily.regular,
               color: ColorString.primary,
             }}
           >
@@ -416,19 +413,25 @@ const styles = StyleSheet.create({
   title: {
     fontSize: responsive.font(14),
     color: ColorString.black,
-    fontWeight: '500',
+    fontFamily: fontFamily.regular,
     paddingBottom: responsive.padding(3),
   },
   price: {
     fontSize: responsive.font(14),
     color: ColorString.black,
-    fontWeight: '500',
+    fontFamily: fontFamily.regular,
   },
   sizeTitle: {
     fontSize: responsive.font(14),
-    fontWeight: '500',
+    fontFamily: fontFamily.regular,
     color: '#303030',
     paddingBottom: responsive.padding(10),
+  },
+  descTitle: {
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.regular,
+    color: '#303030',
+    paddingBottom: responsive.padding(5),
   },
   textContainer: {
     width: responsive.width(40),
@@ -442,11 +445,11 @@ const styles = StyleSheet.create({
   size: {
     fontSize: responsive.font(14),
     color: '#303030',
+    fontFamily: fontFamily.regular,
   },
   footerComponent: {
     flexDirection: 'row',
     alignItems: 'center',
-    // flex: 1,
     padding: responsive.padding(16),
     gap: responsive.padding(10),
     paddingHorizontal: responsive.padding(16),
@@ -464,7 +467,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     gap: responsive.padding(6),
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: ColorString?.primary,
     justifyContent: 'center',
     height: responsive.height(40),
@@ -481,12 +484,12 @@ const styles = StyleSheet.create({
   exchangeTitle: {
     fontSize: responsive.font(14),
     color: '#303030',
-    fontWeight: '600',
+    fontFamily: fontFamily.regular,
   },
   description: {
     fontSize: responsive.font(12),
     color: '#303030',
-    fontWeight: '400',
-    paddingTop: responsive.padding(2),
+    fontFamily: fontFamily.regular,
+    // paddingTop: responsive.padding(2),
   },
 });

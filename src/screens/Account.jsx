@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOutUser } from '../redux/reducer/AuthSlice';
 import { useNavigation } from '@react-navigation/native';
 import { RightChevelon } from '../../assets/SvgConstants';
+import { fontFamily } from '../utils/font';
+import { responsive } from '../constants/Responsive';
 
 const Account = () => {
   const navigation = useNavigation();
@@ -28,15 +30,15 @@ const Account = () => {
   const options = [
     { id: 1, title: 'Orders' },
     { id: 2, title: 'Customer Care' },
-    {
-      id: 3,
-      title: 'Invite Friends & Earn',
-      sub: 'You get ₹100 SuperCash for every friend',
-    },
+    // {
+    //   id: 3,
+    //   title: 'Invite Friends & Earn',
+    //   sub: 'You get ₹100 SuperCash for every friend',
+    // },
     {
       id: 4,
       title: 'Wallet',
-      sub: 'Add Gift Card | Manage rewards and refunds',
+      // sub: 'Add Gift Card | Manage rewards and refunds',
     },
     { id: 5, title: 'Saved Cards' },
     { id: 6, title: 'My Rewards' },
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F7F9',
   },
   profileSection: {
-    backgroundColor: '#EEF1F4',
+    // backgroundColor: ColorString.secondary,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
@@ -116,15 +118,15 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: '#000',
+    backgroundColor: ColorString.black,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 14,
   },
   avatarText: {
     color: '#fff',
-    fontSize: 26,
-    fontWeight: '700',
+    fontSize: responsive.font(24),
+    fontFamily: fontFamily.bold,
   },
   profileInfo: {
     flex: 1,
@@ -134,13 +136,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nameText: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: responsive.font(18),
+    fontFamily: fontFamily.bold,
     color: '#000',
   },
   editText: {
     color: '#007AFF',
-    fontSize: 14,
+    fontSize: responsive.font(14),
     marginLeft: 8,
   },
   emailText: {
@@ -168,12 +170,13 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
   },
   optionTitle: {
-    fontSize: 16,
+    fontSize: responsive.font(16),
     color: '#000',
-    fontWeight: '500',
+    fontFamily: fontFamily.regular,
   },
   optionSub: {
-    fontSize: 13,
+    fontSize: responsive.font(13),
+    fontFamily: fontFamily.light,
     color: '#777',
     marginTop: 2,
   },
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
   logoutText: {
     textAlign: 'center',
     color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: responsive.font(16),
+    fontFamily: fontFamily.bold,
   },
 });

@@ -15,6 +15,7 @@ import SearchBar from '../components/SearchBar';
 import HeaderHome from '../components/HeaderHome';
 import { responsive } from '../constants/Responsive';
 import { useNavigation } from '@react-navigation/native';
+import { fontFamily } from '../utils/font';
 
 const categories = [
   {
@@ -100,10 +101,7 @@ const Explore = () => {
       onPress={() => {
         navigation.navigate('ProductList', { category: item.title });
       }}
-      style={[
-        styles.card,
-        // { backgroundColor: item.bgColor }
-      ]}
+      style={styles.card}
     >
       <Image source={item.image} style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
@@ -211,8 +209,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: responsive.font(14),
+    fontFamily: fontFamily.regular,
     color: '#000',
     textAlign: 'center',
     width: 100,

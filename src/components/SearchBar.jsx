@@ -4,6 +4,7 @@ import React from 'react';
 import { ColorString } from '../theme/AppColor';
 import { SearchIcon } from '../../assets/SvgConstants';
 import { responsive } from '../constants/Responsive';
+import { fontFamily } from '../utils/font';
 
 const SearchBar = ({ from }) => {
   return (
@@ -45,8 +46,9 @@ const styles = StyleSheet.create({
     // flexGrow: 1,
   },
   searchInput: {
-    fontSize: 16,
+    fontSize: responsive.font(14),
     color: '#000',
     flex: 1,
+    fontFamily: fontFamily.regular,
   },
 });
