@@ -22,9 +22,7 @@ const ListCard = ({ data }) => {
       onPress={() => navigation.navigate('Product-Details')}
     >
       <Image source={data?.image} style={styles.image} />
-      <View
-        style={{ padding: responsive.padding(8), flex: 1, flexWrap: 'wrap' }}
-      >
+      <View style={{ padding: responsive.padding(8) }}>
         <View>
           <Text style={styles.title} numberOfLines={1}>
             {data?.title}

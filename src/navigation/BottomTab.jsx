@@ -15,8 +15,10 @@ import {
   ShopIcon,
 } from '../../assets/SvgConstants';
 import { responsive } from '../constants/Responsive';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // responsive not needed in this file
 const BottomTab = () => {
+  const insets = useSafeAreaInsets();
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
@@ -25,8 +27,9 @@ const BottomTab = () => {
         // hide labels on the tab bar
         // tabBarShowLabel: false,
         tabBarStyle: {
+          paddingTop: responsive.padding(3),
+          height: insets.bottom + responsive.height(55),
           backgroundColor: ColorString.tabBarColor,
-          paddingTop: responsive.padding(6),
           elevation: 0,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 1 },
@@ -79,7 +82,7 @@ const BottomTab = () => {
             <FavouriteIcon
               // width={size}
               // height={size}
-              strokeColor={focused ? ColorString?.primary : color}
+              stroke={focused ? ColorString?.primary : color}
             />
           ),
         }}
