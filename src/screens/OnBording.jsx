@@ -1,51 +1,70 @@
 /* eslint-disable react-native/no-inline-styles */
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import { Logo } from '../../assets/SvgConstants';
+import { Arrow, Logo } from '../../assets/SvgConstants';
 import { ColorString } from '../theme/AppColor';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { responsive } from '../constants/Responsive';
 
 const OnBording = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   return (
     <ImageBackground
-      source={require('../../assets/images/onbording.png')}
-      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      source={require('../../assets/images/Splash.png')}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+      }}
     >
       <View
         style={{
           flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          paddingBottom: insets.bottom,
+          justifyContent: 'center',
+        }}
+      >
+        <Logo />
+      </View>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        style={{
+          position: 'absolute',
+          bottom: insets.bottom + responsive.height(80),
         }}
       >
         <View
           style={{
-            paddingBottom: 20,
+            height: responsive.height(55),
+            width: responsive.height(55),
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor: ColorString.white,
+            borderRadius: responsive.padding(50),
           }}
         >
-          <Logo />
+          <View
+            style={{
+              height: responsive.height(35),
+              width: responsive.height(35),
+              padding: responsive.padding(10),
+              backgroundColor: ColorString.primary,
+              borderRadius: responsive.padding(50),
+            }}
+          >
+            <Arrow />
+          </View>
         </View>
-        <Text style={styles.title}>Welcome</Text>
-        <Text style={styles.title}>to our store</Text>
-        <Text style={styles.subTitle}>
-          Get your groceries in as fast as two minute
-        </Text>
-        <View style={styles.button}>
-          <CustomButton
-            title="Get Started"
-            onPress={() => navigation.navigate('SignIn')}
-            bgColor={ColorString.primary}
-            color={ColorString.white}
-          />
-        </View>
-      </View>
+      </TouchableOpacity>
     </ImageBackground>
   );
 };
