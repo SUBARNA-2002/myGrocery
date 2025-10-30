@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { responsive } from '../constants/Responsive';
 import { fontFamily } from '../utils/font';
@@ -8,6 +8,7 @@ const CartCard = () => {
   return (
     <View
       style={{
+        position: 'relative',
         flexDirection: 'row',
         gap: responsive.width(16),
         borderBottomWidth: 1,
@@ -80,6 +81,9 @@ const CartCard = () => {
           </Text>
         </View>
       </View>
+      <TouchableOpacity style={styles.dltstyle}>
+        <Text style={{ color: '#fff', fontSize: responsive.font(12) }}>X</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -122,5 +126,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: responsive.padding(8),
     paddingVertical: responsive.padding(4),
     borderRadius: 6,
+  },
+  dltstyle: {
+    position: 'absolute',
+    top: responsive.padding(10),
+    right: responsive.padding(10),
+    backgroundColor: '#a52424ee',
+    width: responsive.width(24),
+    height: responsive.width(24),
+    borderRadius: responsive.width(12),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
   ImageBackground,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -27,6 +28,11 @@ const OnBording = () => {
         position: 'relative',
       }}
     >
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent={true}
+      />
       <View
         style={{
           flex: 1,
@@ -36,6 +42,7 @@ const OnBording = () => {
         <Logo />
       </View>
       <TouchableOpacity
+        onPress={() => navigation.navigate('SignInEmail')}
         activeOpacity={0.5}
         style={{
           position: 'absolute',
@@ -56,7 +63,8 @@ const OnBording = () => {
             style={{
               height: responsive.height(35),
               width: responsive.height(35),
-              padding: responsive.padding(10),
+              justifyContent: 'center',
+              alignItems: 'center',
               backgroundColor: ColorString.primary,
               borderRadius: responsive.padding(50),
             }}

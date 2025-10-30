@@ -8,6 +8,7 @@ import CartCard from '../components/CartCard';
 import { fontFamily } from '../utils/font';
 import { responsive } from '../constants/Responsive';
 import { CouponSvg } from '../../assets/SvgConstants';
+import Btn from '../components/Btn';
 const Cart = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
@@ -16,124 +17,139 @@ const Cart = () => {
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <HeaderHome title="My Cart" back />
       </View>
-      <View style={styles.cardContainer}>
-        <CartCard />
-        <CartCard />
+      <View style={{ flex: 1 }}>
+        <View style={styles.cardContainer}>
+          <CartCard />
+          <CartCard />
+        </View>
+        <View
+          style={{
+            padding: responsive.padding(16),
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: responsive.width(6),
+              paddingBottom: responsive.padding(8),
+            }}
+          >
+            <CouponSvg height={18} width={18} />
+            <Text style={styles.couponText}>Apply Coupon</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              backgroundColor: ColorString.secondary,
+              borderRadius: responsive.padding(5),
+              alignItems: 'center',
+              paddingRight: responsive.padding(10),
+            }}
+          >
+            <TextInput
+              placeholder="Enter Code"
+              style={styles.textInput}
+              // keyboardType="numeric"
+              placeholderTextColor={'#30303090'}
+            />
+            <Text
+              style={{
+                color: ColorString.primary,
+                fontSize: responsive.font(12),
+                fontWeight: '600',
+              }}
+            >
+              Apply
+            </Text>
+          </View>
+        </View>
+        <View style={styles.separator} />
+        <View
+          style={{ padding: responsive.padding(16), gap: responsive.height(8) }}
+        >
+          <Text style={styles.orderTitle}>Order Payment Details</Text>
+          <View style={styles.OrderRow}>
+            <Text style={styles.orderSubtitle}>Order Amount</Text>
+            <Text style={styles.orderSubtitle}>₹22,000</Text>
+          </View>
+          <View style={styles.OrderRow}>
+            <Text style={styles.orderSubtitle}>Order Saving</Text>
+            <Text style={styles.orderSubtitle}>-₹800</Text>
+          </View>
+          <Text style={styles.orderSubtitle}>Conveinence Fee</Text>
+          <View
+            style={[
+              styles.OrderRow,
+              {
+                paddingLeft: responsive.padding(10),
+              },
+            ]}
+          >
+            <Text style={styles.orderSubtitle}>Delivery Fee</Text>
+            <Text style={styles.orderSubtitle}>₹99.00</Text>
+          </View>
+          <View
+            style={[
+              styles.OrderRow,
+              {
+                paddingLeft: responsive.padding(10),
+              },
+            ]}
+          >
+            <Text style={styles.orderSubtitle}>Platform Fee</Text>
+            <Text style={styles.orderSubtitle}>₹99.00</Text>
+          </View>
+          <View
+            style={[
+              styles.OrderRow,
+              {
+                borderTopWidth: 0.5,
+                borderTopColor: '#E0E0E0',
+                paddingTop: responsive.padding(8),
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.orderSubtitle,
+                {
+                  fontFamily: fontFamily.bold,
+                  color: ColorString.black,
+                  fontSize: responsive.font(12),
+                },
+              ]}
+            >
+              Order Total
+            </Text>
+            <Text
+              style={[
+                styles.orderSubtitle,
+                {
+                  fontFamily: fontFamily.bold,
+                  color: ColorString.black,
+                  fontSize: responsive.font(12),
+                },
+              ]}
+            >
+              ₹21,000
+            </Text>
+          </View>
+        </View>
       </View>
       <View
         style={{
           padding: responsive.padding(16),
+          backgroundColor: ColorString.white,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          elevation: 5,
         }}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: responsive.width(6),
-            paddingBottom: responsive.padding(8),
-          }}
-        >
-          <CouponSvg height={18} width={18} />
-          <Text style={styles.couponText}>Apply Coupon</Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: ColorString.secondary,
-            borderRadius: responsive.padding(5),
-            alignItems: 'center',
-            paddingRight: responsive.padding(10),
-          }}
-        >
-          <TextInput
-            placeholder="Enter Code"
-            style={styles.textInput}
-            // keyboardType="numeric"
-            placeholderTextColor={'#30303090'}
-          />
-          <Text
-            style={{
-              color: ColorString.primary,
-              fontSize: responsive.font(12),
-              fontWeight: '600',
-            }}
-          >
-            Apply
-          </Text>
-        </View>
-      </View>
-      <View style={styles.separator} />
-      <View
-        style={{ padding: responsive.padding(16), gap: responsive.height(8) }}
-      >
-        <Text style={styles.orderTitle}>Order Payment Details</Text>
-        <View style={styles.OrderRow}>
-          <Text style={styles.orderSubtitle}>Order Amount</Text>
-          <Text style={styles.orderSubtitle}>₹22,000</Text>
-        </View>
-        <View style={styles.OrderRow}>
-          <Text style={styles.orderSubtitle}>Order Saving</Text>
-          <Text style={styles.orderSubtitle}>-₹800</Text>
-        </View>
-        <Text style={styles.orderSubtitle}>Conveinence Fee</Text>
-        <View
-          style={[
-            styles.OrderRow,
-            {
-              paddingLeft: responsive.padding(10),
-            },
-          ]}
-        >
-          <Text style={styles.orderSubtitle}>Delivery Fee</Text>
-          <Text style={styles.orderSubtitle}>₹99.00</Text>
-        </View>
-        <View
-          style={[
-            styles.OrderRow,
-            {
-              paddingLeft: responsive.padding(10),
-            },
-          ]}
-        >
-          <Text style={styles.orderSubtitle}>Platform Fee</Text>
-          <Text style={styles.orderSubtitle}>₹99.00</Text>
-        </View>
-        <View
-          style={[
-            styles.OrderRow,
-            {
-              borderTopWidth: 0.5,
-              borderTopColor: '#E0E0E0',
-              paddingTop: responsive.padding(8),
-            },
-          ]}
-        >
-          <Text
-            style={[
-              styles.orderSubtitle,
-              {
-                fontFamily: fontFamily.bold,
-                color: ColorString.black,
-                fontSize: responsive.font(12),
-              },
-            ]}
-          >
-            Order Total
-          </Text>
-          <Text
-            style={[
-              styles.orderSubtitle,
-              {
-                fontFamily: fontFamily.bold,
-                color: ColorString.black,
-                fontSize: responsive.font(12),
-              },
-            ]}
-          >
-            ₹21,000
-          </Text>
-        </View>
+        <Btn title={'Checkout'} />
       </View>
     </View>
   );

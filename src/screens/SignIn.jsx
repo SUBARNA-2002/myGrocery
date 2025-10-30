@@ -69,9 +69,7 @@ const SignIn = () => {
               title="Next"
               bgColor={ColorString.primary}
               color={ColorString.white}
-              onPress={() =>
-                navigation.navigate('Otp', { phone: phone })
-              }
+              onPress={() => navigation.navigate('Otp', { phone: phone })}
             />
           </View>
           <View style={{ paddingTop: 20, paddingHorizontal: 16 }}>

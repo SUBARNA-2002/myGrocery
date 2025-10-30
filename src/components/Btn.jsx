@@ -4,14 +4,14 @@ import { CartIcon } from '../../assets/SvgConstants';
 import { ColorString } from '../theme/AppColor';
 import { responsive } from '../constants/Responsive';
 import { fontFamily } from '../utils/font';
-const Btn = ({ title }) => {
+const Btn = ({ title, onPress }) => {
   return (
-    <TouchableOpacity style={styles.addToCart}>
+    <TouchableOpacity style={styles.addToCart} onPress={onPress}>
       {/* <CartIcon height={20} fillColor={ColorString.white} /> */}
       <Text
         style={{
           fontSize: responsive.font(14),
-          fontFamily: fontFamily.regular,
+          fontFamily: fontFamily.bold,
           color: ColorString.white,
         }}
       >
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: ColorString?.primary,
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
+
     gap: responsive.padding(6),
     borderWidth: 0.5,
     borderColor: ColorString.primary,

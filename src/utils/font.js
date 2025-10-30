@@ -1,5 +1,8 @@
+import { Platform } from "react-native";
+
+const IOS = Platform.OS === "ios";
 export const fontFamily = {
-  regular: 'Helvetica',
-  light: 'Helvetica-Light',
-  bold: 'Helvetica-Bold',
+  regular: IOS ? 'Helvetica' : 'Helvetica',
+  light: IOS ? 'Helvetica-Light' : 'HelveticaLight',
+  bold: IOS ? 'Helvetica-Bold' : 'HelveticaBold',
 };

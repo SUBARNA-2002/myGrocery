@@ -9,16 +9,22 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
-import { LeftChevelon } from '../../assets/SvgConstants';
+import { LeftChevelon, Logo } from '../../assets/SvgConstants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useSignUpMutation } from '../redux/services/authApi';
+import { ColorString } from '../theme/AppColor';
+import { responsive } from '../constants/Responsive';
+import { fontFamily } from '../utils/font';
+import Btn from '../components/Btn';
 
 const SignupScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const insets = useSafeAreaInsets();
@@ -35,32 +41,55 @@ const SignupScreen = () => {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 0}>
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 0}
+    >
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={ColorString.white}
+        translucent={false}
+      />
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.container}>
           {/* Logo Section */}
-          <View style={styles.logoContainer}>
-            <Image
-              source={require('../../assets/images/login.png')}
-              style={styles.logo}
-            />
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{
-                position: 'absolute',
-                top: insets.top,
-                left: 10,
-              }}>
-              <LeftChevelon width={50} height={50} fill="#4CAF50" />
-            </TouchableOpacity>
+          <View
+            style={[
+              styles.logoContainer,
+              {
+                paddingTop: insets.top,
+              },
+            ]}
+          >
+            <Logo fill={ColorString.primary} />
           </View>
 
           {/* Signup Title */}
-          <Text style={styles.title}>Sign Up</Text>
-          <Text style={styles.subtitle}>Create your new account</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: responsive.width(10),
+              marginBottom: responsive.height(10),
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{
+                width: responsive.height(30),
+                height: responsive.height(30),
+                borderRadius: responsive.padding(8),
+                backgroundColor: ColorString.secondary,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <LeftChevelon fill={ColorString.primary} />
+            </TouchableOpacity>
+            <Text style={styles.title}>Sign Up</Text>
+          </View>
 
           {/* Name Input */}
           <TextInput
@@ -78,6 +107,14 @@ const SignupScreen = () => {
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
+            placeholderTextColor={'#00000080'}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Phone"
+            value={phone}
+            onChangeText={setPhone}
+            keyboardType="numeric"
             placeholderTextColor={'#00000080'}
           />
 
@@ -102,15 +139,18 @@ const SignupScreen = () => {
           />
 
           {/* Signup Button */}
-          <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
-            <Text style={styles.loginButtonText}>Sign Up</Text>
-          </TouchableOpacity>
+          <View
+            style={{
+              marginTop: responsive.height(10),
+            }}
+          >
+            <Btn title="Sign Up" onPress={handleSignup} />
+          </View>
 
           {/* Login Link */}
           <View style={styles.signupContainer}>
             <Text style={styles.signupText}>Already have an account? </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('LoginWithGmail')}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={styles.signupLink}>Log In</Text>
             </TouchableOpacity>
           </View>
@@ -126,11 +166,11 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#fff',
-    padding: 20,
+    padding: responsive.padding(16),
   },
   logoContainer: {
-    position: 'relative',
-    marginBottom: 30,
+    alignItems: 'center',
+    marginBottom: responsive.height(30),
   },
   logo: {
     width: '100%',
@@ -138,52 +178,55 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
+    fontSize: responsive.font(20),
+    fontFamily: fontFamily.bold,
+    color: ColorString.primary,
+    // marginBottom: responsive.height(20),
   },
   subtitle: {
     fontSize: 16,
-    color: '#555',
+    color: ColorString.secondary,
     marginBottom: 30,
   },
   input: {
     width: '100%',
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingLeft: 15,
-    marginBottom: 15,
-    fontSize: 16,
+    height: responsive.height(40),
+    borderColor: '#969696',
+    borderBottomWidth: 1,
+
+    // paddingLeft: responsive.padding(15),
+    marginBottom: responsive.height(15),
+    fontSize: responsive.font(14),
     color: '#333',
   },
   loginButton: {
     width: '100%',
-    height: 50,
-    backgroundColor: '#4CAF50',
+    height: responsive.height(40),
+    backgroundColor: ColorString.primary,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: responsive.height(20),
+    marginTop: responsive.height(10),
   },
   loginButtonText: {
-    fontSize: 18,
+    fontSize: responsive.font(16),
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: fontFamily.bold,
   },
   signupContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: responsive.height(10),
   },
   signupText: {
-    fontSize: 14,
+    fontSize: responsive.font(14),
     color: '#555',
+    fontFamily: fontFamily.regular,
   },
   signupLink: {
-    fontSize: 14,
-    color: '#007BFF',
-    fontWeight: 'bold',
+    fontSize: responsive.font(14),
+    color: ColorString.primary,
+    fontFamily: fontFamily.bold,
   },
 });

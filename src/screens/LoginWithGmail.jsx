@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  ImageBackground,
+  StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
-import { LeftChevelon } from '../../assets/SvgConstants';
+import { LeftChevelon, Logo } from '../../assets/SvgConstants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useLoginMutation } from '../redux/services/authApi';
@@ -17,9 +19,12 @@ import { useDispatch } from 'react-redux';
 import { setToken, setUser } from '../redux/reducer/AuthSlice';
 import { showErrorToast, showSuccessToast } from '../utils/toast';
 import { ColorString } from '../theme/AppColor';
+import { responsive } from '../constants/Responsive';
+import { fontFamily } from '../utils/font';
+import Btn from '../components/Btn';
 const LoginWithGmail = () => {
-  const [email, setEmail] = useState('subarna@gmail.com');
-  const [password, setPassword] = useState('hvhvhv');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const [login, { isLoading }] = useLoginMutation();
@@ -54,75 +59,92 @@ const LoginWithGmail = () => {
     });
   };
   return (
-    <View style={styles.container}>
-      {/* Logo Section */}
-      <View style={styles.logoContainer}>
-        <Image
-          source={require('../../assets/images/login.png')}
-          style={styles.logo}
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ImageBackground
+        style={styles.container}
+        source={require('../../assets/images/loginBg.png')}
+      >
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor={'#F0F3F7'}
+          translucent={false}
         />
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
+        {/* Logo Section */}
+        <View
+          style={[
+            styles.logoContainer,
+            {
+              paddingTop: insets.top,
+            },
+          ]}
+        >
+          <Logo fill={ColorString.primary} />
+        </View>
+
+        {/* Login Title */}
+        {/* <Text style={styles.title}>Login</Text>
+        <Text style={styles.subtitle}>Enter your email and password</Text> */}
+
+        {/* Email Input */}
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          placeholderTextColor={'#747474'}
+          autoCapitalize="none"
+        />
+
+        {/* Password Input */}
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          placeholderTextColor={'#747474'}
+          secureTextEntry
+        />
+
+        {/* Forgot Password Link */}
+        <TouchableOpacity>
+          <Text style={styles.forgotPassword}>Forgot Password?</Text>
+        </TouchableOpacity>
+
+        {/* Login Button */}
+        {/* <TouchableOpacity style={styles.loginButton} onPress={handleGuestLogin}>
+          {isLoading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.loginButtonText}>Log In</Text>
+          )}
+        </TouchableOpacity> */}
+        <View
           style={{
-            position: 'absolute',
-            top: insets.top,
-            left: 10,
+            marginBottom: responsive.height(10),
           }}
         >
-          <LeftChevelon width={50} height={50} fill="#4CAF50" />
-        </TouchableOpacity>
-      </View>
+          <Btn
+            title={isLoading ? <ActivityIndicator color="#fff" /> : 'Log In'}
+            bgColor={ColorString.primary}
+            color={ColorString.white}
+            onPress={handleGuestLogin}
+            disabled={isLoading}
+          />
+        </View>
 
-      {/* Login Title */}
-      <Text style={styles.title}>Login</Text>
-      <Text style={styles.subtitle}>Enter your email and password</Text>
-
-      {/* Email Input */}
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        placeholderTextColor={'#00000080'}
-        autoCapitalize="none"
-      />
-
-      {/* Password Input */}
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        placeholderTextColor={'#00000080'}
-        secureTextEntry
-      />
-
-      {/* Forgot Password Link */}
-      <TouchableOpacity>
-        <Text style={styles.forgotPassword}>Forgot Password?</Text>
-      </TouchableOpacity>
-
-      {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton} onPress={handleGuestLogin}>
-        {isLoading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.loginButtonText}>Log In</Text>
-        )}
-      </TouchableOpacity>
-
-      {/* Signup Link */}
-      <View style={styles.signupContainer}>
-        <Text style={styles.signupText}>Don't have an account? </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('SignUp');
-          }}
-        >
-          <Text style={styles.signupLink}>Signup</Text>
-        </TouchableOpacity>
-      </View>
+        {/* Signup Link */}
+        <View style={styles.signupContainer}>
+          <Text style={styles.signupText}>Don't have an account? </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('SignUp');
+            }}
+          >
+            <Text style={styles.signupLink}>Signup</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -133,13 +155,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
-    // justifyContent: 'center',
+    padding: responsive.padding(16),
+    // marginBottom: responsive.height(150),
+    justifyContent: 'center',
     // alignItems: 'center',
   },
   logoContainer: {
-    position: 'relative',
-    marginBottom: 30, // Space between logo and form
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: responsive.height(40),
   },
   logo: {
     width: '100%',
@@ -160,8 +184,8 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
+    borderColor: '#969696',
+    borderBottomWidth: 1,
     borderRadius: 8,
     paddingLeft: 15,
     marginBottom: 15,
@@ -169,8 +193,9 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   forgotPassword: {
-    fontSize: 14,
-    color: '#007BFF',
+    fontSize: responsive.font(14),
+    fontWeight: fontFamily.light,
+    color: '#000000',
     textAlign: 'right',
     marginBottom: 30, // Space between forgot password and login button
   },
@@ -184,21 +209,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   loginButtonText: {
-    fontSize: 18,
+    fontSize: responsive.font(18),
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: fontFamily.bold,
   },
   signupContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
   signupText: {
-    fontSize: 14,
+    fontSize: responsive.font(14),
     color: '#555',
+    fontFamily: fontFamily.regular,
   },
   signupLink: {
-    fontSize: 14,
-    color: '#007BFF',
-    fontWeight: 'bold',
+    fontSize: responsive.font(14),
+    color: ColorString.primary,
+    fontWeight: fontFamily.bold,
   },
 });

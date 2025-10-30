@@ -23,7 +23,9 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 import Btn from '../components/Btn';
 import { fontFamily } from '../utils/font';
+import { useNavigation } from '@react-navigation/native';
 const ProductDetails = () => {
+  const navigation = useNavigation();
   const [selectSize, setSelectSize] = React.useState(null);
   const insets = useSafeAreaInsets();
   const detailData = [
@@ -315,51 +317,98 @@ const ProductDetails = () => {
           {/* Product Deatils */}
           <View
             style={{
+              // backgroundColor: 'red',
               marginTop: responsive.padding(20),
             }}
           >
-            <Text style={styles.descTitle}>Details</Text>
-            <Text style={styles.description}>
-              Make your holiday gathering a little less formal in this casual
-              jacket, made from 100% cotton. Keeping you center stage, this
-              light gray Relaxed fit piece elevates your outerwear collection to
-              a new level.
-            </Text>
-            <Text
-              style={[
-                styles.descTitle,
-                {
-                  paddingTop: responsive.padding(10),
-                },
-              ]}
-            >
-              Fit
-            </Text>
-            <Text style={styles.description}>Relaxed Fit</Text>
-            <Text
-              style={[
-                styles.descTitle,
-                {
-                  paddingTop: responsive.padding(10),
-                },
-              ]}
-            >
-              Wash care
-            </Text>
-            <Text style={styles.description}>Machine Wash</Text>
-            <Text
-              style={[
-                styles.descTitle,
-                {
-                  paddingTop: responsive.padding(10),
-                },
-              ]}
-            >
-              Specefication
-            </Text>
-            <Text style={styles.description}>
-              Casual Wear,College Wear, Holiday, Plain, Button Down, Full Sleeve
-            </Text>
+            <View>
+              <Text
+                style={{
+                  fontSize: responsive.font(14),
+                  color: '#303030',
+                  fontFamily: fontFamily.regular,
+                }}
+              >
+                Details
+              </Text>
+              <Text
+                style={{
+                  fontSize: responsive.font(12),
+                  color: '#303030',
+                  fontFamily: fontFamily.light,
+                  // paddingTop: responsive.padding(2),
+                }}
+              >
+                Make your holiday gathering a little less formal in this casual
+                jacket, made from 100% cotton. Keeping you center stage, this
+                light gray Relaxed fit piece elevates your outerwear collection
+                to a new level.
+              </Text>
+            </View>
+            <View style={{ marginTop: responsive.padding(10) }}>
+              <Text
+                style={{
+                  fontSize: responsive.font(14),
+                  color: '#303030',
+                  fontFamily: fontFamily.regular,
+                }}
+              >
+                Fit
+              </Text>
+              <Text
+                style={{
+                  fontSize: responsive.font(12),
+                  color: '#303030',
+                  fontFamily: fontFamily.light,
+                  // paddingTop: responsive.padding(5),
+                }}
+              >
+                Relaxed Fit
+              </Text>
+            </View>
+            <View style={{ marginTop: responsive.padding(10) }}>
+              <Text
+                style={{
+                  fontSize: responsive.font(14),
+                  color: '#303030',
+                  fontFamily: fontFamily.regular,
+                }}
+              >
+                Wash care
+              </Text>
+              <Text
+                style={{
+                  fontSize: responsive.font(12),
+                  color: '#303030',
+                  fontFamily: fontFamily.light,
+                  // paddingTop: responsive.padding(2),
+                }}
+              >
+                Machine Wash
+              </Text>
+            </View>
+            <View style={{ marginTop: responsive.padding(10) }}>
+              <Text
+                style={{
+                  fontSize: responsive.font(14),
+                  color: '#303030',
+                  fontFamily: fontFamily.regular,
+                }}
+              >
+                Specefication
+              </Text>
+              <Text
+                style={{
+                  fontSize: responsive.font(12),
+                  color: '#303030',
+                  fontFamily: fontFamily.light,
+                  // paddingTop: responsive.padding(2),
+                }}
+              >
+                Casual Wear,College Wear, Holiday, Plain, Button Down, Full
+                Sleeve
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -371,7 +420,12 @@ const ProductDetails = () => {
           },
         ]}
       >
-        <TouchableOpacity style={styles.addToCart}>
+        <TouchableOpacity
+          style={styles.addToCart}
+          onPress={() => {
+            navigation.navigate('Cart');
+          }}
+        >
           <Text
             style={{
               fontSize: responsive.font(14),
@@ -382,8 +436,28 @@ const ProductDetails = () => {
             Add to Cart
           </Text>
         </TouchableOpacity>
-
-        <Btn title="Buy Now" />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Cart');
+          }}
+          style={[
+            styles.addToCart,
+            {
+              backgroundColor: ColorString.primary,
+              borderColor: ColorString.primary,
+            },
+          ]}
+        >
+          <Text
+            style={{
+              fontSize: responsive.font(14),
+              fontFamily: fontFamily.regular,
+              color: ColorString.white,
+            }}
+          >
+            Buy Now
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -431,7 +505,7 @@ const styles = StyleSheet.create({
     fontSize: responsive.font(14),
     fontFamily: fontFamily.regular,
     color: '#303030',
-    paddingBottom: responsive.padding(5),
+    // paddingBottom: responsive.padding(5),
   },
   textContainer: {
     width: responsive.width(40),
