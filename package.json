@@ -14,7 +14,7 @@
     "ios:clean": "yarn node:clean &&  cd ios && rm -rf ~/Library/Caches/CocoaPods && rm -rf Pods && rm -rf ~/Library/Developer/Xcode/DerivedData/* && yarn ios:Pod:Reset",
     "aos:bundle:assets": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "aos:remove:assets": "rm -rf android/app/src/main/res/drawable-hdpi &&  rm -rf android/app/src/main/res/drawable-mdpi &&  rm -rf android/app/src/main/res/drawable-xhdpi && rm -rf android/app/src/main/res/drawable-xxhdpi && rm -rf android/app/src/main/res/drawable-xxxhdpi",
-    "aos:demoRelease-apk": "yarn aos:clean && yarn aos:bundle:assets && yarn aos:remove:assets && cd android && ./gradlew assembleRelease && killall -9 java"
+    "aos:demo-apk": "yarn aos:clean && yarn aos:bundle:assets && yarn aos:remove:assets && cd android && ./gradlew assembleRelease && killall -9 java"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
