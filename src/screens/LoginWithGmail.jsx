@@ -225,6 +225,6 @@ const styles = StyleSheet.create({
   signupLink: {
     fontSize: responsive.font(14),
     color: ColorString.primary,
-    fontWeight: fontFamily.bold,
+    fontFamily: fontFamily.bold,
   },
 });

@@ -1,13 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { ColorString } from '../theme/AppColor';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { Logo } from '../../assets/SvgConstants';
 
 const Splash = () => {
   const navigation = useNavigation();
@@ -31,10 +27,11 @@ const Splash = () => {
   return (
     <View style={styles.conatiner}>
       <View>
-        <Text style={styles.title}>My Grocery</Text>
+        {/* <Text style={styles.title}>My Grocery</Text> */}
+        <Logo width={150} height={150} />
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('OnBording')}>
-        <Text>v0.0.1</Text>
+        {/* <Text>v0.0.1</Text> */}
       </TouchableOpacity>
     </View>
   );
